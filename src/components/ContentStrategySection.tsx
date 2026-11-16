@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
-import { usePortfolio } from '../context/PortfolioContext';
-import { EditableText } from './EditableText';
 import { SocialPost } from '../utils/portfolioData';
 import { useHorizontalSwipe } from '../hooks/useSwipeGesture';
 
@@ -367,13 +365,7 @@ const StrategyCaseStudyBlock: React.FC<{
   study: StrategyCaseStudy;
   index: number;
   onOpenLightbox?: (post: SocialPost) => void;
-  editableTitle?: {
-    en: string;
-    ar: string;
-    onChangeEn: (val: string) => void;
-    onChangeAr: (val: string) => void;
-  };
-}> = ({ study, index, onOpenLightbox, editableTitle }) => {
+}> = ({ study, onOpenLightbox }) => {
   const [slideIdx, setSlideIdx] = useState(0);
   const current = study.slides[slideIdx];
   const totalShown = study.slides.length;
@@ -420,89 +412,64 @@ const StrategyCaseStudyBlock: React.FC<{
   };
 
   return (
-    <section className="py-14 px-10 relative overflow-x-clip">
+    <section className="py-10 sm:py-14 px-4 sm:px-8 lg:px-10 relative overflow-x-clip">
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Top Header Row: Left stacked title + Right 2 clean top-lined info columns */}
-        <div className="grid grid-cols-12 gap-10 items-start mb-9">
-          <div className="col-span-5 w-fit relative select-none text-left cursor-default interactive-lockup">
-            {editableTitle ? (
-              <>
-                <EditableText
-                  as="h3"
-                  value={editableTitle.en}
-                  onChange={editableTitle.onChangeEn}
-                  style={{ fontSize: 'clamp(40px, calc(4.3 * var(--vw, 1vw)), 62px)' }}
-                  className="font-displayEn font-normal uppercase tracking-[0.02em] leading-[0.86] text-heading-linear whitespace-nowrap"
-                />
-                <EditableText
-                  as="p"
-                  dir="rtl"
-                  value={editableTitle.ar}
-                  onChange={editableTitle.onChangeAr}
-                  style={{
-                    fontSize: 'clamp(28px, calc(3.1 * var(--vw, 1vw)), 44px)',
-                    textShadow: '0 8px 20px rgba(0, 0, 0, 0.9)',
-                  }}
-                  className="font-amiri font-bold text-white leading-none text-center -mt-[0.38em]"
-                />
-              </>
-            ) : (
-              <>
-                <h3
-                  style={{ fontSize: 'clamp(40px, calc(4.3 * var(--vw, 1vw)), 62px)' }}
-                  className="font-displayEn font-normal uppercase tracking-[0.02em] leading-[0.86] text-heading-linear whitespace-nowrap"
-                >
-                  {study.clientEn}
-                </h3>
-                <p
-                  dir="rtl"
-                  style={{
-                    fontSize: 'clamp(28px, calc(3.1 * var(--vw, 1vw)), 44px)',
-                    textShadow: '0 8px 20px rgba(0, 0, 0, 0.9)',
-                  }}
-                  className="font-amiri font-bold text-white leading-none text-center -mt-[0.38em]"
-                >
-                  {study.clientAr}
-                </p>
-              </>
-            )}
+        <div data-layout-grid className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-start mb-8 lg:mb-9">
+          <div className="lg:col-span-5 w-fit max-w-full relative select-none text-left cursor-default interactive-lockup">
+            <h3
+              style={{ fontSize: 'clamp(36px, calc(4.3 * var(--vw, 1vw)), 62px)' }}
+              className="font-displayEn font-normal uppercase tracking-[0.02em] leading-[0.86] text-heading-linear sm:whitespace-nowrap"
+            >
+              {study.clientEn}
+            </h3>
+            <p
+              dir="rtl"
+              style={{
+                fontSize: 'clamp(22px, calc(3.1 * var(--vw, 1vw)), 44px)',
+                textShadow: '0 8px 20px rgba(0, 0, 0, 0.9)',
+              }}
+              className="font-amiri font-bold text-white leading-none text-center -mt-[0.30em] sm:-mt-[0.38em]"
+            >
+              {study.clientAr}
+            </p>
           </div>
 
           {/* Right 2 Concise Top-Lined Columns */}
-          <div className="col-span-7 grid grid-cols-2 gap-10">
-            <div className="border-t border-white/20 pt-3.5 px-2.5 -mx-2.5 pb-2.5 rounded-b-lg space-y-2 interactive-panel">
-              <div className="flex items-baseline gap-1.5 text-[15px]">
+          <div data-layout-grid className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10">
+            <div className="border-t border-white/20 pt-3.5 px-2 sm:px-2.5 sm:-mx-2.5 pb-2.5 rounded-b-lg space-y-2 interactive-panel">
+              <div className="flex flex-wrap items-baseline gap-1.5 text-[15px]">
                 <span className="font-body-plex font-bold text-white">The brand</span>
                 <span className="text-white/35">|</span>
                 <span dir="rtl" className="font-body-plex font-normal text-[#9C9393]">
                   العلامة
                 </span>
               </div>
-              <p className="font-body-plex text-[15px] text-white/90 leading-[1.45] text-left">
+              <p className="font-body-plex text-[14.5px] sm:text-[15px] text-white/90 leading-[1.45] text-left">
                 {study.aboutEn}
               </p>
               <p
                 dir="rtl"
-                className="font-body-plex text-[15px] text-[#E9DEDE]/85 leading-[1.6] text-right"
+                className="font-body-plex text-[14.5px] sm:text-[15px] text-[#E9DEDE]/85 leading-[1.6] text-right"
               >
                 {study.aboutAr}
               </p>
             </div>
 
-            <div className="border-t border-white/20 pt-3.5 px-2.5 -mx-2.5 pb-2.5 rounded-b-lg space-y-2 interactive-panel">
-              <div className="flex items-baseline gap-1.5 text-[15px]">
+            <div className="border-t border-white/20 pt-3.5 px-2 sm:px-2.5 sm:-mx-2.5 pb-2.5 rounded-b-lg space-y-2 interactive-panel">
+              <div className="flex flex-wrap items-baseline gap-1.5 text-[15px]">
                 <span className="font-body-plex font-bold text-white">Strategy scope</span>
                 <span className="text-white/35">|</span>
                 <span dir="rtl" className="font-body-plex font-normal text-[#9C9393]">
                   نطاق العمل
                 </span>
               </div>
-              <p className="font-body-plex text-[15px] text-white/90 leading-[1.45] text-left">
+              <p className="font-body-plex text-[14.5px] sm:text-[15px] text-white/90 leading-[1.45] text-left">
                 {study.scopeEn}
               </p>
               <p
                 dir="rtl"
-                className="font-body-plex text-[15px] text-[#E9DEDE]/85 leading-[1.6] text-right"
+                className="font-body-plex text-[14.5px] sm:text-[15px] text-[#E9DEDE]/85 leading-[1.6] text-right"
               >
                 {study.scopeAr}
               </p>
@@ -511,7 +478,7 @@ const StrategyCaseStudyBlock: React.FC<{
         </div>
 
         {/* 3 Key Highlights Strip — Open hairline editorial layout */}
-        <div className="max-w-5xl mx-auto grid grid-cols-3 gap-8 mb-9">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-8 sm:mb-9">
           {study.highlights.map((item, idx) => (
             <div
               key={idx}
@@ -535,8 +502,8 @@ const StrategyCaseStudyBlock: React.FC<{
         </div>
 
         {/* Stepper Bar above Slide Stage */}
-        <div className="max-w-5xl mx-auto flex flex-row items-center justify-between gap-4 mb-5">
-          <p className="font-body-plex text-[15px] text-white/85 text-left">
+        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 mb-5">
+          <p className="font-body-plex text-[14.5px] sm:text-[15px] text-white/85 text-left">
             Explore key strategy chapters or click slide to zoom <span className="text-white/40">|</span>{' '}
             <span className="text-[#E9DEDE]/85">تصفح محاور الاستراتيجية أو اضغط للتكبير</span>
           </p>
@@ -545,7 +512,7 @@ const StrategyCaseStudyBlock: React.FC<{
             <button
               type="button"
               onClick={() => setSlideIdx((prev) => (prev - 1 + totalShown) % totalShown)}
-              className="w-9 h-9 rounded-full border border-white/25 hover:border-[#b81d33] hover:bg-[#68101C]/45 flex items-center justify-center text-white transition-colors duration-300 ease-out cursor-pointer"
+              className="w-11 h-11 sm:w-9 sm:h-9 rounded-full border border-white/25 hover:border-[#b81d33] hover:bg-[#68101C]/45 flex items-center justify-center text-white transition-colors duration-300 ease-out cursor-pointer"
               aria-label={`Previous slide in ${study.clientEn}`}
             >
               <ChevronLeft className="w-4 h-4" />
@@ -562,7 +529,7 @@ const StrategyCaseStudyBlock: React.FC<{
             <button
               type="button"
               onClick={() => setSlideIdx((prev) => (prev + 1) % totalShown)}
-              className="w-9 h-9 rounded-full border border-white/25 hover:border-[#b81d33] hover:bg-[#68101C]/45 flex items-center justify-center text-white transition-colors duration-300 ease-out cursor-pointer"
+              className="w-11 h-11 sm:w-9 sm:h-9 rounded-full border border-white/25 hover:border-[#b81d33] hover:bg-[#68101C]/45 flex items-center justify-center text-white transition-colors duration-300 ease-out cursor-pointer"
               aria-label={`Next slide in ${study.clientEn}`}
             >
               <ChevronRight className="w-4 h-4" />
@@ -605,15 +572,15 @@ const StrategyCaseStudyBlock: React.FC<{
           </div>
 
           {/* Active Slide Caption Strip */}
-          <div key={`strat-cap-${current.num}`} className="mt-4 flex flex-row items-center justify-between gap-3 px-1 slide-fade-enter">
+          <div key={`strat-cap-${current.num}`} className="mt-4 flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-3 px-1 slide-fade-enter">
             <div className="space-y-0.5 text-left">
-              <p className="font-displayEn text-[22px] text-white tracking-wide leading-none">
+              <p className="font-displayEn text-[20px] sm:text-[22px] text-white tracking-wide leading-none">
                 {current.num}. {current.titleEn}
               </p>
               <p className="font-body-plex text-[13.5px] text-white/65">{current.descEn}</p>
             </div>
             <div dir="rtl" className="space-y-0.5 text-right">
-              <p className="font-body-plex font-bold text-[17px] text-white leading-snug">
+              <p className="font-body-plex font-bold text-[16px] sm:text-[17px] text-white leading-snug">
                 {current.titleAr}
               </p>
               <p className="font-body-plex text-[13.5px] text-[#E9DEDE]/75">{current.descAr}</p>
@@ -629,7 +596,7 @@ const StrategyCaseStudyBlock: React.FC<{
                   key={slide.num}
                   type="button"
                   onClick={() => setSlideIdx(idx)}
-                  className={`px-3.5 py-2 rounded-full border text-xs font-body-plex transition-[transform,background-color,border-color,color,box-shadow] duration-300 ease-out cursor-pointer inline-flex items-center gap-1.5 ${
+                  className={`px-3.5 py-2 min-h-[40px] rounded-full border text-xs font-body-plex transition-[transform,background-color,border-color,color,box-shadow] duration-300 ease-out cursor-pointer inline-flex items-center gap-1.5 ${
                     isActive
                       ? 'border-[#b81d33] bg-[#68101C]/55 text-white shadow-[0_0_16px_rgba(184,29,51,0.35)]'
                       : 'border-white/15 bg-white/[0.03] text-white/65 hover:text-white hover:border-white/40'
@@ -646,11 +613,11 @@ const StrategyCaseStudyBlock: React.FC<{
         </div>
 
         {/* Bottom-Right Pill Outline Interactive Deck CTA */}
-        <div className="flex justify-end pt-9">
+        <div className="flex justify-center sm:justify-end pt-8 sm:pt-9">
           <button
             type="button"
             onClick={handleOpenDeckLightbox}
-            className="interactive-btn px-6 py-2.5 rounded-full border border-white/55 hover:border-[#b81d33] hover:bg-[#68101C]/45 text-white/95 cursor-pointer inline-flex items-center gap-2 font-body-plex text-[14.5px]"
+            className="interactive-btn px-5 sm:px-6 py-2.5 min-h-[44px] rounded-full border border-white/55 hover:border-[#b81d33] hover:bg-[#68101C]/45 text-white/95 cursor-pointer inline-flex flex-wrap items-center justify-center gap-x-2 gap-y-1 font-body-plex text-[14px] sm:text-[14.5px] sm:whitespace-nowrap text-center"
           >
             <span>Browse Full Strategy ({study.totalSlidesCount} Slides)</span>
             <span className="text-white/45">|</span>
@@ -668,9 +635,6 @@ const StrategyCaseStudyBlock: React.FC<{
 export const ContentStrategySection: React.FC<ContentStrategySectionProps> = ({
   onOpenLightbox,
 }) => {
-  const { data, updateStrategy } = usePortfolio();
-  const cs = data.contentStrategy;
-
   return (
     <>
       {/* ======================================================== */}
@@ -678,29 +642,28 @@ export const ContentStrategySection: React.FC<ContentStrategySectionProps> = ({
       {/* ======================================================== */}
       <section
         id="content-strategy"
-        className="scroll-mt-20 py-14 px-10 relative overflow-x-clip flex flex-col justify-center items-center"
+        className="scroll-mt-20 py-10 sm:py-14 px-4 sm:px-8 lg:px-10 relative overflow-x-clip flex flex-col justify-center items-center"
       >
         <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col items-center text-center select-none cursor-default interactive-lockup">
-          <div className="flex items-center justify-center gap-4 mb-3">
-            <span className="w-16 h-[1px] bg-white/25 divider-line origin-right" />
-            <span className="text-[48px] font-displayEn font-normal text-white tracking-[0.06em] leading-none block">
+          <div className="flex items-center justify-center gap-3 sm:gap-4 mb-3">
+            <span className="w-12 sm:w-16 h-[1px] bg-white/25 divider-line origin-right" />
+            <span className="text-[38px] sm:text-[48px] font-displayEn font-normal text-white tracking-[0.06em] leading-none block">
               05
             </span>
-            <span className="w-16 h-[1px] bg-white/25 divider-line origin-left" />
+            <span className="w-12 sm:w-16 h-[1px] bg-white/25 divider-line origin-left" />
           </div>
 
           <h2
-            className="font-displayEn font-normal uppercase tracking-[0.02em] leading-[0.86] text-heading-linear whitespace-nowrap"
-            style={{ fontSize: 'clamp(46px, calc(9.6 * var(--vw, 1vw)), 146px)' }}
+            className="font-displayEn font-normal uppercase tracking-[0.02em] leading-[0.86] text-heading-linear sm:whitespace-nowrap"
+            style={{ fontSize: 'clamp(40px, calc(9.6 * var(--vw, 1vw)), 146px)' }}
           >
             CONTENT STRATEGY
           </h2>
           <p
             dir="rtl"
-            className="font-amiri font-bold text-white leading-none text-center"
+            className="font-amiri font-bold text-white leading-none text-center -mt-[0.26em] sm:-mt-[0.36em]"
             style={{
-              fontSize: 'clamp(34px, calc(5.8 * var(--vw, 1vw)), 84px)',
-              marginTop: '-0.36em',
+              fontSize: 'clamp(28px, calc(5.8 * var(--vw, 1vw)), 84px)',
               textShadow: '0 10px 24px rgba(0, 0, 0, 0.9)',
             }}
           >
@@ -718,16 +681,6 @@ export const ContentStrategySection: React.FC<ContentStrategySectionProps> = ({
           study={study}
           index={idx}
           onOpenLightbox={onOpenLightbox}
-          editableTitle={
-            idx === 0
-              ? {
-                  en: cs.brandNameEn,
-                  ar: cs.brandNameAr,
-                  onChangeEn: (val) => updateStrategy({ brandNameEn: val }),
-                  onChangeAr: (val) => updateStrategy({ brandNameAr: val }),
-                }
-              : undefined
-          }
         />
       ))}
     </>

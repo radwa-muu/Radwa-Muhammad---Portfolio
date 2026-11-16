@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useRef, useCallback } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { About } from './components/About';
@@ -15,24 +15,98 @@ import { ContactSection } from './components/ContactSection';
 import { VisualLightboxModal } from './components/VisualLightboxModal';
 import { VideoPlayerModal } from './components/VideoPlayerModal';
 import { ContactModal } from './components/ContactModal';
-import { EditModeBar } from './components/EditModeBar';
 import { InteractiveBackground } from './components/InteractiveBackground';
-import { PortfolioProvider, usePortfolio } from './context/PortfolioContext';
+import { ViewModeToggle } from './components/ViewModeToggle';
+import { PortfolioProvider } from './context/PortfolioContext';
 import { SocialPost, VideoScript } from './utils/portfolioData';
-import { DESKTOP_STAGE_WIDTH, useDesktopScale } from './hooks/useDesktopScale';
 import { useScrollReveal } from './hooks/useScrollAnimations';
+import { DESKTOP_STAGE_WIDTH, ViewMode, useDesktopScale } from './hooks/useDesktopScale';
 
 const PortfolioContent: React.FC = () => {
-  const { isEditMode } = usePortfolio();
   const [activePost, setActivePost] = useState<SocialPost | null>(null);
   const [activeVideoScript, setActiveVideoScript] = useState<VideoScript | null>(null);
   const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
   const [selectedServiceForInquiry, setSelectedServiceForInquiry] = useState<string>('');
-  const scale = useDesktopScale();
+  const [viewMode, setViewMode] = useState<ViewMode>('mobile');
+  const [scaledHeight, setScaledHeight] = useState<number>(0);
+  const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
+
   const stageRef = useRef<HTMLDivElement>(null);
-  const stageWrapperRef = useRef<HTMLDivElement>(null);
+  const pendingScrollRatioRef = useRef<number | null>(null);
+  const transitionTimerRef = useRef<number>(0);
+
+  const { scale, isMobileScreen, isDesktopView } = useDesktopScale(viewMode);
 
   useScrollReveal(stageRef, scale);
+
+  const handleChangeViewMode = useCallback(
+    (nextMode: ViewMode) => {
+      if (nextMode === viewMode) return;
+
+      const doc = document.documentElement;
+      const currentMaxScroll = Math.max(1, doc.scrollHeight - window.innerHeight);
+      pendingScrollRatioRef.current = window.scrollY > 40 ? window.scrollY / currentMaxScroll : 0;
+
+      setIsTransitioning(true);
+      setViewMode(nextMode);
+
+      if (transitionTimerRef.current) window.clearTimeout(transitionTimerRef.current);
+      transitionTimerRef.current = window.setTimeout(() => {
+        setIsTransitioning(false);
+        transitionTimerRef.current = 0;
+      }, 280);
+    },
+    [viewMode]
+  );
+
+  useEffect(() => {
+    return () => {
+      if (transitionTimerRef.current) window.clearTimeout(transitionTimerRef.current);
+    };
+  }, []);
+
+  // Measure scaled height continuously in Desktop View and restore proportional scroll position smoothly
+  useLayoutEffect(() => {
+    const stageEl = stageRef.current;
+    if (!stageEl) return;
+
+    const syncMetrics = () => {
+      if (isDesktopView) {
+        setScaledHeight(Math.round(stageEl.offsetHeight * scale));
+      } else {
+        setScaledHeight(0);
+      }
+    };
+
+    syncMetrics();
+
+    let resizeObserver: ResizeObserver | null = null;
+    if (isDesktopView && typeof ResizeObserver !== 'undefined') {
+      resizeObserver = new ResizeObserver(syncMetrics);
+      resizeObserver.observe(stageEl);
+    }
+
+    let rafA = 0;
+    let rafB = 0;
+    if (pendingScrollRatioRef.current !== null) {
+      const ratio = pendingScrollRatioRef.current;
+      pendingScrollRatioRef.current = null;
+      rafA = window.requestAnimationFrame(() => {
+        syncMetrics();
+        rafB = window.requestAnimationFrame(() => {
+          const doc = document.documentElement;
+          const nextMaxScroll = Math.max(0, doc.scrollHeight - window.innerHeight);
+          window.scrollTo({ top: Math.round(nextMaxScroll * ratio), behavior: 'auto' });
+        });
+      });
+    }
+
+    return () => {
+      if (rafA) window.cancelAnimationFrame(rafA);
+      if (rafB) window.cancelAnimationFrame(rafB);
+      if (resizeObserver) resizeObserver.disconnect();
+    };
+  }, [isDesktopView, scale]);
 
   // Dismiss any open modal on Escape
   useEffect(() => {
@@ -47,35 +121,33 @@ const PortfolioContent: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Global content & media protection for visitors (preserving Form inputs and active Edit Mode)
+  // Global content & media protection for visitors (preserving Contact form inputs)
   useEffect(() => {
-    if (isEditMode) return;
-
-    const isEditableTarget = (target: EventTarget | null): boolean => {
+    const isFormFieldTarget = (target: EventTarget | null): boolean => {
       if (!(target instanceof Element)) return false;
-      return Boolean(target.closest('input, textarea, select, [contenteditable="true"]'));
+      return Boolean(target.closest('input, textarea, select'));
     };
 
     const handleContextMenu = (e: MouseEvent) => {
-      if (!isEditableTarget(e.target)) {
+      if (!isFormFieldTarget(e.target)) {
         e.preventDefault();
       }
     };
 
     const handleDragStart = (e: DragEvent) => {
-      if (!isEditableTarget(e.target)) {
+      if (!isFormFieldTarget(e.target)) {
         e.preventDefault();
       }
     };
 
     const handleCopyOrCut = (e: ClipboardEvent) => {
-      if (!isEditableTarget(e.target)) {
+      if (!isFormFieldTarget(e.target)) {
         e.preventDefault();
       }
     };
 
     const handleSelectStart = (e: Event) => {
-      if (!isEditableTarget(e.target)) {
+      if (!isFormFieldTarget(e.target)) {
         e.preventDefault();
       }
     };
@@ -89,7 +161,7 @@ const PortfolioContent: React.FC = () => {
         return;
       }
       // Block Copy / Cut / Select-All outside form inputs
-      if ((key === 'c' || key === 'x' || key === 'a') && !isEditableTarget(e.target)) {
+      if ((key === 'c' || key === 'x' || key === 'a') && !isFormFieldTarget(e.target)) {
         e.preventDefault();
       }
     };
@@ -109,38 +181,7 @@ const PortfolioContent: React.FC = () => {
       document.removeEventListener('selectstart', handleSelectStart);
       window.removeEventListener('keydown', handleProtectedKeys);
     };
-  }, [isEditMode]);
-
-  // Keep scaled wrapper height synced directly via DOM without triggering React re-renders during scroll
-  useLayoutEffect(() => {
-    const stage = stageRef.current;
-    const wrapper = stageWrapperRef.current;
-    if (!stage || !wrapper) return;
-
-    if (scale >= 1) {
-      wrapper.style.height = '';
-      return;
-    }
-
-    const syncHeight = () => {
-      const h = stage.scrollHeight;
-      if (h > 0) {
-        wrapper.style.height = `${Math.ceil(h * scale)}px`;
-      }
-    };
-
-    syncHeight();
-    document.fonts?.ready.then(syncHeight).catch(() => {});
-    const settleTimer = window.setTimeout(syncHeight, 450);
-    window.addEventListener('load', syncHeight, { once: true });
-    window.addEventListener('resize', syncHeight, { passive: true });
-
-    return () => {
-      window.clearTimeout(settleTimer);
-      window.removeEventListener('load', syncHeight);
-      window.removeEventListener('resize', syncHeight);
-    };
-  }, [scale]);
+  }, []);
 
   const handleOpenInquiry = (serviceName?: string) => {
     if (serviceName) setSelectedServiceForInquiry(serviceName);
@@ -148,94 +189,112 @@ const PortfolioContent: React.FC = () => {
     setInquiryModalOpen(true);
   };
 
-  const isScaled = scale < 1;
+  const anyModalOpen = Boolean(activePost || activeVideoScript || inquiryModalOpen);
 
   return (
-    <div
-      data-edit-mode={isEditMode ? 'true' : 'false'}
-      className="min-h-screen w-full bg-cinema-unified text-[#F5F2F1] relative overflow-x-clip selection:bg-[#dc2626] selection:text-white"
-    >
+    <div className="min-h-screen w-full bg-cinema-unified text-[#F5F2F1] relative overflow-x-clip selection:bg-[#dc2626] selection:text-white">
       <InteractiveBackground />
 
-      {/* Top Responsive Glass Pill Navigation */}
-      <Navbar onOpenInquiry={handleOpenInquiry} scale={scale} />
+      {/* Scoped View Container: switches smoothly between Responsive Mobile (default) and Zoomed Desktop View */}
+      <div id="portfolio-desktop-scope" className={isDesktopView ? 'desktop-view' : ''}>
+        {/* Top Floating Glass Pill Navigation */}
+        <Navbar
+          onOpenInquiry={handleOpenInquiry}
+          scale={scale}
+          isDesktopView={isDesktopView}
+        />
 
-      {/* Proportional Desktop Stage Wrapper (GPU-scaled on mobile/tablet so layout is 100% identical) */}
-      <div
-        ref={stageWrapperRef}
-        className="relative z-10 w-full overflow-hidden"
-      >
+        {/* Portfolio Stage Wrapper (clips horizontal width cleanly in scaled Desktop View) */}
         <div
-          id="portfolio-stage"
-          ref={stageRef}
+          id="portfolio-stage-frame"
+          className="relative z-10 w-full overflow-hidden"
           style={
-            isScaled
-              ? ({
-                  width: `${DESKTOP_STAGE_WIDTH}px`,
-                  transform: `scale(${scale})`,
-                  transformOrigin: 'top left',
-                  '--vw': '12.8px',
-                } as React.CSSProperties)
+            isDesktopView && scaledHeight > 0
+              ? { height: `${scaledHeight + 68}px` }
               : undefined
           }
         >
-          <main id="portfolio-main" className="w-full flex flex-col">
-            {/* Hero Cover */}
-            <Hero onOpenInquiry={() => handleOpenInquiry()} scale={scale} />
+          <div
+            id="portfolio-stage"
+            ref={stageRef}
+            className={`origin-top-left transition-[transform,opacity] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+              isTransitioning ? 'opacity-85' : 'opacity-100'
+            }`}
+            style={
+              isDesktopView
+                ? {
+                    width: `${DESKTOP_STAGE_WIDTH}px`,
+                    transform: `scale(${scale})`,
+                  }
+                : {
+                    width: '100%',
+                    transform: 'scale(1)',
+                  }
+            }
+          >
+            <main id="portfolio-main" className="w-full flex flex-col">
+              {/* Hero Cover */}
+              <Hero onOpenInquiry={() => handleOpenInquiry()} scale={scale} />
 
-            {/* About Me */}
-            <About />
+              {/* About Me */}
+              <About />
 
-            {/* Services Timeline */}
-            <Services onSelectService={(serviceTitle) => handleOpenInquiry(serviceTitle)} />
+              {/* Services Timeline */}
+              <Services onSelectService={(serviceTitle) => handleOpenInquiry(serviceTitle)} />
 
-            {/* Clients Grid */}
-            <Clients />
+              {/* Clients Grid */}
+              <Clients />
 
-            {/* Selected Work Index */}
-            <SelectedWorkIndex
-              scale={scale}
-              onRequestSample={(sampleName) =>
-                handleOpenInquiry(`طلب نموذج: ${sampleName}`)
-              }
-            />
+              {/* Selected Work Index */}
+              <SelectedWorkIndex
+                onRequestSample={(sampleName) =>
+                  handleOpenInquiry(`طلب نموذج: ${sampleName}`)
+                }
+              />
 
-            {/* Section 01: Social Media Content */}
-            <SocialMediaSection
-              onOpenLightbox={(post) => setActivePost(post)}
-              onOpenInquiry={(brand) =>
-                handleOpenInquiry(brand ? `استفسار عن محتوى ${brand}` : undefined)
-              }
-            />
+              {/* Section 01: Social Media Content */}
+              <SocialMediaSection
+                onOpenLightbox={(post) => setActivePost(post)}
+                onOpenInquiry={(brand) =>
+                  handleOpenInquiry(brand ? `استفسار عن محتوى ${brand}` : undefined)
+                }
+              />
 
-            {/* Section 02: Scripts */}
-            <ScriptsSection
-              onOpenVideo={(script) => setActiveVideoScript(script)}
-              onOpenInquiry={(topic) =>
-                handleOpenInquiry(topic ? `طلب سكربت فيديو: ${topic}` : undefined)
-              }
-            />
+              {/* Section 02: Scripts */}
+              <ScriptsSection
+                onOpenVideo={(script) => setActiveVideoScript(script)}
+                onOpenInquiry={(topic) =>
+                  handleOpenInquiry(topic ? `طلب سكربت فيديو: ${topic}` : undefined)
+                }
+              />
 
-            {/* Section 03: Motion Video Scripts */}
-            <MotionScriptsSection onOpenVideo={(script) => setActiveVideoScript(script)} />
+              {/* Section 03: Motion Video Scripts */}
+              <MotionScriptsSection onOpenVideo={(script) => setActiveVideoScript(script)} />
 
-            {/* Section 04: Company Profile Content */}
-            <CompanyProfileSection onOpenLightbox={(post) => setActivePost(post)} />
+              {/* Section 04: Company Profile Content */}
+              <CompanyProfileSection onOpenLightbox={(post) => setActivePost(post)} />
 
-            {/* Section 05: Content Strategy */}
-            <ContentStrategySection onOpenLightbox={(post) => setActivePost(post)} />
+              {/* Section 05: Content Strategy */}
+              <ContentStrategySection onOpenLightbox={(post) => setActivePost(post)} />
 
-            {/* Section 06: Marketing Plan & Strategy */}
-            <MarketingPlanSection onOpenLightbox={(post) => setActivePost(post)} />
+              {/* Section 06: Marketing Plan & Strategy */}
+              <MarketingPlanSection onOpenLightbox={(post) => setActivePost(post)} />
 
-            {/* Contact & Footer Section */}
-            <ContactSection onOpenInquiry={(srv) => handleOpenInquiry(srv)} />
-          </main>
+              {/* Contact & Footer Section */}
+              <ContactSection onOpenInquiry={(srv) => handleOpenInquiry(srv)} />
+            </main>
+          </div>
         </div>
       </div>
 
-      {/* Edit Mode Floating Bar (Native viewport scale) */}
-      <EditModeBar />
+      {/* Mobile View-Mode Toggle (Crisp 1:1 native touch scale outside scaled stage) */}
+      {isMobileScreen && (
+        <ViewModeToggle
+          viewMode={viewMode}
+          onChangeMode={handleChangeViewMode}
+          hidden={anyModalOpen}
+        />
+      )}
 
       {/* Lightbox Modal for Visual Social Posts & Decks (Native viewport scale) */}
       <VisualLightboxModal post={activePost} onClose={() => setActivePost(null)} />

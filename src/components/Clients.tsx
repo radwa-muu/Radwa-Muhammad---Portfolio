@@ -1,8 +1,6 @@
 import React from 'react';
 import { ClientItem } from '../utils/portfolioData';
 import { usePortfolio } from '../context/PortfolioContext';
-import { EditableText } from './EditableText';
-import { Plus, Trash2 } from 'lucide-react';
 
 import logoGamal from '../assets/images/clients/logo_gamal.png';
 import logoMedianesta from '../assets/images/clients/logo_medianesta.png';
@@ -18,48 +16,36 @@ const CLIENT_LOGOS: Record<
   ClientItem['iconType'],
   { src: string; sizeClass: string }
 > = {
-  scales: { src: logoGamal, sizeClass: 'max-h-[96px]' },
-  medianesta: { src: logoMedianesta, sizeClass: 'max-h-[60px]' },
-  sylvan: { src: logoSylvan, sizeClass: 'max-h-[60px]' },
-  alsawah: { src: logoAlsawah, sizeClass: 'max-h-[90px]' },
-  worldhunter: { src: logoWorldhunter, sizeClass: 'max-h-[98px]' },
-  doctor: { src: logoDoctor, sizeClass: 'max-h-[72px]' },
-  zeldar: { src: logoZeldar, sizeClass: 'max-h-[88px]' },
-  mimimo: { src: logoMimimo, sizeClass: 'max-h-[100px]' },
-  bitweave: { src: logoBitweave, sizeClass: 'max-h-[44px]' },
+  scales: { src: logoGamal, sizeClass: 'max-h-[68px] sm:max-h-[88px] lg:max-h-[96px]' },
+  medianesta: { src: logoMedianesta, sizeClass: 'max-h-[44px] sm:max-h-[54px] lg:max-h-[60px]' },
+  sylvan: { src: logoSylvan, sizeClass: 'max-h-[44px] sm:max-h-[54px] lg:max-h-[60px]' },
+  alsawah: { src: logoAlsawah, sizeClass: 'max-h-[64px] sm:max-h-[82px] lg:max-h-[90px]' },
+  worldhunter: { src: logoWorldhunter, sizeClass: 'max-h-[70px] sm:max-h-[88px] lg:max-h-[98px]' },
+  doctor: { src: logoDoctor, sizeClass: 'max-h-[52px] sm:max-h-[64px] lg:max-h-[72px]' },
+  zeldar: { src: logoZeldar, sizeClass: 'max-h-[62px] sm:max-h-[78px] lg:max-h-[88px]' },
+  mimimo: { src: logoMimimo, sizeClass: 'max-h-[72px] sm:max-h-[90px] lg:max-h-[100px]' },
+  bitweave: { src: logoBitweave, sizeClass: 'max-h-[34px] sm:max-h-[40px] lg:max-h-[44px]' },
 };
 
 export const Clients: React.FC = () => {
-  const { data, isEditMode, updateClient, addClient, deleteClient } = usePortfolio();
-
-  const handleAddClient = () => {
-    const id = `client-${Date.now()}`;
-    addClient({
-      id,
-      nameEn: 'NEW CLIENT',
-      nameAr: 'عميل جديد',
-      subEn: 'Brand / Industry',
-      subAr: 'وصف العميل',
-      iconType: 'sylvan',
-    });
-  };
+  const { data } = usePortfolio();
 
   return (
-    <section id="clients" className="scroll-mt-20 py-14 px-10 relative overflow-x-clip">
+    <section id="clients" className="scroll-mt-20 py-10 sm:py-14 px-4 sm:px-8 lg:px-10 relative overflow-x-clip">
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Header: huge CLIENTS + white Amiri عمــــــلائي */}
-        <div className="mb-16 text-left relative inline-block w-fit select-none cursor-default interactive-lockup">
+        <div className="mb-10 sm:mb-16 text-left relative inline-block w-fit max-w-full select-none cursor-default interactive-lockup">
           <h2
             className="font-displayEn font-normal uppercase tracking-[0.02em] leading-[0.86] text-heading-linear"
-            style={{ fontSize: 'clamp(72px, calc(14.5 * var(--vw, 1vw)), 204px)' }}
+            style={{ fontSize: 'clamp(56px, calc(14 * var(--vw, 1vw)), 204px)' }}
           >
             CLIENTS
           </h2>
           <p
             dir="rtl"
-            className="font-amiri font-bold text-white absolute left-1/2 -translate-x-1/2 -bottom-6 whitespace-nowrap leading-none"
+            className="font-amiri font-bold text-white absolute left-1/2 -translate-x-1/2 -bottom-4 sm:-bottom-6 whitespace-nowrap leading-none"
             style={{
-              fontSize: 'clamp(54px, calc(8.6 * var(--vw, 1vw)), 124px)',
+              fontSize: 'clamp(38px, calc(8.6 * var(--vw, 1vw)), 124px)',
               textShadow: '0 10px 24px rgba(0, 0, 0, 0.9)',
             }}
           >
@@ -67,87 +53,31 @@ export const Clients: React.FC = () => {
           </p>
         </div>
 
-        {/* Clean Borderless 3x3 Real Client Logos Grid */}
-        <div className="grid grid-cols-3 gap-y-16 gap-x-12 items-center">
-          {data.clients.map((client) => {
+        {/* Clean Borderless Responsive Client Logos Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-y-8 sm:gap-y-12 lg:gap-y-16 gap-x-6 sm:gap-x-10 lg:gap-x-12 items-center">
+          {data.clients.map((client, idx) => {
             const logoAsset = CLIENT_LOGOS[client.iconType];
-            const isCustomAdded = client.id.startsWith('client-');
+            const isLastOdd = idx === data.clients.length - 1 && data.clients.length % 2 === 1;
 
             return (
               <div
                 key={client.id}
-                className={`relative flex flex-col items-center justify-center text-center min-h-[108px] touch-card transition-[transform,opacity] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                  isEditMode
-                    ? 'p-4 rounded-xl border border-dashed border-white/20 hover:border-[#8A1526]'
-                    : 'cursor-pointer hover:-translate-y-1.5 active:-translate-y-1.5 active:scale-95 opacity-90 hover:opacity-100 active:opacity-100'
+                className={`relative flex flex-col items-center justify-center text-center min-h-[82px] sm:min-h-[108px] touch-card transition-[transform,opacity] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] cursor-pointer hover:-translate-y-1.5 active:-translate-y-1.5 active:scale-95 opacity-90 hover:opacity-100 active:opacity-100 ${
+                  isLastOdd ? 'col-span-2 sm:col-span-1' : ''
                 }`}
               >
-                {isEditMode && (
-                  <button
-                    onClick={() => deleteClient(client.id)}
-                    className="absolute top-1.5 right-1.5 p-1.5 rounded-full bg-black/70 hover:bg-red-700 text-stone-300 hover:text-white transition-colors z-20 cursor-pointer"
-                    title="حذف العميل | Remove client"
-                  >
-                    <Trash2 className="w-3.5 h-3.5" />
-                  </button>
-                )}
-
-                {!isCustomAdded && logoAsset ? (
+                {logoAsset && (
                   <img
                     src={logoAsset.src}
                     alt={`${client.nameEn} | ${client.nameAr}`}
-                    className={`relative z-10 w-auto max-w-[240px] object-contain select-none ${logoAsset.sizeClass}`}
+                    className={`relative z-10 w-auto max-w-[140px] sm:max-w-[200px] lg:max-w-[240px] object-contain select-none ${logoAsset.sizeClass}`}
                     loading="lazy"
                     decoding="async"
                   />
-                ) : (
-                  <div className="flex flex-col items-center">
-                    <EditableText
-                      as="span"
-                      value={client.nameEn}
-                      onChange={(val) => updateClient(client.id, { nameEn: val })}
-                      className="font-body-plex font-bold text-[19px] text-white leading-tight"
-                    />
-                    <EditableText
-                      as="span"
-                      dir="rtl"
-                      value={client.nameAr}
-                      onChange={(val) => updateClient(client.id, { nameAr: val })}
-                      className="font-body-plex text-[17px] text-[#E9DEDE] mt-1 leading-tight"
-                    />
-                  </div>
-                )}
-
-                {isEditMode && !isCustomAdded && (
-                  <div className="mt-2 flex flex-col items-center text-xs text-[#BDB5B5] gap-0.5">
-                    <EditableText
-                      as="span"
-                      value={client.nameEn}
-                      onChange={(val) => updateClient(client.id, { nameEn: val })}
-                      className="text-xs text-white/80"
-                    />
-                    <EditableText
-                      as="span"
-                      dir="rtl"
-                      value={client.nameAr}
-                      onChange={(val) => updateClient(client.id, { nameAr: val })}
-                      className="text-xs text-[#E9DEDE]/75"
-                    />
-                  </div>
                 )}
               </div>
             );
           })}
-
-          {isEditMode && (
-            <button
-              onClick={handleAddClient}
-              className="p-6 rounded-xl border-2 border-dashed border-[#8A1526]/60 hover:border-[#8A1526] bg-[#120306]/40 flex flex-col items-center justify-center gap-2 min-h-[112px] text-[#E9DEDE] hover:bg-[#8A1526]/10 transition-colors cursor-pointer"
-            >
-              <Plus className="w-6 h-6 text-[#8A1526]" />
-              <span className="font-body-plex text-sm">إضافة عميل | Add Client</span>
-            </button>
-          )}
         </div>
       </div>
     </section>

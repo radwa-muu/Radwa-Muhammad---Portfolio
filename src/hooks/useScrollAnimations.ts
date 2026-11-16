@@ -2,15 +2,15 @@ import { useEffect, RefObject } from 'react';
 
 /**
  * Uniform, GPU-composited IntersectionObserver scroll-reveal choreography across EVERY section
- * on BOTH desktop and mobile scaled stages.
+ * on desktop, tablet, and mobile viewports.
  *
  * Key architecture:
  * - Reveals individual content blocks & grid cards as they enter the viewport (never pre-triggers
- *   tall 1000px sections offscreen, ensuring every section below Hero glides smoothly into view).
+ *   tall sections offscreen, ensuring every section below Hero glides smoothly into view).
  * - Adds `is-revealing` only during the 0.78s entrance and strips it ~1.25s later so native
  *   hover / tap-lift transitions stay snappy with zero stagger delay.
  */
-export function useScrollReveal(containerRef: RefObject<HTMLElement | null>, scale: number) {
+export function useScrollReveal(containerRef: RefObject<HTMLElement | null>, scale = 1) {
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
@@ -49,35 +49,55 @@ export function useScrollReveal(containerRef: RefObject<HTMLElement | null>, sca
     // 3. About section divider rule & silhouette portrait frame
     const aboutSec = container.querySelector<HTMLElement>('#about');
     if (aboutSec) {
-      const aboutRule = aboutSec.querySelector<HTMLElement>('.w-72.h-\\[1px\\]')?.parentElement;
+      const aboutRule = aboutSec.querySelector<HTMLElement>('[data-about-divider]');
       addCandidate(aboutRule || null, 110);
-      const aboutPortrait = aboutSec.querySelector<HTMLElement>('.col-span-5 > div');
+      const aboutPortrait = aboutSec.querySelector<HTMLElement>('[data-about-portrait]');
       addCandidate(aboutPortrait, 120);
     }
+
+    const viewportW = window.innerWidth || 1280;
+    const isMobileViewport = scale === 1 && viewportW < 768;
 
     // 4. All showcase grids (Services, Clients, SelectedWork links, Social posts, Video scripts, Decks, Highlights, Contact cards)
     container
       .querySelectorAll<HTMLElement>('section:not(#hero) .grid, footer .grid')
       .forEach((grid) => {
-        // Skip structural outer header 12-col grids & 2-col panel wrappers (handled via inner lockup/panels/portrait)
-        if (grid.classList.contains('grid-cols-12')) return;
-        if (grid.classList.contains('col-span-7') || grid.classList.contains('col-span-8')) return;
+        // Skip structural outer header layout grids & info panel wrappers (handled via inner lockup/panels/portrait)
+        if (
+          grid.hasAttribute('data-layout-grid') ||
+          grid.classList.contains('grid-cols-12') ||
+          grid.classList.contains('lg:grid-cols-12') ||
+          grid.classList.contains('col-span-7') ||
+          grid.classList.contains('col-span-8') ||
+          grid.classList.contains('lg:col-span-7') ||
+          grid.classList.contains('lg:col-span-8')
+        ) {
+          return;
+        }
 
         // SelectedWorkIndex has 2 columns of 3 clickable touch-card rows each
         if (grid.closest('#selected-work')) {
           Array.from(grid.children).forEach((col) => {
             const links = Array.from(col.querySelectorAll<HTMLElement>('a.touch-card'));
-            links.forEach((link, idx) => addCandidate(link, idx * 75));
+            links.forEach((link, idx) => addCandidate(link, isMobileViewport ? Math.min(idx, 2) * 55 : idx * 75));
           });
           return;
         }
 
-        const colMatch = grid.className.match(/\bgrid-cols-(\d+)\b/);
-        const cols = colMatch ? Math.max(1, parseInt(colMatch[1], 10)) : 3;
-        const stepMs = cols >= 8 ? 55 : 70;
+        const desktopColMatch = grid.className.match(/\b(?:lg:|md:)?grid-cols-(\d+)\b/);
+        const cols = isMobileViewport
+          ? 2
+          : desktopColMatch
+          ? Math.max(1, parseInt(desktopColMatch[1], 10))
+          : 3;
+        const stepMs = isMobileViewport ? 50 : cols >= 8 ? 55 : 70;
 
         Array.from(grid.children).forEach((child, idx) => {
-          const delay = cols >= 8 ? Math.min(idx, 7) * stepMs : (idx % cols) * stepMs;
+          const delay = isMobileViewport
+            ? (idx % 2) * stepMs
+            : cols >= 8
+            ? Math.min(idx, 7) * stepMs
+            : (idx % cols) * stepMs;
           addCandidate(child, delay);
         });
       });
@@ -92,9 +112,9 @@ export function useScrollReveal(containerRef: RefObject<HTMLElement | null>, sca
       'section:not(#hero) > div > div.max-w-5xl > .mt-6',
       'section:not(#hero) > div > div.max-w-5xl > .mt-8',
       'section:not(#hero) > div > div.max-w-3xl > .group\\/vid',
-      'footer > div > div > .flex.items-center.justify-between',
-      'footer > div > div > .mt-9',
-      'footer > div > div.pt-12',
+      'footer [data-social-header]',
+      'footer [data-footer-cta]',
+      'footer [data-footer-bar]',
     ];
     container
       .querySelectorAll<HTMLElement>(extraBlocksSelectors.join(', '))
@@ -154,7 +174,6 @@ export function useScrollReveal(containerRef: RefObject<HTMLElement | null>, sca
     };
 
     const viewportH = window.innerHeight || 900;
-    const isScaledMobile = scale < 1;
 
     const itemObserver = new IntersectionObserver(
       (entries) => {
@@ -171,7 +190,7 @@ export function useScrollReveal(containerRef: RefObject<HTMLElement | null>, sca
       },
       {
         threshold: 0.02,
-        rootMargin: isScaledMobile ? '0px 0px -10px 0px' : '0px 0px -28px 0px',
+        rootMargin: isMobileViewport ? '0px 0px -10px 0px' : '0px 0px -28px 0px',
       }
     );
 
@@ -186,7 +205,7 @@ export function useScrollReveal(containerRef: RefObject<HTMLElement | null>, sca
       },
       {
         threshold: 0.04,
-        rootMargin: isScaledMobile ? '0px 0px -10px 0px' : '0px 0px -24px 0px',
+        rootMargin: isMobileViewport ? '0px 0px -10px 0px' : '0px 0px -24px 0px',
       }
     );
 
@@ -196,7 +215,7 @@ export function useScrollReveal(containerRef: RefObject<HTMLElement | null>, sca
       scrollSweepTimer = 0;
       if (unrevealedSet.size === 0) return;
       const vh = window.innerHeight || 900;
-      const triggerLine = isScaledMobile ? vh - 8 : vh - 24;
+      const triggerLine = isMobileViewport ? vh - 8 : vh - 24;
       unrevealedSet.forEach((el) => {
         const rect = el.getBoundingClientRect();
         if (rect.bottom <= 0) {
@@ -322,7 +341,7 @@ export function useScrollProgressAndActiveSection(
       if (forceActiveCheck || now - lastActiveCheck > 200) {
         lastActiveCheck = now;
 
-        const thresholdOffset = Math.round(140 * Math.max(0.5, scale));
+        const thresholdOffset = scale < 1 ? Math.round(140 * scale) + 12 : 140;
         const atBottom = scrollY + window.innerHeight >= cachedMaxScroll + window.innerHeight - 40;
         let nextActive = cachedAnchors[0]?.id || '';
 

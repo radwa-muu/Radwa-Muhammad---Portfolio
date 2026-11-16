@@ -1,5 +1,41 @@
 @import "tailwindcss";
 
+@custom-variant sm {
+  @media (width >= 40rem) {
+    @slot;
+  }
+  :where(.desktop-view) & {
+    @slot;
+  }
+}
+
+@custom-variant md {
+  @media (width >= 48rem) {
+    @slot;
+  }
+  :where(.desktop-view) & {
+    @slot;
+  }
+}
+
+@custom-variant lg {
+  @media (width >= 64rem) {
+    @slot;
+  }
+  :where(.desktop-view) & {
+    @slot;
+  }
+}
+
+@custom-variant xl {
+  @media (width >= 80rem) {
+    @slot;
+  }
+  :where(.desktop-view) & {
+    @slot;
+  }
+}
+
 @theme {
   --color-brand-black: #090708;
   --color-brand-card: #120508;
@@ -26,6 +62,10 @@
   --vw: 1vw;
 }
 
+.desktop-view {
+  --vw: 12.8px;
+}
+
 .font-amiri {
   font-family: 'Amiri', serif;
 }
@@ -34,11 +74,11 @@
   font-family: 'IBM Plex Sans Arabic', 'IBM Plex Sans', sans-serif;
 }
 
-/* Heading 32: IBM Plex Sans Arabic, Regular (400), 21px, #E9DEDE */
+/* Heading 32: IBM Plex Sans Arabic, Regular (400), fluid 16px..21px, #E9DEDE */
 .text-body-21 {
   font-family: 'IBM Plex Sans Arabic', 'IBM Plex Sans', sans-serif;
   font-weight: 400;
-  font-size: 21px;
+  font-size: clamp(16px, calc(2 * var(--vw, 1vw)), 21px);
   line-height: 1.55;
   color: #E9DEDE;
 }
@@ -77,11 +117,10 @@ body {
   -webkit-touch-callout: none;
 }
 
-/* Allow normal text selection strictly inside form fields or active Edit Mode */
+/* Allow normal text selection strictly inside form fields */
 input,
 textarea,
-select,
-[data-edit-mode="true"] * {
+select {
   -webkit-user-select: text;
   user-select: text;
   -webkit-touch-callout: default;
@@ -97,10 +136,6 @@ video {
 
 img {
   pointer-events: none;
-}
-
-[data-edit-mode="true"] img {
-  pointer-events: auto;
 }
 
 /* Instant zero-delay touch response & clean tap highlight */

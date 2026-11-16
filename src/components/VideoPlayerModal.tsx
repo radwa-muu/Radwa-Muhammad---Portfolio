@@ -13,7 +13,6 @@ import {
   FileText,
 } from 'lucide-react';
 import { usePortfolio } from '../context/PortfolioContext';
-import { EditableText } from './EditableText';
 
 interface VideoPlayerModalProps {
   script: VideoScript | null;
@@ -21,7 +20,7 @@ interface VideoPlayerModalProps {
 }
 
 export const VideoPlayerModal: React.FC<VideoPlayerModalProps> = ({ script, onClose }) => {
-  const { data, isEditMode, setIsEditMode, updateScript } = usePortfolio();
+  const { data } = usePortfolio();
   const videoRef = useRef<HTMLVideoElement>(null);
   const playerContainerRef = useRef<HTMLDivElement>(null);
 
@@ -101,7 +100,7 @@ export const VideoPlayerModal: React.FC<VideoPlayerModalProps> = ({ script, onCl
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 text-stone-400 hover:text-white p-2 rounded-full bg-stone-900/90 hover:bg-[#dc2626] transition-colors duration-300 ease-out z-30 cursor-pointer"
+          className="absolute top-3 right-3 sm:top-4 sm:right-4 text-stone-400 hover:text-white min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full bg-stone-900/90 hover:bg-[#dc2626] transition-colors duration-300 ease-out z-30 cursor-pointer"
           aria-label="Close modal | إغلاق النافذة"
         >
           <X className="w-5 h-5" />
@@ -122,36 +121,25 @@ export const VideoPlayerModal: React.FC<VideoPlayerModalProps> = ({ script, onCl
             id="video-player-title"
             className="font-displayEn text-3xl sm:text-4xl font-normal text-white uppercase tracking-[0.03em] leading-[0.95]"
           >
-            <EditableText
-              as="span"
-              value={liveScript.titleEn}
-              onChange={(val) => updateScript(liveScript.id, { titleEn: val })}
-            />
+            {liveScript.titleEn}
           </h4>
-          <EditableText
-            as="p"
+          <p
             dir="rtl"
-            value={liveScript.titleAr}
-            onChange={(val) => updateScript(liveScript.id, { titleAr: val })}
             className="font-body-plex text-base sm:text-lg font-bold text-[#E9DEDE]/90 text-right mt-1.5 leading-snug"
-          />
+          >
+            {liveScript.titleAr}
+          </p>
 
           <div className="mt-2 space-y-1">
-            <EditableText
-              as="p"
-              multiline
-              value={liveScript.summaryEn}
-              onChange={(val) => updateScript(liveScript.id, { summaryEn: val })}
-              className="text-xs sm:text-sm text-stone-300 font-body-plex leading-relaxed"
-            />
-            <EditableText
-              as="p"
-              multiline
+            <p className="text-xs sm:text-sm text-stone-300 font-body-plex leading-relaxed">
+              {liveScript.summaryEn}
+            </p>
+            <p
               dir="rtl"
-              value={liveScript.summaryAr}
-              onChange={(val) => updateScript(liveScript.id, { summaryAr: val })}
               className="text-xs sm:text-sm text-stone-300/90 font-body-plex leading-relaxed text-right"
-            />
+            >
+              {liveScript.summaryAr}
+            </p>
           </div>
         </div>
 
@@ -315,7 +303,7 @@ export const VideoPlayerModal: React.FC<VideoPlayerModalProps> = ({ script, onCl
             <button
               type="button"
               onClick={() => setActiveTab('script')}
-              className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-colors duration-300 ease-out cursor-pointer ${
+              className={`px-3.5 min-h-[40px] py-2 rounded-lg text-xs font-bold transition-colors duration-300 ease-out cursor-pointer ${
                 activeTab === 'script'
                   ? 'bg-[#dc2626] text-white'
                   : 'bg-[#1c1917] text-stone-400 hover:text-white'
@@ -326,7 +314,7 @@ export const VideoPlayerModal: React.FC<VideoPlayerModalProps> = ({ script, onCl
             <button
               type="button"
               onClick={() => setActiveTab('direction')}
-              className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-colors duration-300 ease-out cursor-pointer ${
+              className={`px-3.5 min-h-[40px] py-2 rounded-lg text-xs font-bold transition-colors duration-300 ease-out cursor-pointer ${
                 activeTab === 'direction'
                   ? 'bg-[#dc2626] text-white'
                   : 'bg-[#1c1917] text-stone-400 hover:text-white'
@@ -338,18 +326,14 @@ export const VideoPlayerModal: React.FC<VideoPlayerModalProps> = ({ script, onCl
 
           {activeTab === 'script' ? (
             <div key="script-tab" className="space-y-3 max-h-56 overflow-y-auto pr-1 font-body-plex slide-fade-enter">
-              {(liveScript.scriptFullEn || isEditMode) && (
+              {liveScript.scriptFullEn && (
                 <div className="bg-[#171717] p-4 rounded-xl border border-[#262626]">
                   <div className="text-[11px] font-body-plex text-[#ef4444] mb-2 uppercase font-bold tracking-wider">
                     ENGLISH TRANSLATION / SCRIPT
                   </div>
-                  <EditableText
-                    as="div"
-                    multiline
-                    value={liveScript.scriptFullEn}
-                    onChange={(val) => updateScript(liveScript.id, { scriptFullEn: val })}
-                    className="text-xs sm:text-sm text-stone-200 font-body-plex leading-relaxed whitespace-pre-line"
-                  />
+                  <div className="text-xs sm:text-sm text-stone-200 font-body-plex leading-relaxed whitespace-pre-line">
+                    {liveScript.scriptFullEn}
+                  </div>
                 </div>
               )}
 
@@ -357,14 +341,12 @@ export const VideoPlayerModal: React.FC<VideoPlayerModalProps> = ({ script, onCl
                 <div className="text-[11px] font-body-plex text-[#ef4444] mb-2 uppercase font-bold tracking-wider">
                   ORIGINAL ARABIC SCRIPT | السكربت العربي
                 </div>
-                <EditableText
-                  as="div"
-                  multiline
+                <div
                   dir="rtl"
-                  value={liveScript.scriptFullAr}
-                  onChange={(val) => updateScript(liveScript.id, { scriptFullAr: val })}
                   className="text-xs sm:text-sm text-stone-200 font-body-plex leading-relaxed whitespace-pre-line text-right"
-                />
+                >
+                  {liveScript.scriptFullAr}
+                </div>
               </div>
             </div>
           ) : (
@@ -373,28 +355,24 @@ export const VideoPlayerModal: React.FC<VideoPlayerModalProps> = ({ script, onCl
                 <strong className="text-stone-300 block font-semibold mb-1 uppercase text-[11px] tracking-wider">
                   CAMERA MOTION &amp; VISUAL DIRECTION | حركة الكاميرا وتوجيه الممثل:
                 </strong>
-                <EditableText
-                  as="p"
-                  multiline
+                <p
                   dir="rtl"
-                  value={liveScript.visualDirectionAr}
-                  onChange={(val) => updateScript(liveScript.id, { visualDirectionAr: val })}
-                  className="text-stone-300 leading-relaxed font-body-plex text-right"
-                />
+                  className="text-stone-300 leading-relaxed font-body-plex text-right whitespace-pre-line"
+                >
+                  {liveScript.visualDirectionAr}
+                </p>
               </div>
-              {(liveScript.editorNotesAr || isEditMode) && (
+              {liveScript.editorNotesAr && (
                 <div className="pt-2 border-t border-[#262626]">
                   <strong className="text-amber-400 block font-semibold mb-1 uppercase text-[11px] tracking-wider">
                     EDITOR &amp; AUDIO PACING NOTES | توجيهات المونتير والصوت:
                   </strong>
-                  <EditableText
-                    as="p"
-                    multiline
+                  <p
                     dir="rtl"
-                    value={liveScript.editorNotesAr || ''}
-                    onChange={(val) => updateScript(liveScript.id, { editorNotesAr: val })}
-                    className="text-stone-300 leading-relaxed font-body-plex text-right"
-                  />
+                    className="text-stone-300 leading-relaxed font-body-plex text-right whitespace-pre-line"
+                  >
+                    {liveScript.editorNotesAr}
+                  </p>
                 </div>
               )}
             </div>
@@ -404,30 +382,15 @@ export const VideoPlayerModal: React.FC<VideoPlayerModalProps> = ({ script, onCl
         {/* Modal Actions */}
         <div className="mt-5 pt-3 border-t border-[#262626] flex flex-wrap items-center justify-between gap-2 text-xs text-stone-400 font-body-plex">
           <span className="text-[11px] font-medium tracking-wider text-stone-500">
-            {isEditMode
-              ? 'EDIT MODE ACTIVE — وضع التعديل مفعّل'
-              : 'RADWA MUHAMMAD — SCRIPTWRITING & EDITORIAL'}
+            RADWA MUHAMMAD — SCRIPTWRITING &amp; EDITORIAL
           </span>
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={() => setIsEditMode(!isEditMode)}
-              className={`px-4 py-2 rounded-full text-xs font-bold transition-colors duration-300 ease-out cursor-pointer ${
-                isEditMode
-                  ? 'bg-emerald-600 hover:bg-emerald-500 text-white'
-                  : 'bg-[#dc2626]/20 hover:bg-[#dc2626]/35 text-red-200 border border-[#dc2626]/40'
-              }`}
-            >
-              {isEditMode ? 'DONE | تم التعديل' : 'EDIT SCRIPT | تعديل النص'}
-            </button>
-            <button
-              type="button"
-              onClick={onClose}
-              className="px-5 py-2 bg-[#262626] hover:bg-[#333333] rounded-full text-white text-xs font-bold transition-colors duration-300 ease-out cursor-pointer"
-            >
-              CLOSE | إغلاق
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            className="px-5 min-h-[40px] py-2 bg-[#262626] hover:bg-[#333333] rounded-full text-white text-xs font-bold transition-colors duration-300 ease-out cursor-pointer"
+          >
+            CLOSE | إغلاق
+          </button>
         </div>
       </div>
     </div>

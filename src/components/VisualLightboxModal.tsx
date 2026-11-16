@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { SocialPost } from '../utils/portfolioData';
 import { X, ChevronLeft, ChevronRight, Layers } from 'lucide-react';
 import { usePortfolio } from '../context/PortfolioContext';
-import { EditableText } from './EditableText';
 import { useHorizontalSwipe } from '../hooks/useSwipeGesture';
 
 interface VisualLightboxModalProps {
@@ -11,7 +10,7 @@ interface VisualLightboxModalProps {
 }
 
 export const VisualLightboxModal: React.FC<VisualLightboxModalProps> = ({ post, onClose }) => {
-  const { data, isEditMode, setIsEditMode, updatePost } = usePortfolio();
+  const { data } = usePortfolio();
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
 
   useEffect(() => {
@@ -57,14 +56,6 @@ export const VisualLightboxModal: React.FC<VisualLightboxModalProps> = ({ post, 
   const currentSlide = slides[activeSlideIndex] || null;
   const activeImage = currentSlide?.imageUrl || carouselImages[activeSlideIndex] || livePost.imageUrl;
 
-  const updateCurrentSlide = (patch: { title?: string; description?: string }) => {
-    if (!currentSlide) return;
-    const nextSlides = slides.map((s, idx) =>
-      idx === activeSlideIndex ? { ...s, ...patch } : s
-    );
-    updatePost(livePost.brandId, livePost.id, { slides: nextSlides });
-  };
-
   const fullOriginalCaption = livePost.fullCaptionAr ?? livePost.hookAr;
   const isHindiCaption = /[\u0900-\u097F]/.test(fullOriginalCaption || '');
 
@@ -87,7 +78,7 @@ export const VisualLightboxModal: React.FC<VisualLightboxModalProps> = ({ post, 
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 text-stone-400 hover:text-white p-2 rounded-full bg-stone-900/90 hover:bg-[#dc2626] transition-colors duration-300 ease-out z-30 cursor-pointer"
+          className="absolute top-3 right-3 sm:top-4 sm:right-4 text-stone-400 hover:text-white min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full bg-stone-900/90 hover:bg-[#dc2626] transition-colors duration-300 ease-out z-30 cursor-pointer"
           aria-label="Close modal | إغلاق"
         >
           <X className="w-5 h-5" />
@@ -96,12 +87,9 @@ export const VisualLightboxModal: React.FC<VisualLightboxModalProps> = ({ post, 
         {/* Header Title */}
         <div className="pr-10 pl-1 text-left mb-4">
           <div className="flex items-center gap-2 mb-2 flex-wrap font-body-plex">
-            <EditableText
-              as="span"
-              value={livePost.dateBadge}
-              onChange={(val) => updatePost(livePost.brandId, livePost.id, { dateBadge: val })}
-              className="text-[11px] font-semibold text-[#ef4444] bg-[#dc2626]/10 px-2.5 py-0.5 rounded border border-[#dc2626]/30 tracking-wide"
-            />
+            <span className="text-[11px] font-semibold text-[#ef4444] bg-[#dc2626]/10 px-2.5 py-0.5 rounded border border-[#dc2626]/30 tracking-wide">
+              {livePost.dateBadge}
+            </span>
             <span className="text-xs font-medium text-stone-400 uppercase tracking-wider">
               {livePost.brandId}
             </span>
@@ -112,20 +100,18 @@ export const VisualLightboxModal: React.FC<VisualLightboxModalProps> = ({ post, 
             )}
           </div>
 
-          <EditableText
-            as="h3"
+          <h3
             id="lightbox-title"
-            value={livePost.titleEn}
-            onChange={(val) => updatePost(livePost.brandId, livePost.id, { titleEn: val })}
             className="font-displayEn text-3xl sm:text-4xl font-normal text-white uppercase tracking-[0.03em] leading-[0.95]"
-          />
-          <EditableText
-            as="p"
+          >
+            {livePost.titleEn}
+          </h3>
+          <p
             dir="rtl"
-            value={livePost.titleAr}
-            onChange={(val) => updatePost(livePost.brandId, livePost.id, { titleAr: val })}
             className="font-body-plex text-base sm:text-lg font-bold text-[#E9DEDE]/90 text-right mt-1.5 leading-snug"
-          />
+          >
+            {livePost.titleAr}
+          </p>
         </div>
 
         {/* Visual Container (Touch swipeable, zero overlay arrows on artwork) */}
@@ -170,7 +156,7 @@ export const VisualLightboxModal: React.FC<VisualLightboxModalProps> = ({ post, 
               type="button"
               onClick={prevSlide}
               disabled={activeSlideIndex === 0}
-              className={`px-3 sm:px-3.5 py-1.5 rounded-full text-xs font-medium flex items-center gap-1 transition-[background-color,border-color,color,opacity] duration-300 ease-out cursor-pointer ${
+              className={`px-3.5 min-h-[40px] py-2 rounded-full text-xs font-medium flex items-center gap-1 transition-[background-color,border-color,color,opacity] duration-300 ease-out cursor-pointer ${
                 activeSlideIndex === 0
                   ? 'opacity-40 cursor-not-allowed bg-white/5 text-stone-500'
                   : 'bg-[#1f1f1f] hover:bg-[#dc2626] text-white border border-[#2a2a2a]'
@@ -186,8 +172,8 @@ export const VisualLightboxModal: React.FC<VisualLightboxModalProps> = ({ post, 
                   key={idx}
                   type="button"
                   onClick={() => setActiveSlideIndex(idx)}
-                  className={`h-2 rounded-full transition-[width,background-color] duration-300 ease-out cursor-pointer ${
-                    idx === activeSlideIndex ? 'w-6 bg-[#dc2626]' : 'w-2 bg-stone-700 hover:bg-stone-500'
+                  className={`h-2.5 rounded-full transition-[width,background-color] duration-300 ease-out cursor-pointer ${
+                    idx === activeSlideIndex ? 'w-6 bg-[#dc2626]' : 'w-2.5 bg-stone-700 hover:bg-stone-500'
                   }`}
                   aria-label={`Go to slide ${idx + 1}`}
                 />
@@ -198,7 +184,7 @@ export const VisualLightboxModal: React.FC<VisualLightboxModalProps> = ({ post, 
               type="button"
               onClick={nextSlide}
               disabled={activeSlideIndex === totalSlides - 1}
-              className={`px-3 sm:px-3.5 py-1.5 rounded-full text-xs font-medium flex items-center gap-1 transition-[background-color,border-color,color,opacity] duration-300 ease-out cursor-pointer ${
+              className={`px-3.5 min-h-[40px] py-2 rounded-full text-xs font-medium flex items-center gap-1 transition-[background-color,border-color,color,opacity] duration-300 ease-out cursor-pointer ${
                 activeSlideIndex === totalSlides - 1
                   ? 'opacity-40 cursor-not-allowed bg-white/5 text-stone-500'
                   : 'bg-[#1f1f1f] hover:bg-[#dc2626] text-white border border-[#2a2a2a]'
@@ -251,19 +237,12 @@ export const VisualLightboxModal: React.FC<VisualLightboxModalProps> = ({ post, 
               <span className="text-[11px] font-body-plex text-[#E86677] uppercase tracking-wider block font-bold tabular-nums">
                 SLIDE {currentSlide.slideNumber} | الشريحة {currentSlide.slideNumber}
               </span>
-              <EditableText
-                as="h4"
-                value={currentSlide.title}
-                onChange={(val) => updateCurrentSlide({ title: val })}
-                className="text-sm sm:text-base font-bold text-white font-body-plex"
-              />
-              <EditableText
-                as="p"
-                multiline
-                value={currentSlide.description}
-                onChange={(val) => updateCurrentSlide({ description: val })}
-                className="text-xs sm:text-sm text-stone-300 font-body-plex leading-relaxed whitespace-pre-line"
-              />
+              <h4 className="text-sm sm:text-base font-bold text-white font-body-plex">
+                {currentSlide.title}
+              </h4>
+              <p className="text-xs sm:text-sm text-stone-300 font-body-plex leading-relaxed whitespace-pre-line">
+                {currentSlide.description}
+              </p>
             </div>
           )}
 
@@ -275,47 +254,36 @@ export const VisualLightboxModal: React.FC<VisualLightboxModalProps> = ({ post, 
               </span>
             </div>
 
-            <EditableText
-              as="p"
-              multiline
-              value={livePost.hookEn}
-              onChange={(val) => updatePost(livePost.brandId, livePost.id, { hookEn: val })}
-              className="text-xs sm:text-sm text-stone-300 font-body-plex leading-relaxed whitespace-pre-line"
-              placeholder="Add English summary..."
-            />
+            {livePost.hookEn && (
+              <p className="text-xs sm:text-sm text-stone-300 font-body-plex leading-relaxed whitespace-pre-line">
+                {livePost.hookEn}
+              </p>
+            )}
 
-            <EditableText
-              as="p"
-              multiline
-              dir={isHindiCaption ? 'ltr' : 'rtl'}
-              value={fullOriginalCaption}
-              onChange={(val) =>
-                updatePost(livePost.brandId, livePost.id, { fullCaptionAr: val })
-              }
-              className={`text-xs sm:text-sm text-stone-200 font-body-plex leading-relaxed whitespace-pre-line pt-2.5 border-t border-[#262626] ${
-                isHindiCaption ? 'text-left' : 'text-right'
-              }`}
-              placeholder="إضافة الكابشن الكامل هنا..."
-            />
+            {fullOriginalCaption && (
+              <p
+                dir={isHindiCaption ? 'ltr' : 'rtl'}
+                className={`text-xs sm:text-sm text-stone-200 font-body-plex leading-relaxed whitespace-pre-line pt-2.5 border-t border-[#262626] ${
+                  isHindiCaption ? 'text-left' : 'text-right'
+                }`}
+              >
+                {fullOriginalCaption}
+              </p>
+            )}
           </div>
 
           {/* Creative Direction */}
-          {(livePost.creativeDirectionAr || isEditMode) && (
+          {livePost.creativeDirectionAr && (
             <div className="bg-[#171717] p-4 rounded-xl border border-[#262626] space-y-1.5">
               <span className="text-[11px] font-body-plex text-stone-400 uppercase tracking-wider block font-bold">
                 CREATIVE DIRECTION FOR DESIGNER | التوجيه الإبداعي للمصمم
               </span>
-              <EditableText
-                as="p"
-                multiline
+              <p
                 dir="rtl"
-                value={livePost.creativeDirectionAr || ''}
-                onChange={(val) =>
-                  updatePost(livePost.brandId, livePost.id, { creativeDirectionAr: val })
-                }
                 className="text-xs sm:text-sm text-stone-300 font-body-plex leading-relaxed text-right"
-                placeholder="إضافة التوجيه الإبداعي للمصمم..."
-              />
+              >
+                {livePost.creativeDirectionAr}
+              </p>
             </div>
           )}
         </div>
@@ -323,30 +291,15 @@ export const VisualLightboxModal: React.FC<VisualLightboxModalProps> = ({ post, 
         {/* Modal Actions */}
         <div className="mt-5 flex flex-wrap items-center justify-between gap-2 text-xs text-stone-400 pt-2 border-t border-[#262626] font-body-plex">
           <span className="text-[11px] font-medium tracking-wider text-stone-500">
-            {isEditMode
-              ? 'EDIT MODE ACTIVE — وضع التعديل مفعّل'
-              : 'RADWA MUHAMMAD — CAMPAIGN ASSET'}
+            RADWA MUHAMMAD — CAMPAIGN ASSET
           </span>
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={() => setIsEditMode(!isEditMode)}
-              className={`px-4 py-2 rounded-full text-xs font-bold transition-colors duration-300 ease-out cursor-pointer ${
-                isEditMode
-                  ? 'bg-emerald-600 hover:bg-emerald-500 text-white'
-                  : 'bg-[#dc2626]/20 hover:bg-[#dc2626]/35 text-red-200 border border-[#dc2626]/40'
-              }`}
-            >
-              {isEditMode ? 'DONE | تم التعديل' : 'EDIT CAPTIONS | تعديل'}
-            </button>
-            <button
-              type="button"
-              onClick={onClose}
-              className="px-5 py-2 bg-[#262626] hover:bg-[#333333] rounded-full text-white text-xs font-bold transition-colors duration-300 ease-out cursor-pointer"
-            >
-              CLOSE | إغلاق
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            className="px-5 min-h-[40px] py-2 bg-[#262626] hover:bg-[#333333] rounded-full text-white text-xs font-bold transition-colors duration-300 ease-out cursor-pointer"
+          >
+            CLOSE | إغلاق
+          </button>
         </div>
       </div>
     </div>

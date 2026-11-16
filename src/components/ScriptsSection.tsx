@@ -1,7 +1,6 @@
 import React from 'react';
 import { VideoScript } from '../utils/portfolioData';
 import { usePortfolio } from '../context/PortfolioContext';
-import { EditableText } from './EditableText';
 import { LazyVideoPlayer } from './LazyVideoPlayer';
 
 interface ScriptsSectionProps {
@@ -115,7 +114,7 @@ const SCRIPT_CLIENTS: ScriptClientConfig[] = [
 ];
 
 export const ScriptsSection: React.FC<ScriptsSectionProps> = () => {
-  const { data, updateScript, isEditMode } = usePortfolio();
+  const { data } = usePortfolio();
 
   return (
     <>
@@ -124,28 +123,27 @@ export const ScriptsSection: React.FC<ScriptsSectionProps> = () => {
       {/* ======================================================== */}
       <section
         id="scripts"
-        className="scroll-mt-20 py-14 px-10 relative overflow-x-clip flex flex-col justify-center items-center"
+        className="scroll-mt-20 py-10 sm:py-14 px-4 sm:px-8 lg:px-10 relative overflow-x-clip flex flex-col justify-center items-center"
       >
         <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col items-center text-center select-none cursor-default interactive-lockup">
-          <div className="flex items-center justify-center gap-4 mb-3">
-            <span className="w-16 h-[1px] bg-white/25 divider-line origin-right" />
-            <span className="text-[48px] font-displayEn font-normal text-white tracking-[0.06em] leading-none block">
+          <div className="flex items-center justify-center gap-3 sm:gap-4 mb-3">
+            <span className="w-12 sm:w-16 h-[1px] bg-white/25 divider-line origin-right" />
+            <span className="text-[38px] sm:text-[48px] font-displayEn font-normal text-white tracking-[0.06em] leading-none block">
               02
             </span>
-            <span className="w-16 h-[1px] bg-white/25 divider-line origin-left" />
+            <span className="w-12 sm:w-16 h-[1px] bg-white/25 divider-line origin-left" />
           </div>
           <h2
-            className="font-displayEn font-normal uppercase tracking-[0.02em] leading-[0.86] text-heading-linear whitespace-nowrap"
-            style={{ fontSize: 'clamp(52px, calc(11 * var(--vw, 1vw)), 162px)' }}
+            className="font-displayEn font-normal uppercase tracking-[0.02em] leading-[0.86] text-heading-linear sm:whitespace-nowrap"
+            style={{ fontSize: 'clamp(46px, calc(11 * var(--vw, 1vw)), 162px)' }}
           >
             SCRIPTS
           </h2>
           <p
             dir="rtl"
-            className="font-amiri font-bold text-white leading-none text-center"
+            className="font-amiri font-bold text-white leading-none text-center -mt-[0.28em] sm:-mt-[0.36em]"
             style={{
-              fontSize: 'clamp(36px, calc(6.2 * var(--vw, 1vw)), 92px)',
-              marginTop: '-0.36em',
+              fontSize: 'clamp(30px, calc(6.2 * var(--vw, 1vw)), 92px)',
               textShadow: '0 10px 24px rgba(0, 0, 0, 0.9)',
             }}
           >
@@ -163,24 +161,24 @@ export const ScriptsSection: React.FC<ScriptsSectionProps> = () => {
         return (
           <section
             key={client.id}
-            className="py-14 px-10 relative overflow-x-clip"
+            className="py-10 sm:py-14 px-4 sm:px-8 lg:px-10 relative overflow-x-clip"
           >
             <div className="max-w-7xl mx-auto relative z-10">
               {/* Top Header Row: Left stacked title + Right 2 top-lined info columns */}
-              <div className="grid grid-cols-12 gap-10 items-start mb-9">
+              <div data-layout-grid className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-start mb-8 lg:mb-9">
                 <div
                   className={`${
-                    client.isShortTitle ? 'col-span-4' : 'col-span-5'
-                  } w-fit relative select-none text-left cursor-default interactive-lockup`}
+                    client.isShortTitle ? 'lg:col-span-4' : 'lg:col-span-5'
+                  } w-fit max-w-full relative select-none text-left cursor-default interactive-lockup`}
                 >
                   <h3
                     style={{
                       fontSize: client.isShortTitle
-                        ? 'clamp(52px, calc(6.8 * var(--vw, 1vw)), 94px)'
-                        : 'clamp(42px, calc(4.6 * var(--vw, 1vw)), 64px)',
+                        ? 'clamp(44px, calc(6.8 * var(--vw, 1vw)), 94px)'
+                        : 'clamp(34px, calc(4.6 * var(--vw, 1vw)), 64px)',
                     }}
                     className={`font-displayEn font-normal uppercase tracking-[0.02em] leading-[0.86] text-heading-linear ${
-                      client.isShortTitle ? '' : 'whitespace-nowrap'
+                      client.isShortTitle ? '' : 'sm:whitespace-nowrap'
                     }`}
                   >
                     {client.brandNameEn}
@@ -189,11 +187,11 @@ export const ScriptsSection: React.FC<ScriptsSectionProps> = () => {
                     dir="rtl"
                     style={{
                       fontSize: client.isShortTitle
-                        ? 'clamp(36px, calc(4.2 * var(--vw, 1vw)), 58px)'
-                        : 'clamp(30px, calc(3.1 * var(--vw, 1vw)), 44px)',
+                        ? 'clamp(30px, calc(4.2 * var(--vw, 1vw)), 58px)'
+                        : 'clamp(24px, calc(3.1 * var(--vw, 1vw)), 44px)',
                       textShadow: '0 8px 20px rgba(0, 0, 0, 0.9)',
                     }}
-                    className="font-amiri font-bold text-white leading-none text-center -mt-[0.42em]"
+                    className="font-amiri font-bold text-white leading-none text-center -mt-[0.34em] sm:-mt-[0.42em]"
                   >
                     {client.brandNameAr}
                   </p>
@@ -201,13 +199,14 @@ export const ScriptsSection: React.FC<ScriptsSectionProps> = () => {
 
                 {/* Right 2 Top-Lined Columns */}
                 <div
+                  data-layout-grid
                   className={`${
-                    client.isShortTitle ? 'col-span-8' : 'col-span-7'
-                  } grid grid-cols-2 gap-10`}
+                    client.isShortTitle ? 'lg:col-span-8' : 'lg:col-span-7'
+                  } grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10`}
                 >
                   {/* Column 1 */}
-                  <div className="border-t border-white/20 pt-3.5 px-2.5 -mx-2.5 pb-2.5 rounded-b-lg space-y-2 interactive-panel">
-                    <div className="flex items-baseline gap-1.5 text-[15px]">
+                  <div className="border-t border-white/20 pt-3.5 px-2 sm:px-2.5 sm:-mx-2.5 pb-2.5 rounded-b-lg space-y-2 interactive-panel">
+                    <div className="flex flex-wrap items-baseline gap-1.5 text-[15px]">
                       <span className="font-body-plex font-bold text-white">{client.clientLabelEn}</span>
                       <span className="text-white/35">|</span>
                       <span dir="rtl" className="font-body-plex font-normal text-[#9C9393]">
@@ -226,8 +225,8 @@ export const ScriptsSection: React.FC<ScriptsSectionProps> = () => {
                   </div>
 
                   {/* Column 2 */}
-                  <div className="border-t border-white/20 pt-3.5 px-2.5 -mx-2.5 pb-2.5 rounded-b-lg space-y-2 interactive-panel">
-                    <div className="flex items-baseline gap-1.5 text-[15px]">
+                  <div className="border-t border-white/20 pt-3.5 px-2 sm:px-2.5 sm:-mx-2.5 pb-2.5 rounded-b-lg space-y-2 interactive-panel">
+                    <div className="flex flex-wrap items-baseline gap-1.5 text-[15px]">
                       <span className="font-body-plex font-bold text-white">{client.roleLabelEn}</span>
                       <span className="text-white/35">|</span>
                       <span dir="rtl" className="font-body-plex font-normal text-[#9C9393]">
@@ -253,16 +252,16 @@ export const ScriptsSection: React.FC<ScriptsSectionProps> = () => {
                 <span className="text-[#E9DEDE]/85">اضغط للتشغيل</span>
               </p>
 
-              {/* Real Vertical 9:16 Video Players (centered 2-up or 3-up grid) */}
+              {/* Real Vertical 9:16 Video Players (responsive 1 -> 2 -> 3 col grid) */}
               <div
                 className={
                   clientScripts.length === 2
-                    ? 'grid grid-cols-2 gap-10 max-w-3xl mx-auto'
-                    : 'grid grid-cols-3 gap-10'
+                    ? 'grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-10 max-w-3xl mx-auto'
+                    : 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10'
                 }
               >
                 {clientScripts.map((script) => (
-                  <div key={script.id} className="flex flex-col group/vid">
+                  <div key={script.id} className="flex flex-col group/vid max-w-[330px] sm:max-w-none mx-auto sm:mx-0 w-full">
                     <div className="touch-card relative aspect-[9/16] rounded-[4px] overflow-hidden bg-black shadow-lg ring-1 ring-white/10 group-hover/vid:ring-[#b81d33]/80 group-active/vid:ring-[#dc2626] group-hover/vid:-translate-y-1.5 group-active/vid:-translate-y-1.5 transition-[transform,border-color,background-color] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]">
                       {script.videoSrc ? (
                         <LazyVideoPlayer
@@ -276,35 +275,28 @@ export const ScriptsSection: React.FC<ScriptsSectionProps> = () => {
 
                     {/* Clean centered index & duration */}
                     <div className="mt-3.5 flex items-center justify-center gap-2.5">
-                      <EditableText
-                        as="span"
-                        value={script.videoNum}
-                        onChange={(val) => updateScript(script.id, { videoNum: val })}
-                        className="font-displayEn font-normal text-[23px] sm:text-[25px] leading-none text-white tracking-wide"
-                      />
-                      <EditableText
-                        as="span"
-                        value={script.duration}
-                        onChange={(val) => updateScript(script.id, { duration: val })}
-                        className="font-body-plex text-[14px] text-white/60 leading-none"
-                      />
+                      <span className="font-displayEn font-normal text-[23px] sm:text-[25px] leading-none text-white tracking-wide">
+                        {script.videoNum}
+                      </span>
+                      <span className="font-body-plex text-[14px] text-white/60 leading-none">
+                        {script.duration}
+                      </span>
                     </div>
                   </div>
                 ))}
               </div>
 
               {/* Bottom-Right Clean Pill Outline CTA Button linking directly to client social page */}
-              <div className="flex justify-end pt-10">
+              <div className="flex justify-center sm:justify-end pt-8 sm:pt-10">
                 <a
-                  href={isEditMode ? undefined : client.socialUrl}
-                  onClick={(e) => isEditMode && e.preventDefault()}
+                  href={client.socialUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="interactive-btn px-7 py-2.5 rounded-full border border-white/55 hover:border-[#b81d33] hover:bg-[#68101C]/45 text-white/95 cursor-pointer inline-flex items-center gap-2 font-body-plex text-[15px]"
+                  className="interactive-btn px-6 sm:px-7 py-2.5 min-h-[44px] rounded-full border border-white/55 hover:border-[#b81d33] hover:bg-[#68101C]/45 text-white/95 cursor-pointer inline-flex flex-wrap items-center justify-center gap-x-2 gap-y-1 font-body-plex text-[14.5px] sm:text-[15px] text-center"
                 >
-                  <span className="text-[15px] text-white">{client.buttonEn}</span>
+                  <span className="text-white">{client.buttonEn}</span>
                   <span className="text-white/45">|</span>
-                  <span className="text-[15px] text-[#E9DEDE]">{client.buttonAr}</span>
+                  <span className="text-[#E9DEDE]">{client.buttonAr}</span>
                 </a>
               </div>
             </div>
