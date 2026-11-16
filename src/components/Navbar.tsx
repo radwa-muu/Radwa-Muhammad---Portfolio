@@ -1,12 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Menu, MessageCircle, X } from 'lucide-react';
-import { DESKTOP_STAGE_WIDTH, scrollToSectionId } from '../hooks/useDesktopScale';
+import { scrollToSectionId } from '../hooks/useDesktopScale';
 import { useScrollProgressAndActiveSection } from '../hooks/useScrollAnimations';
 
 interface NavbarProps {
   onOpenInquiry?: (defaultService?: string) => void;
-  scale?: number;
-  isDesktopView?: boolean;
 }
 
 const NAV_SECTION_IDS = [
@@ -22,18 +20,12 @@ const NAV_SECTION_IDS = [
   'contact',
 ];
 
-export const Navbar: React.FC<NavbarProps> = ({ scale = 1, isDesktopView = false }) => {
+export const Navbar: React.FC<NavbarProps> = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const progressBarRef = useRef<HTMLDivElement>(null);
   const navScopeRef = useRef<HTMLDivElement>(null);
 
-  useScrollProgressAndActiveSection(NAV_SECTION_IDS, scale, progressBarRef, navScopeRef);
-
-  useEffect(() => {
-    if (isDesktopView && mobileMenuOpen) {
-      setMobileMenuOpen(false);
-    }
-  }, [isDesktopView, mobileMenuOpen]);
+  useScrollProgressAndActiveSection(NAV_SECTION_IDS, 1, progressBarRef, navScopeRef);
 
   useEffect(() => {
     if (!mobileMenuOpen) return;
@@ -59,24 +51,13 @@ export const Navbar: React.FC<NavbarProps> = ({ scale = 1, isDesktopView = false
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     setMobileMenuOpen(false);
-    scrollToSectionId(href, scale);
+    scrollToSectionId(href);
   };
 
   return (
     <header
-      className="fixed top-0 left-0 z-50 pointer-events-none origin-top-left transition-[transform,opacity] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]"
+      className="fixed top-0 left-0 right-0 w-full z-50 pointer-events-none"
       id="navbar"
-      style={
-        isDesktopView
-          ? {
-              width: `${DESKTOP_STAGE_WIDTH}px`,
-              transform: `scale(${scale})`,
-            }
-          : {
-              width: '100%',
-              transform: 'scale(1)',
-            }
-      }
     >
       <div ref={navScopeRef} className="pointer-events-auto w-full px-3 sm:px-6 py-1.5 sm:py-3">
         {/* Main Floating Glass Pill */}

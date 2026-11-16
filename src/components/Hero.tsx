@@ -5,10 +5,9 @@ import { scrollToSectionId } from '../hooks/useDesktopScale';
 
 interface HeroProps {
   onOpenInquiry?: () => void;
-  scale?: number;
 }
 
-export const Hero: React.FC<HeroProps> = ({ scale = 1 }) => {
+export const Hero: React.FC<HeroProps> = () => {
   const { data } = usePortfolio();
 
   const displayTitleAr =
@@ -63,7 +62,7 @@ export const Hero: React.FC<HeroProps> = ({ scale = 1 }) => {
         {/* Lightweight interactive scroll prompt */}
         <button
           type="button"
-          onClick={() => scrollToSectionId('#about', scale)}
+          onClick={() => scrollToSectionId('#about')}
           aria-label="Scroll to About Me"
           className="hero-enter-3 interactive-btn mt-8 sm:mt-10 px-5 py-2.5 min-h-[44px] rounded-full inline-flex flex-col items-center justify-center gap-1 text-white/60 hover:text-white cursor-pointer group"
         >

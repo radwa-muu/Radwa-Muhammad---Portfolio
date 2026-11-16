@@ -10,7 +10,7 @@ import { useEffect, RefObject } from 'react';
  * - Adds `is-revealing` only during the 0.78s entrance and strips it ~1.25s later so native
  *   hover / tap-lift transitions stay snappy with zero stagger delay.
  */
-export function useScrollReveal(containerRef: RefObject<HTMLElement | null>, scale = 1) {
+export function useScrollReveal(containerRef: RefObject<HTMLElement | null>) {
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
@@ -56,7 +56,7 @@ export function useScrollReveal(containerRef: RefObject<HTMLElement | null>, sca
     }
 
     const viewportW = window.innerWidth || 1280;
-    const isMobileViewport = scale === 1 && viewportW < 768;
+    const isMobileViewport = viewportW < 768;
 
     // 4. All showcase grids (Services, Clients, SelectedWork links, Social posts, Video scripts, Decks, Highlights, Contact cards)
     container
@@ -283,7 +283,7 @@ export function useScrollReveal(containerRef: RefObject<HTMLElement | null>, sca
       itemObserver.disconnect();
       dividerObserver.disconnect();
     };
-  }, [containerRef, scale]);
+  }, [containerRef]);
 }
 
 /**

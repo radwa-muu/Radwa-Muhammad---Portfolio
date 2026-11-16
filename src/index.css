@@ -1,41 +1,5 @@
 @import "tailwindcss";
 
-@custom-variant sm {
-  @media (width >= 40rem) {
-    @slot;
-  }
-  :where(.desktop-view) & {
-    @slot;
-  }
-}
-
-@custom-variant md {
-  @media (width >= 48rem) {
-    @slot;
-  }
-  :where(.desktop-view) & {
-    @slot;
-  }
-}
-
-@custom-variant lg {
-  @media (width >= 64rem) {
-    @slot;
-  }
-  :where(.desktop-view) & {
-    @slot;
-  }
-}
-
-@custom-variant xl {
-  @media (width >= 80rem) {
-    @slot;
-  }
-  :where(.desktop-view) & {
-    @slot;
-  }
-}
-
 @theme {
   --color-brand-black: #090708;
   --color-brand-card: #120508;
@@ -60,10 +24,6 @@
 
 :root {
   --vw: 1vw;
-}
-
-.desktop-view {
-  --vw: 12.8px;
 }
 
 .font-amiri {
