@@ -1,0 +1,350 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-black: #090708;
+  --color-brand-card: #120508;
+  --color-brand-cardHover: #1c080e;
+  --color-brand-burgundy: #23070D;
+  --color-brand-burgundyDark: #140306;
+  --color-brand-glow: #68101C;
+  --color-brand-glowLight: #8A1526;
+  --color-brand-glowBright: #b81d33;
+  --color-brand-textPrimary: #F5F2F1;
+  --color-brand-textSecondary: #BDB5B5;
+  --color-brand-border: rgba(104, 16, 28, 0.45);
+  --color-brand-borderLight: rgba(245, 242, 241, 0.12);
+
+  --font-amiri: "Amiri", serif;
+  --font-arabicTitle: "Amiri", serif;
+  --font-arabicBody: "IBM Plex Sans Arabic", "IBM Plex Sans", sans-serif;
+  --font-displayEn: "Bebas Neue", Oswald, sans-serif;
+  --font-bodyEn: "IBM Plex Sans", "IBM Plex Sans Arabic", sans-serif;
+  --font-body: "IBM Plex Sans", "IBM Plex Sans Arabic", sans-serif;
+}
+
+:root {
+  --vw: 1vw;
+}
+
+.font-amiri {
+  font-family: 'Amiri', serif;
+}
+
+.font-body-plex {
+  font-family: 'IBM Plex Sans Arabic', 'IBM Plex Sans', sans-serif;
+}
+
+/* Heading 32: IBM Plex Sans Arabic, Regular (400), 21px, #E9DEDE */
+.text-body-21 {
+  font-family: 'IBM Plex Sans Arabic', 'IBM Plex Sans', sans-serif;
+  font-weight: 400;
+  font-size: 21px;
+  line-height: 1.55;
+  color: #E9DEDE;
+}
+
+/* Heading14: Bebas Neue, Regular (400), 140px on desktop, Linear white-to-translucent gradient */
+.text-heading-linear {
+  background: linear-gradient(180deg, #FFFFFF 0%, #F5F2F1 42%, rgba(255, 255, 255, 0.35) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.heading-en-140 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-weight: 400;
+  font-size: 140px;
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+h1, h2, h3, h4 {
+  letter-spacing: 0.02em;
+}
+
+html,
+body {
+  background-color: #070204;
+  color: #F5F2F1;
+  overflow-x: clip;
+  font-family: 'IBM Plex Sans', 'IBM Plex Sans Arabic', sans-serif;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* Allow normal text selection strictly inside form fields or active Edit Mode */
+input,
+textarea,
+select,
+[data-edit-mode="true"] * {
+  -webkit-user-select: text;
+  user-select: text;
+  -webkit-touch-callout: default;
+}
+
+/* Block long-press mobile Save Image & desktop drag-to-save */
+img,
+video {
+  -webkit-touch-callout: none;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+img {
+  pointer-events: none;
+}
+
+[data-edit-mode="true"] img {
+  pointer-events: auto;
+}
+
+/* Instant zero-delay touch response & clean tap highlight */
+a,
+button,
+[role="button"],
+.interactive-lockup,
+.interactive-panel,
+.interactive-btn,
+.card-luxury,
+.touch-card {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Offscreen section layout isolation without content-visibility scroll-paint hitches */
+main > section,
+main > footer {
+  contain: layout style;
+}
+
+::selection {
+  background-color: #68101C;
+  color: #FFFFFF;
+}
+
+/* Unified seamless cinematic canvas base with static atmospheric glow (zero fixed-layer overhead) */
+.bg-cinema-unified {
+  background-color: #070204;
+  background-image:
+    radial-gradient(620px circle at 12% 16%, rgba(104, 16, 28, 0.2), transparent 72%),
+    radial-gradient(620px circle at 88% 58%, rgba(88, 12, 24, 0.16), transparent 74%),
+    radial-gradient(560px circle at 20% 88%, rgba(104, 16, 28, 0.16), transparent 74%);
+}
+
+/* Hero initial staggered silky entrance */
+@keyframes heroRiseIn {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.hero-enter-1 {
+  animation: heroRiseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.04s both;
+}
+.hero-enter-2 {
+  animation: heroRiseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.16s both;
+}
+.hero-enter-3 {
+  animation: heroRiseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.28s both;
+}
+
+/* Smooth Modal & Slide Transitions (replaces missing tailwindcss-animate classes) */
+@keyframes modalBackdropFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalPanelGlide {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0) scale(0.975);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes slideSoftFade {
+  from {
+    opacity: 0.15;
+    transform: translate3d(0, 6px, 0) scale(0.992);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+.modal-backdrop-enter {
+  animation: modalBackdropFade 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.modal-panel-enter {
+  animation: modalPanelGlide 0.48s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.slide-fade-enter {
+  animation: slideSoftFade 0.46s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Uniform GPU-composited Scroll-Reveal Choreography across EVERY section on Desktop & Mobile */
+/* Uses :where() for zero specificity conflict with hover/active transforms */
+.scroll-anim-enabled :where([data-reveal-item]:not(.is-revealed)) {
+  opacity: 0;
+  transform: translate3d(0, 22px, 0);
+  will-change: opacity, transform;
+}
+
+.scroll-anim-enabled :where([data-reveal-item].is-revealing) {
+  transition: opacity 0.78s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms),
+    transform 0.78s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms);
+}
+
+.scroll-anim-enabled :where([data-reveal-item].is-revealed) {
+  opacity: 1;
+}
+
+/* Section Divider Flanking Lines Expand */
+.scroll-anim-enabled :where(section:not(.is-revealed)) .divider-line {
+  transform: scaleX(0);
+}
+.scroll-anim-enabled :where(section .divider-line) {
+  transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.12s;
+}
+.scroll-anim-enabled :where(section.is-revealed) .divider-line {
+  transform: scaleX(1);
+}
+
+/* Interactive section title micro-response (desktop hover + mobile touch tap) */
+.interactive-lockup {
+  transition: transform 0.36s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.32s ease;
+}
+.interactive-lockup:hover {
+  transform: translate3d(0, -3px, 0);
+}
+.interactive-lockup:active {
+  transform: translate3d(0, -3px, 0) scale(0.985);
+  opacity: 0.94;
+}
+
+/* Tactile button crimson focus/hover/active with smooth lift */
+.interactive-btn {
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.28s ease, border-color 0.28s ease, color 0.28s ease;
+}
+.interactive-btn:hover {
+  transform: translate3d(0, -2px, 0);
+}
+.interactive-btn:active {
+  transform: translate3d(0, -2px, 0) scale(0.96);
+  border-color: rgba(220, 38, 64, 0.85);
+  background-color: rgba(138, 21, 38, 0.45);
+}
+
+/* Subtle interactive text/info panel highlight */
+.interactive-panel {
+  transition: transform 0.36s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease, background-color 0.3s ease;
+}
+.interactive-panel:hover,
+.interactive-panel:active {
+  transform: translate3d(0, -2px, 0);
+  border-color: rgba(184, 29, 51, 0.65);
+  background-color: rgba(138, 21, 38, 0.08);
+}
+
+/* Luxury card styles: GPU-composited smooth upward lift on hover + gentle tap lift & crimson border on mobile */
+.card-luxury {
+  background: linear-gradient(180deg, rgba(24, 6, 11, 0.88) 0%, rgba(12, 3, 6, 0.94) 100%);
+  border: 1px solid rgba(138, 21, 38, 0.28);
+  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.32s ease;
+}
+.card-luxury:hover {
+  transform: translate3d(0, -5px, 0);
+  border-color: rgba(184, 29, 51, 0.65);
+}
+.card-luxury:active {
+  transform: translate3d(0, -4px, 0) scale(0.985);
+  border-color: rgba(220, 38, 64, 0.9);
+}
+
+/* Shared tactile touch feedback for cards, service nodes, client logos, video frames, contact tiles */
+.touch-card {
+  transition: transform 0.36s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease, opacity 0.3s ease;
+}
+.touch-card:active {
+  transform: translate3d(0, -4px, 0) scale(0.98);
+}
+
+/* Swipeable deck hint: allow natural vertical scroll while detecting horizontal touch swipes */
+.swipe-deck {
+  touch-action: pan-y;
+}
+
+/* Block browser print-to-PDF content extraction */
+@media print {
+  body {
+    display: none !important;
+  }
+}
+
+/* Lightweight opaque glass pill nav (no costly backdrop-filter re-blur on scroll) */
+.glass-nav {
+  background: rgba(16, 4, 7, 0.94);
+  border: 1px solid rgba(104, 16, 28, 0.45);
+  transition: border-color 0.32s ease;
+}
+
+.glass-nav:hover {
+  border-color: rgba(184, 29, 51, 0.65);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-enter-1,
+  .hero-enter-2,
+  .hero-enter-3,
+  .modal-backdrop-enter,
+  .modal-panel-enter,
+  .slide-fade-enter {
+    animation: none;
+  }
+  [data-reveal-item],
+  .divider-line,
+  .interactive-lockup,
+  .interactive-btn,
+  .interactive-panel,
+  .card-luxury,
+  .touch-card {
+    transition: none;
+    transform: none;
+    opacity: 1;
+  }
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #090708;
+}
+::-webkit-scrollbar-thumb {
+  background: #2b0810;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #68101C;
+}
