@@ -167,7 +167,7 @@ const MiMiMoPostCard: React.FC<{
       </div>
 
       {/* Date heading in Bebas Neue */}
-      <h4 className="font-displayEn font-normal text-[26px] sm:text-[30px] leading-none text-white group-hover/mm:text-[#fca5a5] transition-colors duration-300 ease-out tracking-wide text-left">
+      <h4 className="font-displayEn font-normal text-[26px] sm:text-[30px] leading-none text-white group-hover/mm:text-[#fca5a5] transition-colors duration-300 ease-out tracking-wide text-center">
         {post.dateBadge}
       </h4>
 
@@ -277,7 +277,7 @@ const MedianestaDeckCard: React.FC<{
 
       {/* Text below stacked deck */}
       <div className="mt-4">
-        <div className="flex flex-wrap items-baseline gap-x-2">
+        <div className="flex flex-wrap items-baseline justify-center gap-x-2 text-center">
           <h4 className="font-displayEn font-normal text-[25px] sm:text-[27px] leading-none text-white tracking-wide uppercase">
             {enPart}
           </h4>
@@ -291,7 +291,7 @@ const MedianestaDeckCard: React.FC<{
           )}
         </div>
 
-        <span className="block font-body-plex text-[13px] text-white/45 mt-1">
+        <span className="block font-body-plex text-[13px] text-white/45 mt-1 text-center">
           {totalSlides} {totalSlides === 1 ? 'slide' : 'slides'}
         </span>
 
@@ -447,7 +447,7 @@ const BrandShowcaseCard: React.FC<{
             const enPart = parts[0];
             const arPart = parts[1];
             return (
-              <div className="flex flex-wrap items-baseline gap-x-2">
+              <div className="flex flex-wrap items-baseline justify-center gap-x-2 text-center">
                 <h4 className="font-displayEn font-normal text-[25px] sm:text-[27px] leading-none text-white tracking-wide uppercase">
                   {enPart}
                 </h4>
@@ -463,13 +463,13 @@ const BrandShowcaseCard: React.FC<{
             );
           })()
         ) : (
-          <h4 className="font-displayEn font-normal text-[26px] sm:text-[28px] leading-none text-white tracking-wide uppercase">
+          <h4 className="font-displayEn font-normal text-[26px] sm:text-[28px] leading-none text-white tracking-wide uppercase text-center">
             {post.dateBadge}
           </h4>
         )}
 
         {!isWorldHunter && post.metaInfoEn && (
-          <span className="block font-body-plex text-[13px] text-white/45 mt-1">
+          <span className="block font-body-plex text-[13px] text-white/45 mt-1 text-center">
             {post.metaInfoEn}
           </span>
         )}
@@ -561,55 +561,52 @@ export const SocialMediaSection: React.FC<SocialMediaSectionProps> = ({ onOpenLi
             className="py-10 sm:py-14 px-4 sm:px-8 lg:px-10 relative overflow-x-clip"
           >
             <div className="max-w-7xl mx-auto relative z-10">
-              {/* Top Header Row: Left stacked brand title + Right 2 top-lined info columns */}
-              <div
-                data-layout-grid
-                className={`grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-start ${
-                  isMiMiMo ? 'mb-8 lg:mb-10' : isMedianesta ? 'mb-7 lg:mb-8' : 'mb-8 lg:mb-10'
-                }`}
-              >
-                {/* Brand Title Lockup */}
-                <div className="lg:col-span-4 w-fit max-w-full relative select-none text-left cursor-default interactive-lockup">
-                  <h3
-                    style={{
-                      fontSize: isElHoofy
-                        ? 'clamp(40px, calc(6 * var(--vw, 1vw)), 84px)'
-                        : isMultiWordTitle
-                        ? 'clamp(36px, calc(5.2 * var(--vw, 1vw)), 74px)'
-                        : 'clamp(44px, calc(6.8 * var(--vw, 1vw)), 94px)',
-                    }}
-                    className={`font-displayEn font-normal uppercase tracking-[0.02em] leading-[0.86] text-heading-linear ${
-                      isElHoofy || isMultiWordTitle ? 'sm:whitespace-nowrap' : ''
-                    }`}
-                  >
-                    {camp.brandNameEn}
-                  </h3>
-                  <p
-                    dir="rtl"
-                    style={{
-                      fontSize: isElHoofy
-                        ? 'clamp(26px, calc(3.1 * var(--vw, 1vw)), 44px)'
-                        : isMultiWordTitle
-                        ? 'clamp(28px, calc(3.6 * var(--vw, 1vw)), 50px)'
-                        : 'clamp(30px, calc(4.2 * var(--vw, 1vw)), 58px)',
-                      textShadow: '0 8px 20px rgba(0, 0, 0, 0.9)',
-                    }}
-                    className={`font-amiri font-bold text-white leading-none text-center ${
-                      isElHoofy
-                        ? '-mt-[0.38em] sm:-mt-[0.42em]'
-                        : isMultiWordTitle
-                        ? '-mt-[0.40em] sm:-mt-[0.46em]'
-                        : isMiMiMo
-                        ? '-mt-[0.42em] sm:-mt-[0.52em]'
-                        : '-mt-[0.38em] sm:-mt-[0.42em]'
-                    }`}
-                  >
-                    {formatBrandTitleAr(camp.id, camp.brandNameAr)}
-                  </p>
+              {/* Top Header Block: Centered brand title + 2 centered top-lined info columns */}
+              <div className={isMiMiMo ? 'mb-8 lg:mb-10' : isMedianesta ? 'mb-7 lg:mb-8' : 'mb-8 lg:mb-10'}>
+                {/* Centered Brand Title Lockup */}
+                <div className="text-center mb-6 lg:mb-8">
+                  <div className="w-fit max-w-full mx-auto relative select-none text-center cursor-default interactive-lockup">
+                    <h3
+                      style={{
+                        fontSize: isElHoofy
+                          ? 'clamp(40px, calc(6 * var(--vw, 1vw)), 84px)'
+                          : isMultiWordTitle
+                          ? 'clamp(36px, calc(5.2 * var(--vw, 1vw)), 74px)'
+                          : 'clamp(44px, calc(6.8 * var(--vw, 1vw)), 94px)',
+                      }}
+                      className={`font-displayEn font-normal uppercase tracking-[0.02em] leading-[0.86] text-heading-linear ${
+                        isElHoofy || isMultiWordTitle ? 'sm:whitespace-nowrap' : ''
+                      }`}
+                    >
+                      {camp.brandNameEn}
+                    </h3>
+                    <p
+                      dir="rtl"
+                      style={{
+                        fontSize: isElHoofy
+                          ? 'clamp(26px, calc(3.1 * var(--vw, 1vw)), 44px)'
+                          : isMultiWordTitle
+                          ? 'clamp(28px, calc(3.6 * var(--vw, 1vw)), 50px)'
+                          : 'clamp(30px, calc(4.2 * var(--vw, 1vw)), 58px)',
+                        textShadow: '0 8px 20px rgba(0, 0, 0, 0.9)',
+                      }}
+                      className={`font-amiri font-bold text-white leading-none text-center ${
+                        isElHoofy
+                          ? '-mt-[0.38em] sm:-mt-[0.42em]'
+                          : isMultiWordTitle
+                          ? '-mt-[0.40em] sm:-mt-[0.46em]'
+                          : isMiMiMo
+                          ? '-mt-[0.42em] sm:-mt-[0.52em]'
+                          : '-mt-[0.38em] sm:-mt-[0.42em]'
+                      }`}
+                    >
+                      {formatBrandTitleAr(camp.id, camp.brandNameAr)}
+                    </p>
+                  </div>
                 </div>
 
-                {/* Right 2 Top-Lined Columns: The campaign/client/platform + My role */}
-                <div data-layout-grid className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10">
+                {/* 2 Top-Lined Columns: The campaign/client/platform + My role */}
+                <div data-layout-grid className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10">
                   <div className="border-t border-white/20 pt-3.5 px-2 sm:px-2.5 sm:-mx-2.5 pb-2.5 rounded-b-lg space-y-2 interactive-panel">
                     <div className="flex flex-wrap items-baseline gap-1.5 text-[15px]">
                       <span className="font-body-plex font-bold text-white">
@@ -657,7 +654,7 @@ export const SocialMediaSection: React.FC<SocialMediaSectionProps> = ({ onOpenLi
               {/* Medianesta Carousel Explainer Subtitle Row above Decks */}
               {isMedianesta && camp.subInfoEn && (
                 <div className="mb-7">
-                  <p className="font-body-plex text-[14.5px] sm:text-[15.5px] text-[#BDB5B5] text-left leading-relaxed">
+                  <p className="font-body-plex text-[14.5px] sm:text-[15.5px] text-[#BDB5B5] text-center leading-relaxed">
                     {`${camp.subInfoEn} | ${camp.subInfoAr || ''}`}
                   </p>
                 </div>

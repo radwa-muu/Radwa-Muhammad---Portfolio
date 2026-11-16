@@ -164,45 +164,41 @@ export const ScriptsSection: React.FC<ScriptsSectionProps> = () => {
             className="py-10 sm:py-14 px-4 sm:px-8 lg:px-10 relative overflow-x-clip"
           >
             <div className="max-w-7xl mx-auto relative z-10">
-              {/* Top Header Row: Left stacked title + Right 2 top-lined info columns */}
-              <div data-layout-grid className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-start mb-8 lg:mb-9">
-                <div
-                  className={`${
-                    client.isShortTitle ? 'lg:col-span-4' : 'lg:col-span-5'
-                  } w-fit max-w-full relative select-none text-left cursor-default interactive-lockup`}
-                >
-                  <h3
-                    style={{
-                      fontSize: client.isShortTitle
-                        ? 'clamp(44px, calc(6.8 * var(--vw, 1vw)), 94px)'
-                        : 'clamp(34px, calc(4.6 * var(--vw, 1vw)), 64px)',
-                    }}
-                    className={`font-displayEn font-normal uppercase tracking-[0.02em] leading-[0.86] text-heading-linear ${
-                      client.isShortTitle ? '' : 'sm:whitespace-nowrap'
-                    }`}
-                  >
-                    {client.brandNameEn}
-                  </h3>
-                  <p
-                    dir="rtl"
-                    style={{
-                      fontSize: client.isShortTitle
-                        ? 'clamp(30px, calc(4.2 * var(--vw, 1vw)), 58px)'
-                        : 'clamp(24px, calc(3.1 * var(--vw, 1vw)), 44px)',
-                      textShadow: '0 8px 20px rgba(0, 0, 0, 0.9)',
-                    }}
-                    className="font-amiri font-bold text-white leading-none text-center -mt-[0.34em] sm:-mt-[0.42em]"
-                  >
-                    {client.brandNameAr}
-                  </p>
+              {/* Top Header Block: Centered brand title + 2 centered top-lined info columns */}
+              <div className="mb-8 lg:mb-9">
+                <div className="text-center mb-6 lg:mb-8">
+                  <div className="w-fit max-w-full mx-auto relative select-none text-center cursor-default interactive-lockup">
+                    <h3
+                      style={{
+                        fontSize: client.isShortTitle
+                          ? 'clamp(44px, calc(6.8 * var(--vw, 1vw)), 94px)'
+                          : 'clamp(34px, calc(4.6 * var(--vw, 1vw)), 64px)',
+                      }}
+                      className={`font-displayEn font-normal uppercase tracking-[0.02em] leading-[0.86] text-heading-linear ${
+                        client.isShortTitle ? '' : 'sm:whitespace-nowrap'
+                      }`}
+                    >
+                      {client.brandNameEn}
+                    </h3>
+                    <p
+                      dir="rtl"
+                      style={{
+                        fontSize: client.isShortTitle
+                          ? 'clamp(30px, calc(4.2 * var(--vw, 1vw)), 58px)'
+                          : 'clamp(24px, calc(3.1 * var(--vw, 1vw)), 44px)',
+                        textShadow: '0 8px 20px rgba(0, 0, 0, 0.9)',
+                      }}
+                      className="font-amiri font-bold text-white leading-none text-center -mt-[0.34em] sm:-mt-[0.42em]"
+                    >
+                      {client.brandNameAr}
+                    </p>
+                  </div>
                 </div>
 
-                {/* Right 2 Top-Lined Columns */}
+                {/* 2 Top-Lined Columns */}
                 <div
                   data-layout-grid
-                  className={`${
-                    client.isShortTitle ? 'lg:col-span-8' : 'lg:col-span-7'
-                  } grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10`}
+                  className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10"
                 >
                   {/* Column 1 */}
                   <div className="border-t border-white/20 pt-3.5 px-2 sm:px-2.5 sm:-mx-2.5 pb-2.5 rounded-b-lg space-y-2 interactive-panel">
@@ -247,7 +243,7 @@ export const ScriptsSection: React.FC<ScriptsSectionProps> = () => {
               </div>
 
               {/* Instruction line above 3 videos */}
-              <p className="font-body-plex text-[14.5px] sm:text-[15.5px] text-white/85 mb-6 text-left">
+              <p className="font-body-plex text-[14.5px] sm:text-[15.5px] text-white/85 mb-6 text-center">
                 Press play on any video <span className="text-white/40">|</span>{' '}
                 <span className="text-[#E9DEDE]/85">اضغط للتشغيل</span>
               </p>

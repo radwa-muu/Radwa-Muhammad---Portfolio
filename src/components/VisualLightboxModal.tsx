@@ -85,8 +85,8 @@ export const VisualLightboxModal: React.FC<VisualLightboxModalProps> = ({ post, 
         </button>
 
         {/* Header Title */}
-        <div className="pr-10 pl-1 text-left mb-4">
-          <div className="flex items-center gap-2 mb-2 flex-wrap font-body-plex">
+        <div className="px-10 text-center mb-4">
+          <div className="flex items-center justify-center gap-2 mb-2 flex-wrap font-body-plex">
             <span className="text-[11px] font-semibold text-[#ef4444] bg-[#dc2626]/10 px-2.5 py-0.5 rounded border border-[#dc2626]/30 tracking-wide">
               {livePost.dateBadge}
             </span>
@@ -108,7 +108,7 @@ export const VisualLightboxModal: React.FC<VisualLightboxModalProps> = ({ post, 
           </h3>
           <p
             dir="rtl"
-            className="font-body-plex text-base sm:text-lg font-bold text-[#E9DEDE]/90 text-right mt-1.5 leading-snug"
+            className="font-body-plex text-base sm:text-lg font-bold text-[#E9DEDE]/90 text-center mt-1.5 leading-snug"
           >
             {livePost.titleAr}
           </p>

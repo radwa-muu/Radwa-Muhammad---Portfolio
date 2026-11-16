@@ -34,23 +34,25 @@ export const Clients: React.FC = () => {
     <section id="clients" className="scroll-mt-20 py-10 sm:py-14 px-4 sm:px-8 lg:px-10 relative overflow-x-clip">
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Header: huge CLIENTS + white Amiri عمــــــلائي */}
-        <div className="mb-10 sm:mb-16 text-left relative inline-block w-fit max-w-full select-none cursor-default interactive-lockup">
-          <h2
-            className="font-displayEn font-normal uppercase tracking-[0.02em] leading-[0.86] text-heading-linear"
-            style={{ fontSize: 'clamp(56px, calc(14 * var(--vw, 1vw)), 204px)' }}
-          >
-            CLIENTS
-          </h2>
-          <p
-            dir="rtl"
-            className="font-amiri font-bold text-white absolute left-1/2 -translate-x-1/2 -bottom-4 sm:-bottom-6 whitespace-nowrap leading-none"
-            style={{
-              fontSize: 'clamp(38px, calc(8.6 * var(--vw, 1vw)), 124px)',
-              textShadow: '0 10px 24px rgba(0, 0, 0, 0.9)',
-            }}
-          >
-            عمــــــلائي
-          </p>
+        <div className="mb-10 sm:mb-16 text-center">
+          <div className="text-center relative inline-block w-fit max-w-full mx-auto select-none cursor-default interactive-lockup">
+            <h2
+              className="font-displayEn font-normal uppercase tracking-[0.02em] leading-[0.86] text-heading-linear"
+              style={{ fontSize: 'clamp(56px, calc(14 * var(--vw, 1vw)), 204px)' }}
+            >
+              CLIENTS
+            </h2>
+            <p
+              dir="rtl"
+              className="font-amiri font-bold text-white absolute left-1/2 -translate-x-1/2 -bottom-4 sm:-bottom-6 whitespace-nowrap leading-none"
+              style={{
+                fontSize: 'clamp(38px, calc(8.6 * var(--vw, 1vw)), 124px)',
+                textShadow: '0 10px 24px rgba(0, 0, 0, 0.9)',
+              }}
+            >
+              عمــــــلائي
+            </p>
+          </div>
         </div>
 
         {/* Clean Borderless Responsive Client Logos Grid */}

@@ -21,8 +21,8 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
   return (
     <section id="services" className="scroll-mt-20 py-10 sm:py-14 relative overflow-x-clip">
       {/* Header: huge SERVICES + crisp white Amiri الخدمات */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-10 mb-10 sm:mb-14">
-        <div className="relative inline-block w-fit max-w-full select-none text-left cursor-default interactive-lockup">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-10 mb-10 sm:mb-14 text-center">
+        <div className="relative inline-block w-fit max-w-full mx-auto select-none text-center cursor-default interactive-lockup">
           <h2
             className="font-displayEn font-normal uppercase tracking-[0.02em] leading-[0.86] text-heading-linear"
             style={{ fontSize: 'clamp(56px, calc(14 * var(--vw, 1vw)), 204px)' }}
@@ -177,13 +177,13 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
                     className="absolute -left-[16px] sm:-left-[22px] top-1/2 -translate-y-1/2 w-4 sm:w-5 h-[1px] bg-white/30 group-hover:bg-[#ef4444]/80 transition-colors duration-200"
                   />
 
-                  <div className="flex-1 min-w-0 space-y-1">
+                  <div className="flex-1 min-w-0 space-y-1 text-center">
                     <h3 className="font-body-plex font-bold text-[15px] sm:text-[16px] leading-snug text-white group-hover:text-[#fca5a5] transition-colors duration-200">
                       {cleanEn}
                     </h3>
                     <p
                       dir="rtl"
-                      className="font-body-plex font-normal text-[14px] sm:text-[14.5px] leading-snug text-[#E9DEDE]/90 text-right"
+                      className="font-body-plex font-normal text-[14px] sm:text-[14.5px] leading-snug text-[#E9DEDE]/90 text-center"
                     >
                       {cleanAr}
                     </p>

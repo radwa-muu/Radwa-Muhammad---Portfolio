@@ -107,8 +107,8 @@ export const VideoPlayerModal: React.FC<VideoPlayerModalProps> = ({ script, onCl
         </button>
 
         {/* Video Header */}
-        <div className="mb-4 pr-10 pl-1 text-left">
-          <div className="flex items-center gap-2 mb-2 flex-wrap font-body-plex">
+        <div className="mb-4 px-10 text-center">
+          <div className="flex items-center justify-center gap-2 mb-2 flex-wrap font-body-plex">
             <span className="text-[11px] font-semibold text-[#ef4444] bg-[#dc2626]/10 px-2.5 py-0.5 rounded border border-[#dc2626]/30">
               {liveScript.videoNum ? `VIDEO ${liveScript.videoNum}` : 'SCRIPT PREVIEW'}
             </span>
@@ -125,12 +125,12 @@ export const VideoPlayerModal: React.FC<VideoPlayerModalProps> = ({ script, onCl
           </h4>
           <p
             dir="rtl"
-            className="font-body-plex text-base sm:text-lg font-bold text-[#E9DEDE]/90 text-right mt-1.5 leading-snug"
+            className="font-body-plex text-base sm:text-lg font-bold text-[#E9DEDE]/90 text-center mt-1.5 leading-snug"
           >
             {liveScript.titleAr}
           </p>
 
-          <div className="mt-2 space-y-1">
+          <div className="mt-2 space-y-1 text-left">
             <p className="text-xs sm:text-sm text-stone-300 font-body-plex leading-relaxed">
               {liveScript.summaryEn}
             </p>

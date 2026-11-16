@@ -106,7 +106,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({
         </button>
 
         {/* Modal Header — unified portfolio typography (Bebas Neue + IBM Plex Sans Arabic) */}
-        <div className={`mb-5 ${isAr ? 'pl-10' : 'pr-10'}`}>
+        <div className="mb-5 px-8 text-center">
           <span className="inline-block font-body-plex text-[11px] font-semibold tracking-wider text-[#ef4444] bg-[#dc2626]/10 px-2.5 py-0.5 rounded border border-[#dc2626]/30 mb-2.5">
             {isAr ? 'استشارة استراتيجية • CONSULTATION' : 'STRATEGIC CONSULTATION'}
           </span>

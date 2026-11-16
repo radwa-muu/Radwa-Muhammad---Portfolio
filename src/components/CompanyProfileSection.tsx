@@ -510,27 +510,29 @@ export const CompanyProfileSection: React.FC<CompanyProfileSectionProps> = ({ on
       {/* ======================================================== */}
       <section className="py-10 sm:py-14 px-4 sm:px-8 lg:px-10 relative overflow-x-clip">
         <div className="max-w-7xl mx-auto relative z-10">
-          <div data-layout-grid className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-start mb-8 lg:mb-9">
-            <div className="lg:col-span-5 w-fit max-w-full relative select-none text-left cursor-default interactive-lockup">
-              <h3
-                className="font-displayEn font-normal uppercase tracking-[0.02em] leading-[0.86] text-heading-linear sm:whitespace-nowrap"
-                style={{ fontSize: 'clamp(36px, calc(4.9 * var(--vw, 1vw)), 70px)' }}
-              >
-                CARAVAGGIO STUDIO
-              </h3>
-              <p
-                dir="rtl"
-                style={{
-                  fontSize: 'clamp(24px, calc(3.4 * var(--vw, 1vw)), 48px)',
-                  textShadow: '0 8px 20px rgba(0, 0, 0, 0.9)',
-                }}
-                className="font-amiri font-bold text-white leading-none text-center -mt-[0.34em] sm:-mt-[0.42em]"
-              >
-                ستوديو كارافاجيو
-              </p>
+          <div className="mb-8 lg:mb-9">
+            <div className="text-center mb-6 lg:mb-8">
+              <div className="w-fit max-w-full mx-auto relative select-none text-center cursor-default interactive-lockup">
+                <h3
+                  className="font-displayEn font-normal uppercase tracking-[0.02em] leading-[0.86] text-heading-linear sm:whitespace-nowrap"
+                  style={{ fontSize: 'clamp(36px, calc(4.9 * var(--vw, 1vw)), 70px)' }}
+                >
+                  CARAVAGGIO STUDIO
+                </h3>
+                <p
+                  dir="rtl"
+                  style={{
+                    fontSize: 'clamp(24px, calc(3.4 * var(--vw, 1vw)), 48px)',
+                    textShadow: '0 8px 20px rgba(0, 0, 0, 0.9)',
+                  }}
+                  className="font-amiri font-bold text-white leading-none text-center -mt-[0.34em] sm:-mt-[0.42em]"
+                >
+                  ستوديو كارافاجيو
+                </p>
+              </div>
             </div>
 
-            <div data-layout-grid className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10">
+            <div data-layout-grid className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10">
               <div className="border-t border-white/20 pt-3.5 px-2 sm:px-2.5 sm:-mx-2.5 pb-2.5 rounded-b-lg space-y-2 interactive-panel">
                 <div className="flex flex-wrap items-baseline gap-1.5 text-[15px]">
                   <span className="font-body-plex font-bold text-white">The studio</span>
@@ -571,8 +573,8 @@ export const CompanyProfileSection: React.FC<CompanyProfileSectionProps> = ({ on
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 mb-6">
-            <p className="font-body-plex text-[14.5px] sm:text-[15px] text-white/85 text-left">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 mb-6">
+            <p className="font-body-plex text-[14.5px] sm:text-[15px] text-white/85 text-center sm:text-left">
               Click any page to zoom in or flip through both editions <span className="text-white/40">|</span>{' '}
               <span className="text-[#E9DEDE]/85">اضغط للتكبير أو تصفح النسختين</span>
             </p>
@@ -782,27 +784,29 @@ export const CompanyProfileSection: React.FC<CompanyProfileSectionProps> = ({ on
       {/* ======================================================== */}
       <section className="py-10 sm:py-14 px-4 sm:px-8 lg:px-10 relative overflow-x-clip">
         <div className="max-w-7xl mx-auto relative z-10">
-          <div data-layout-grid className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-start mb-8 lg:mb-9">
-            <div className="lg:col-span-5 w-fit max-w-full relative select-none text-left cursor-default interactive-lockup">
-              <h3
-                className="font-displayEn font-normal uppercase tracking-[0.02em] leading-[0.86] text-heading-linear sm:whitespace-nowrap"
-                style={{ fontSize: 'clamp(36px, calc(4.6 * var(--vw, 1vw)), 66px)' }}
-              >
-                DROOB TRADING
-              </h3>
-              <p
-                dir="rtl"
-                style={{
-                  fontSize: 'clamp(22px, calc(3.1 * var(--vw, 1vw)), 44px)',
-                  textShadow: '0 8px 20px rgba(0, 0, 0, 0.9)',
-                }}
-                className="font-amiri font-bold text-white leading-none text-center -mt-[0.30em] sm:-mt-[0.38em]"
-              >
-                شركة الدروب الذهبية للتجارة
-              </p>
+          <div className="mb-8 lg:mb-9">
+            <div className="text-center mb-6 lg:mb-8">
+              <div className="w-fit max-w-full mx-auto relative select-none text-center cursor-default interactive-lockup">
+                <h3
+                  className="font-displayEn font-normal uppercase tracking-[0.02em] leading-[0.86] text-heading-linear sm:whitespace-nowrap"
+                  style={{ fontSize: 'clamp(36px, calc(4.6 * var(--vw, 1vw)), 66px)' }}
+                >
+                  DROOB TRADING
+                </h3>
+                <p
+                  dir="rtl"
+                  style={{
+                    fontSize: 'clamp(22px, calc(3.1 * var(--vw, 1vw)), 44px)',
+                    textShadow: '0 8px 20px rgba(0, 0, 0, 0.9)',
+                  }}
+                  className="font-amiri font-bold text-white leading-none text-center -mt-[0.30em] sm:-mt-[0.38em]"
+                >
+                  شركة الدروب الذهبية للتجارة
+                </p>
+              </div>
             </div>
 
-            <div data-layout-grid className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10">
+            <div data-layout-grid className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10">
               <div className="border-t border-white/20 pt-3.5 px-2 sm:px-2.5 sm:-mx-2.5 pb-2.5 rounded-b-lg space-y-2 interactive-panel">
                 <div className="flex flex-wrap items-baseline gap-1.5 text-[15px]">
                   <span className="font-body-plex font-bold text-white">The company</span>
@@ -843,8 +847,8 @@ export const CompanyProfileSection: React.FC<CompanyProfileSectionProps> = ({ on
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 mb-6">
-            <p className="font-body-plex text-[14.5px] sm:text-[15px] text-white/85 text-left">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 mb-6">
+            <p className="font-body-plex text-[14.5px] sm:text-[15px] text-white/85 text-center sm:text-left">
               Flip through both Arabic & English profile decks <span className="text-white/40">|</span>{' '}
               <span className="text-[#E9DEDE]/85">تصفح النسختين العربية والإنجليزية بالتزامن</span>
             </p>
@@ -1054,27 +1058,29 @@ export const CompanyProfileSection: React.FC<CompanyProfileSectionProps> = ({ on
       {/* ======================================================== */}
       <section className="py-10 sm:py-14 px-4 sm:px-8 lg:px-10 relative overflow-x-clip">
         <div className="max-w-7xl mx-auto relative z-10">
-          <div data-layout-grid className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-start mb-8 lg:mb-9">
-            <div className="lg:col-span-5 w-fit max-w-full relative select-none text-left cursor-default interactive-lockup">
-              <h3
-                className="font-displayEn font-normal uppercase tracking-[0.02em] leading-[0.86] text-heading-linear sm:whitespace-nowrap"
-                style={{ fontSize: 'clamp(34px, calc(4.3 * var(--vw, 1vw)), 60px)' }}
-              >
-                ROMARIN RESTAURANT
-              </h3>
-              <p
-                dir="rtl"
-                style={{
-                  fontSize: 'clamp(22px, calc(3 * var(--vw, 1vw)), 42px)',
-                  textShadow: '0 8px 20px rgba(0, 0, 0, 0.9)',
-                }}
-                className="font-amiri font-bold text-white leading-none text-center -mt-[0.30em] sm:-mt-[0.38em]"
-              >
-                مطعم رومارين للشيف ربيعة
-              </p>
+          <div className="mb-8 lg:mb-9">
+            <div className="text-center mb-6 lg:mb-8">
+              <div className="w-fit max-w-full mx-auto relative select-none text-center cursor-default interactive-lockup">
+                <h3
+                  className="font-displayEn font-normal uppercase tracking-[0.02em] leading-[0.86] text-heading-linear sm:whitespace-nowrap"
+                  style={{ fontSize: 'clamp(34px, calc(4.3 * var(--vw, 1vw)), 60px)' }}
+                >
+                  ROMARIN RESTAURANT
+                </h3>
+                <p
+                  dir="rtl"
+                  style={{
+                    fontSize: 'clamp(22px, calc(3 * var(--vw, 1vw)), 42px)',
+                    textShadow: '0 8px 20px rgba(0, 0, 0, 0.9)',
+                  }}
+                  className="font-amiri font-bold text-white leading-none text-center -mt-[0.30em] sm:-mt-[0.38em]"
+                >
+                  مطعم رومارين للشيف ربيعة
+                </p>
+              </div>
             </div>
 
-            <div data-layout-grid className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10">
+            <div data-layout-grid className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10">
               <div className="border-t border-white/20 pt-3.5 px-2 sm:px-2.5 sm:-mx-2.5 pb-2.5 rounded-b-lg space-y-2 interactive-panel">
                 <div className="flex flex-wrap items-baseline gap-1.5 text-[15px]">
                   <span className="font-body-plex font-bold text-white">The brand</span>
@@ -1115,8 +1121,8 @@ export const CompanyProfileSection: React.FC<CompanyProfileSectionProps> = ({ on
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 mb-6">
-            <p className="font-body-plex text-[14.5px] sm:text-[15px] text-white/85 text-left">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 mb-6">
+            <p className="font-body-plex text-[14.5px] sm:text-[15px] text-white/85 text-center sm:text-left">
               Flip through both English & Arabic profile decks <span className="text-white/40">|</span>{' '}
               <span className="text-[#E9DEDE]/85">تصفح النسختين الإنجليزية والعربية بالتزامن</span>
             </p>
@@ -1326,27 +1332,29 @@ export const CompanyProfileSection: React.FC<CompanyProfileSectionProps> = ({ on
       {/* ======================================================== */}
       <section className="py-10 sm:py-14 px-4 sm:px-8 lg:px-10 relative overflow-x-clip">
         <div className="max-w-7xl mx-auto relative z-10">
-          <div data-layout-grid className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-start mb-8 lg:mb-9">
-            <div className="lg:col-span-5 w-fit max-w-full relative select-none text-left cursor-default interactive-lockup">
-              <h3
-                className="font-displayEn font-normal uppercase tracking-[0.02em] leading-[0.86] text-heading-linear sm:whitespace-nowrap"
-                style={{ fontSize: 'clamp(36px, calc(4.6 * var(--vw, 1vw)), 64px)' }}
-              >
-                HAYAM AL-BARIR
-              </h3>
-              <p
-                dir="rtl"
-                style={{
-                  fontSize: 'clamp(22px, calc(3.1 * var(--vw, 1vw)), 44px)',
-                  textShadow: '0 8px 20px rgba(0, 0, 0, 0.9)',
-                }}
-                className="font-amiri font-bold text-white leading-none text-center -mt-[0.30em] sm:-mt-[0.38em]"
-              >
-                بودكاست مع هيام البرير
-              </p>
+          <div className="mb-8 lg:mb-9">
+            <div className="text-center mb-6 lg:mb-8">
+              <div className="w-fit max-w-full mx-auto relative select-none text-center cursor-default interactive-lockup">
+                <h3
+                  className="font-displayEn font-normal uppercase tracking-[0.02em] leading-[0.86] text-heading-linear sm:whitespace-nowrap"
+                  style={{ fontSize: 'clamp(36px, calc(4.6 * var(--vw, 1vw)), 64px)' }}
+                >
+                  HAYAM AL-BARIR
+                </h3>
+                <p
+                  dir="rtl"
+                  style={{
+                    fontSize: 'clamp(22px, calc(3.1 * var(--vw, 1vw)), 44px)',
+                    textShadow: '0 8px 20px rgba(0, 0, 0, 0.9)',
+                  }}
+                  className="font-amiri font-bold text-white leading-none text-center -mt-[0.30em] sm:-mt-[0.38em]"
+                >
+                  بودكاست مع هيام البرير
+                </p>
+              </div>
             </div>
 
-            <div data-layout-grid className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10">
+            <div data-layout-grid className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10">
               <div className="border-t border-white/20 pt-3.5 px-2 sm:px-2.5 sm:-mx-2.5 pb-2.5 rounded-b-lg space-y-2 interactive-panel">
                 <div className="flex flex-wrap items-baseline gap-1.5 text-[15px]">
                   <span className="font-body-plex font-bold text-white">The project</span>
@@ -1387,8 +1395,8 @@ export const CompanyProfileSection: React.FC<CompanyProfileSectionProps> = ({ on
             </div>
           </div>
 
-          <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 mb-5">
-            <p className="font-body-plex text-[14.5px] sm:text-[15px] text-white/85 text-left">
+          <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 mb-5">
+            <p className="font-body-plex text-[14.5px] sm:text-[15px] text-white/85 text-center sm:text-left">
               Browse all 9 sponsorship deck slides or click to zoom <span className="text-white/40">|</span>{' '}
               <span className="text-[#E9DEDE]/85">تصفح شرائح البودكاست التسع أو اضغط للتكبير</span>
             </p>

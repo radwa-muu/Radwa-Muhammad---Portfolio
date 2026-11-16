@@ -10,16 +10,13 @@ export const About: React.FC = () => {
 
   return (
     <section id="about" className="scroll-mt-20 py-10 sm:py-14 px-4 sm:px-8 lg:px-10 relative overflow-x-clip">
-      <div
-        data-layout-grid
-        className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-center"
-      >
-        {/* Left Column: Huge ABOUT ME + prominent overlapping عني, EN above AR */}
-        <div className="lg:col-span-7 flex flex-col space-y-5 sm:space-y-7 text-left z-10">
-          <div className="relative inline-block w-fit max-w-full select-none pb-10 sm:pb-14 cursor-default interactive-lockup">
+      <div className="max-w-7xl mx-auto">
+        {/* Centered Header: Huge ABOUT ME + prominent overlapping عني */}
+        <div className="text-center mb-8 sm:mb-10">
+          <div className="relative inline-block w-fit max-w-full mx-auto select-none pb-10 sm:pb-14 cursor-default interactive-lockup text-center">
             <h2
               className="font-displayEn font-normal uppercase tracking-[0.02em] leading-[0.86] text-heading-linear"
-              style={{ fontSize: 'clamp(56px, calc(14 * var(--vw, 1vw)), 208px)' }}
+              style={{ fontSize: 'clamp(56px, calc(14 * var(--vw, 1vw)), 204px)' }}
             >
               ABOUT ME
             </h2>
@@ -30,6 +27,14 @@ export const About: React.FC = () => {
               عني
             </p>
           </div>
+        </div>
+
+        <div
+          data-layout-grid
+          className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-center"
+        >
+          {/* Left Column: EN above AR Bio */}
+          <div className="lg:col-span-7 flex flex-col space-y-5 sm:space-y-7 text-left z-10">
 
           <div className="space-y-3.5 sm:space-y-4 max-w-[620px] pt-1 rounded-xl px-3 sm:-mx-3 py-2 interactive-panel">
             <p className={aboutBodyClass}>{data.about.introEn}</p>
@@ -76,6 +81,7 @@ export const About: React.FC = () => {
               />
             </div>
           </div>
+        </div>
         </div>
       </div>
     </section>

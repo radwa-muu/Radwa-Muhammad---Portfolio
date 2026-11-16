@@ -693,28 +693,30 @@ const MarketingPlanCaseStudyBlock: React.FC<{
   return (
     <section className="py-10 sm:py-14 px-4 sm:px-8 lg:px-10 relative overflow-x-clip">
       <div className="max-w-7xl mx-auto relative z-10">
-        {/* Top Header Row: Clean stacked title + 2 concise top-lined info columns */}
-        <div data-layout-grid className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-start mb-8 lg:mb-9">
-          <div className="lg:col-span-5 w-fit max-w-full relative select-none text-left cursor-default interactive-lockup">
-            <h3
-              style={{ fontSize: 'clamp(36px, calc(4.4 * var(--vw, 1vw)), 64px)' }}
-              className="font-displayEn font-normal uppercase tracking-[0.02em] leading-[0.86] text-heading-linear sm:whitespace-nowrap"
-            >
-              {plan.clientEn}
-            </h3>
-            <p
-              dir="rtl"
-              style={{
-                fontSize: 'clamp(22px, calc(3.1 * var(--vw, 1vw)), 44px)',
-                textShadow: '0 8px 20px rgba(0, 0, 0, 0.9)',
-              }}
-              className="font-amiri font-bold text-white leading-none text-center -mt-[0.30em] sm:-mt-[0.38em]"
-            >
-              {plan.clientAr}
-            </p>
+        {/* Top Header Block: Centered title + 2 concise top-lined info columns */}
+        <div className="mb-8 lg:mb-9">
+          <div className="text-center mb-6 lg:mb-8">
+            <div className="w-fit max-w-full mx-auto relative select-none text-center cursor-default interactive-lockup">
+              <h3
+                style={{ fontSize: 'clamp(36px, calc(4.4 * var(--vw, 1vw)), 64px)' }}
+                className="font-displayEn font-normal uppercase tracking-[0.02em] leading-[0.86] text-heading-linear sm:whitespace-nowrap"
+              >
+                {plan.clientEn}
+              </h3>
+              <p
+                dir="rtl"
+                style={{
+                  fontSize: 'clamp(22px, calc(3.1 * var(--vw, 1vw)), 44px)',
+                  textShadow: '0 8px 20px rgba(0, 0, 0, 0.9)',
+                }}
+                className="font-amiri font-bold text-white leading-none text-center -mt-[0.30em] sm:-mt-[0.38em]"
+              >
+                {plan.clientAr}
+              </p>
+            </div>
           </div>
 
-          <div data-layout-grid className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10">
+          <div data-layout-grid className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10">
             <div className="border-t border-white/20 pt-3.5 px-2 sm:px-2.5 sm:-mx-2.5 pb-2.5 rounded-b-lg space-y-2 interactive-panel">
               <div className="flex flex-wrap items-baseline gap-1.5 text-[15px]">
                 <span className="font-body-plex font-bold text-white">The brand</span>
@@ -760,18 +762,18 @@ const MarketingPlanCaseStudyBlock: React.FC<{
           {plan.highlights.map((item, idx) => (
             <div
               key={idx}
-              className="border-t border-white/15 hover:border-[#b81d33]/65 active:border-[#dc2626] hover:-translate-y-1 active:-translate-y-1 transition-[transform,border-color] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] pt-3.5 space-y-1.5"
+              className="border-t border-white/15 hover:border-[#b81d33]/65 active:border-[#dc2626] hover:-translate-y-1 active:-translate-y-1 transition-[transform,border-color] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] pt-3.5 space-y-1.5 text-center"
             >
               <div className="flex items-center justify-between gap-2 text-[11px] font-body-plex font-semibold tabular-nums tracking-[0.12em] uppercase text-white/50">
                 <span>{item.tag}</span>
                 <span className="text-[#ef4444]/90 font-bold">0{idx + 1}</span>
               </div>
-              <h4 className="font-body-plex font-semibold text-[14.5px] text-white leading-snug text-left">
+              <h4 className="font-body-plex font-semibold text-[14.5px] text-white leading-snug text-center">
                 {item.titleEn}
               </h4>
               <p
                 dir="rtl"
-                className="font-body-plex text-[13.5px] text-[#E9DEDE]/80 leading-[1.6] text-right"
+                className="font-body-plex text-[13.5px] text-[#E9DEDE]/80 leading-[1.6] text-center"
               >
                 {item.titleAr}
               </p>
@@ -780,8 +782,8 @@ const MarketingPlanCaseStudyBlock: React.FC<{
         </div>
 
         {/* Stepper Bar above 16:9 Slide Deck Stage */}
-        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 mb-5">
-          <p className="font-body-plex text-[14.5px] sm:text-[15px] text-white/85 text-left">
+        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 mb-5">
+          <p className="font-body-plex text-[14.5px] sm:text-[15px] text-white/85 text-center sm:text-left">
             Explore key plan chapters or click slide to zoom <span className="text-white/40">|</span>{' '}
             <span className="text-[#E9DEDE]/85">تصفح محاور الخطة التسويقية أو اضغط للتكبير</span>
           </p>
