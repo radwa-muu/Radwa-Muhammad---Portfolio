@@ -161,7 +161,8 @@ export const ScriptsSection: React.FC<ScriptsSectionProps> = () => {
         return (
           <section
             key={client.id}
-            className="py-10 sm:py-14 px-4 sm:px-8 lg:px-10 relative overflow-x-clip"
+            id={`project-script-${client.id}`}
+            className="scroll-mt-24 py-10 sm:py-14 px-4 sm:px-8 lg:px-10 relative overflow-x-clip"
           >
             <div className="max-w-7xl mx-auto relative z-10">
               {/* Top Header Block: Centered brand title + 2 centered top-lined info columns */}
@@ -202,19 +203,19 @@ export const ScriptsSection: React.FC<ScriptsSectionProps> = () => {
                 >
                   {/* Column 1 */}
                   <div className="border-t border-white/20 pt-3.5 px-2 sm:px-2.5 sm:-mx-2.5 pb-2.5 rounded-b-lg space-y-2 interactive-panel">
-                    <div className="flex flex-wrap items-baseline gap-1.5 text-[15px]">
+                    <div className="flex flex-wrap items-baseline gap-1.5 text-[16px]">
                       <span className="font-body-plex font-bold text-white">{client.clientLabelEn}</span>
-                      <span className="text-white/35">|</span>
-                      <span dir="rtl" className="font-body-plex font-normal text-[#9C9393]">
+                      <span className="text-white/40">|</span>
+                      <span dir="rtl" className="font-body-plex font-normal text-[#BDB5B5]">
                         {client.clientLabelAr}
                       </span>
                     </div>
-                    <p className="font-body-plex text-[14.5px] sm:text-[15.5px] text-white/90 leading-[1.45] text-left">
+                    <p className="font-body-plex text-[16px] text-[#F5F2F1] leading-[1.6] text-left">
                       {client.clientDescEn}
                     </p>
                     <p
                       dir="rtl"
-                      className="font-body-plex text-[14.5px] sm:text-[15.5px] text-[#E9DEDE]/85 leading-[1.6] text-right"
+                      className="font-body-plex text-[16px] text-[#E9DEDE] leading-[1.7] text-right"
                     >
                       {client.clientDescAr}
                     </p>
@@ -222,19 +223,19 @@ export const ScriptsSection: React.FC<ScriptsSectionProps> = () => {
 
                   {/* Column 2 */}
                   <div className="border-t border-white/20 pt-3.5 px-2 sm:px-2.5 sm:-mx-2.5 pb-2.5 rounded-b-lg space-y-2 interactive-panel">
-                    <div className="flex flex-wrap items-baseline gap-1.5 text-[15px]">
+                    <div className="flex flex-wrap items-baseline gap-1.5 text-[16px]">
                       <span className="font-body-plex font-bold text-white">{client.roleLabelEn}</span>
-                      <span className="text-white/35">|</span>
-                      <span dir="rtl" className="font-body-plex font-normal text-[#9C9393]">
+                      <span className="text-white/40">|</span>
+                      <span dir="rtl" className="font-body-plex font-normal text-[#BDB5B5]">
                         {client.roleLabelAr}
                       </span>
                     </div>
-                    <p className="font-body-plex text-[14.5px] sm:text-[15.5px] text-white/90 leading-[1.45] text-left">
+                    <p className="font-body-plex text-[16px] text-[#F5F2F1] leading-[1.6] text-left">
                       {client.roleDescEn}
                     </p>
                     <p
                       dir="rtl"
-                      className="font-body-plex text-[14.5px] sm:text-[15.5px] text-[#E9DEDE]/85 leading-[1.6] text-right"
+                      className="font-body-plex text-[16px] text-[#E9DEDE] leading-[1.7] text-right"
                     >
                       {client.roleDescAr}
                     </p>
@@ -243,9 +244,9 @@ export const ScriptsSection: React.FC<ScriptsSectionProps> = () => {
               </div>
 
               {/* Instruction line above 3 videos */}
-              <p className="font-body-plex text-[14.5px] sm:text-[15.5px] text-white/85 mb-6 text-center">
-                Press play on any video <span className="text-white/40">|</span>{' '}
-                <span className="text-[#E9DEDE]/85">اضغط للتشغيل</span>
+              <p className="font-body-plex text-[16px] text-[#F5F2F1] mb-6 text-center leading-[1.6]">
+                Press play on any video <span className="text-white/45">|</span>{' '}
+                <span className="text-[#E9DEDE]">اضغط للتشغيل</span>
               </p>
 
               {/* Real Vertical 9:16 Video Players (responsive 1 -> 2 -> 3 col grid) */}

@@ -178,12 +178,12 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
                   />
 
                   <div className="flex-1 min-w-0 space-y-1 text-center">
-                    <h3 className="font-body-plex font-bold text-[15px] sm:text-[16px] leading-snug text-white group-hover:text-[#fca5a5] transition-colors duration-200">
+                    <h3 className="font-body-plex font-bold text-[16px] leading-snug text-white group-hover:text-[#fca5a5] transition-colors duration-200">
                       {cleanEn}
                     </h3>
                     <p
                       dir="rtl"
-                      className="font-body-plex font-normal text-[14px] sm:text-[14.5px] leading-snug text-[#E9DEDE]/90 text-center"
+                      className="font-body-plex font-normal text-[16px] leading-[1.55] text-[#E9DEDE] text-center"
                     >
                       {cleanAr}
                     </p>

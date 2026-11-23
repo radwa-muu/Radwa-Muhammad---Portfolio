@@ -412,7 +412,7 @@ const StrategyCaseStudyBlock: React.FC<{
   };
 
   return (
-    <section className="py-10 sm:py-14 px-4 sm:px-8 lg:px-10 relative overflow-x-clip">
+    <section id={`project-strategy-${study.id}`} className="scroll-mt-24 py-10 sm:py-14 px-4 sm:px-8 lg:px-10 relative overflow-x-clip">
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Top Header Block: Centered title + 2 centered top-lined info columns */}
         <div className="mb-8 lg:mb-9">
@@ -440,38 +440,38 @@ const StrategyCaseStudyBlock: React.FC<{
           {/* 2 Concise Top-Lined Columns */}
           <div data-layout-grid className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10">
             <div className="border-t border-white/20 pt-3.5 px-2 sm:px-2.5 sm:-mx-2.5 pb-2.5 rounded-b-lg space-y-2 interactive-panel">
-              <div className="flex flex-wrap items-baseline gap-1.5 text-[15px]">
+              <div className="flex flex-wrap items-baseline gap-1.5 text-[16px]">
                 <span className="font-body-plex font-bold text-white">The brand</span>
-                <span className="text-white/35">|</span>
-                <span dir="rtl" className="font-body-plex font-normal text-[#9C9393]">
+                <span className="text-white/40">|</span>
+                <span dir="rtl" className="font-body-plex font-normal text-[#BDB5B5]">
                   العلامة
                 </span>
               </div>
-              <p className="font-body-plex text-[14.5px] sm:text-[15px] text-white/90 leading-[1.45] text-left">
+              <p className="font-body-plex text-[16px] text-[#F5F2F1] leading-[1.6] text-left">
                 {study.aboutEn}
               </p>
               <p
                 dir="rtl"
-                className="font-body-plex text-[14.5px] sm:text-[15px] text-[#E9DEDE]/85 leading-[1.6] text-right"
+                className="font-body-plex text-[16px] text-[#E9DEDE] leading-[1.7] text-right"
               >
                 {study.aboutAr}
               </p>
             </div>
 
             <div className="border-t border-white/20 pt-3.5 px-2 sm:px-2.5 sm:-mx-2.5 pb-2.5 rounded-b-lg space-y-2 interactive-panel">
-              <div className="flex flex-wrap items-baseline gap-1.5 text-[15px]">
+              <div className="flex flex-wrap items-baseline gap-1.5 text-[16px]">
                 <span className="font-body-plex font-bold text-white">Strategy scope</span>
-                <span className="text-white/35">|</span>
-                <span dir="rtl" className="font-body-plex font-normal text-[#9C9393]">
+                <span className="text-white/40">|</span>
+                <span dir="rtl" className="font-body-plex font-normal text-[#BDB5B5]">
                   نطاق العمل
                 </span>
               </div>
-              <p className="font-body-plex text-[14.5px] sm:text-[15px] text-white/90 leading-[1.45] text-left">
+              <p className="font-body-plex text-[16px] text-[#F5F2F1] leading-[1.6] text-left">
                 {study.scopeEn}
               </p>
               <p
                 dir="rtl"
-                className="font-body-plex text-[14.5px] sm:text-[15px] text-[#E9DEDE]/85 leading-[1.6] text-right"
+                className="font-body-plex text-[16px] text-[#E9DEDE] leading-[1.7] text-right"
               >
                 {study.scopeAr}
               </p>
@@ -486,16 +486,16 @@ const StrategyCaseStudyBlock: React.FC<{
               key={idx}
               className="border-t border-white/15 hover:border-[#b81d33]/65 active:border-[#dc2626] hover:-translate-y-1 active:-translate-y-1 transition-[transform,border-color] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] pt-3.5 space-y-1.5 text-center"
             >
-              <div className="flex items-center justify-between gap-2 text-[11px] font-body-plex font-semibold tabular-nums tracking-[0.12em] uppercase text-white/50">
+              <div className="flex items-center justify-between gap-2 text-[11px] font-body-plex font-semibold tabular-nums tracking-[0.12em] uppercase text-[#BDB5B5]">
                 <span>{item.tag}</span>
-                <span className="text-[#ef4444]/90 font-bold">0{idx + 1}</span>
+                <span className="text-[#ef4444] font-bold">0{idx + 1}</span>
               </div>
-              <h4 className="font-body-plex font-semibold text-[14.5px] text-white leading-snug text-center">
+              <h4 className="font-body-plex font-semibold text-[16px] sm:text-[15px] text-white leading-snug text-center">
                 {item.titleEn}
               </h4>
               <p
                 dir="rtl"
-                className="font-body-plex text-[13.5px] text-[#E9DEDE]/80 leading-[1.6] text-center"
+                className="font-body-plex text-[15px] text-[#E9DEDE] leading-[1.65] text-center"
               >
                 {item.titleAr}
               </p>
@@ -505,9 +505,9 @@ const StrategyCaseStudyBlock: React.FC<{
 
         {/* Stepper Bar above Slide Stage */}
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 mb-5">
-          <p className="font-body-plex text-[14.5px] sm:text-[15px] text-white/85 text-center sm:text-left">
-            Explore key strategy chapters or click slide to zoom <span className="text-white/40">|</span>{' '}
-            <span className="text-[#E9DEDE]/85">تصفح محاور الاستراتيجية أو اضغط للتكبير</span>
+          <p className="font-body-plex text-[16px] sm:text-[15px] text-[#F5F2F1] leading-[1.55] text-center sm:text-left">
+            Explore key strategy chapters or click slide to zoom <span className="text-white/45">|</span>{' '}
+            <span className="text-[#E9DEDE]">تصفح محاور الاستراتيجية أو اضغط للتكبير</span>
           </p>
 
           <div className="flex items-center gap-2 shrink-0">
@@ -520,12 +520,12 @@ const StrategyCaseStudyBlock: React.FC<{
               <ChevronLeft className="w-4 h-4" />
             </button>
 
-            <div className="px-4 py-1.5 rounded-full border border-white/15 bg-black/50 text-xs font-body-plex tabular-nums text-white/90 flex items-center gap-2">
+            <div className="px-4 py-1.5 rounded-full border border-white/15 bg-black/50 text-xs font-body-plex tabular-nums text-white/95 flex items-center gap-2">
               <span className="text-[#ef4444] font-bold">{paddedIndex}</span>
-              <span className="text-white/35">/</span>
-              <span className="text-white/60">{paddedTotal}</span>
-              <span className="text-white/35">•</span>
-              <span className="text-white/85">{current.labelEn}</span>
+              <span className="text-white/40">/</span>
+              <span className="text-[#BDB5B5]">{paddedTotal}</span>
+              <span className="text-white/40">•</span>
+              <span className="text-white/95">{current.labelEn}</span>
             </div>
 
             <button
@@ -539,7 +539,7 @@ const StrategyCaseStudyBlock: React.FC<{
           </div>
         </div>
 
-        {/* Center 16:9 Strategy Deck Previewer */}
+        {/* Natural-Aspect Strategy Deck Previewer (Zero Cropping for Wide & Tall Slides) */}
         <div className="max-w-5xl mx-auto">
           <div className="relative group/deck">
             <button
@@ -549,7 +549,7 @@ const StrategyCaseStudyBlock: React.FC<{
               }}
               onTouchStart={swipe.onTouchStart}
               onTouchEnd={swipe.onTouchEnd}
-              className="swipe-deck touch-card w-full aspect-video rounded-[8px] overflow-hidden bg-[#0e0a09] shadow-lg ring-1 ring-white/12 group-hover/deck:ring-[#b81d33]/80 active:ring-[#dc2626] group-hover/deck:-translate-y-1.5 group-active/deck:-translate-y-1.5 transition-[transform,border-color,background-color] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] cursor-pointer relative flex items-center justify-center"
+              className="swipe-deck touch-card w-full min-h-[220px] rounded-[8px] overflow-hidden bg-[#0c0908] shadow-lg ring-1 ring-white/12 group-hover/deck:ring-[#b81d33]/80 active:ring-[#dc2626] group-hover/deck:-translate-y-1.5 group-active/deck:-translate-y-1.5 transition-[transform,border-color,background-color] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] cursor-pointer relative flex items-center justify-center"
               aria-label={`Zoom ${current.titleEn}`}
             >
               <img
@@ -558,7 +558,7 @@ const StrategyCaseStudyBlock: React.FC<{
                 alt={`${study.clientEn} — ${current.titleEn}`}
                 loading="lazy"
                 decoding="async"
-                className="w-full h-full object-contain bg-[#0c0908] slide-fade-enter"
+                className="w-full h-auto max-h-[70vh] object-contain bg-[#0c0908] slide-fade-enter"
               />
 
               {/* Top Overlay Badges */}
@@ -575,17 +575,17 @@ const StrategyCaseStudyBlock: React.FC<{
 
           {/* Active Slide Caption Strip */}
           <div key={`strat-cap-${current.num}`} className="mt-4 flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-3 px-1 slide-fade-enter">
-            <div className="space-y-0.5 text-left">
+            <div className="space-y-1 text-left">
               <p className="font-displayEn text-[20px] sm:text-[22px] text-white tracking-wide leading-none">
                 {current.num}. {current.titleEn}
               </p>
-              <p className="font-body-plex text-[13.5px] text-white/65">{current.descEn}</p>
+              <p className="font-body-plex text-[16px] sm:text-[15px] text-[#E9DEDE] leading-[1.6]">{current.descEn}</p>
             </div>
-            <div dir="rtl" className="space-y-0.5 text-right">
-              <p className="font-body-plex font-bold text-[16px] sm:text-[17px] text-white leading-snug">
+            <div dir="rtl" className="space-y-1 text-right">
+              <p className="font-body-plex font-bold text-[17px] text-white leading-snug">
                 {current.titleAr}
               </p>
-              <p className="font-body-plex text-[13.5px] text-[#E9DEDE]/75">{current.descAr}</p>
+              <p className="font-body-plex text-[16px] sm:text-[15px] text-[#E9DEDE] leading-[1.7]">{current.descAr}</p>
             </div>
           </div>
 
@@ -601,12 +601,12 @@ const StrategyCaseStudyBlock: React.FC<{
                   className={`px-3.5 py-2 min-h-[40px] rounded-full border text-xs font-body-plex transition-[transform,background-color,border-color,color,box-shadow] duration-300 ease-out cursor-pointer inline-flex items-center gap-1.5 ${
                     isActive
                       ? 'border-[#b81d33] bg-[#68101C]/55 text-white shadow-[0_0_16px_rgba(184,29,51,0.35)]'
-                      : 'border-white/15 bg-white/[0.03] text-white/65 hover:text-white hover:border-white/40'
+                      : 'border-white/15 bg-white/[0.03] text-[#BDB5B5] hover:text-white hover:border-white/40'
                   }`}
                 >
                   <span className="font-body-plex tabular-nums font-bold text-[11.5px]">{slide.num}</span>
                   <span>{slide.labelEn}</span>
-                  <span className="text-white/30">|</span>
+                  <span className="text-white/35">|</span>
                   <span dir="rtl">{slide.labelAr}</span>
                 </button>
               );

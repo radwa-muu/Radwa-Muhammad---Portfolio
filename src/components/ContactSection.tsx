@@ -79,14 +79,14 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenInquiry })
             <h2 className="font-displayEn font-normal uppercase tracking-[0.03em] leading-[0.94] text-heading-linear text-[42px] sm:text-[58px] lg:text-[70px]">
               Thank you for being here
             </h2>
-            <p className="font-body-plex text-[15px] sm:text-[17px] text-[#E9DEDE]/85 mt-2 tracking-[0.02em]">
+            <p className="font-body-plex text-[16px] sm:text-[17px] text-[#E9DEDE] mt-2 tracking-[0.02em] leading-[1.6]">
               Let&apos;s turn this ending into the beginning of a new collaboration.
             </p>
             <div dir="rtl" className="mt-4 space-y-1">
               <p className="font-amiri font-bold text-[28px] sm:text-[34px] lg:text-[38px] text-white leading-tight">
                 شكرًا لوجودكم هنا،
               </p>
-              <p className="font-body-plex text-[15px] sm:text-[16px] text-[#E9DEDE]/85">
+              <p className="font-body-plex text-[16px] text-[#E9DEDE] leading-[1.65]">
                 لنجعل من هذه النهاية بداية لتعاون جديد.
               </p>
             </div>

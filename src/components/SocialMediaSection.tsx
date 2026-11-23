@@ -125,15 +125,11 @@ const MiMiMoPostCard: React.FC<{
   return (
     <div className="flex flex-col group/mm max-w-[360px] sm:max-w-none mx-auto sm:mx-0 w-full">
       {/* Bare crisp square image */}
-      <div
+      <button
+        type="button"
         onClick={() => onOpenLightbox(post)}
-        role="button"
-        tabIndex={0}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') onOpenLightbox(post);
-        }}
-        aria-label={`View post ${post.dateBadge}`}
-        className="touch-card relative aspect-square rounded-[4px] overflow-hidden bg-[#120306] group cursor-pointer shadow-lg transition-[transform,box-shadow] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/mm:-translate-y-1.5 group-active/mm:-translate-y-1.5 group-hover/mm:ring-1 group-hover/mm:ring-[#b81d33]/80 group-active/mm:ring-1 group-active/mm:ring-[#dc2626]"
+        aria-label={`View post ${post.dateBadge} — ${post.titleAr}`}
+        className="touch-card relative aspect-square w-full rounded-[4px] overflow-hidden bg-[#120306] group cursor-pointer shadow-lg transition-[transform,box-shadow] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/mm:-translate-y-1.5 group-active/mm:-translate-y-1.5 group-hover/mm:ring-1 group-hover/mm:ring-[#b81d33]/80 group-active/mm:ring-1 group-active/mm:ring-[#dc2626] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
       >
         {imgSrc ? (
           <img
@@ -148,7 +144,7 @@ const MiMiMoPostCard: React.FC<{
             <span className="text-4xl">{post.emojiIcon}</span>
           </div>
         )}
-      </div>
+      </button>
 
       {/* Horizontal timeline track + centered white dot */}
       <div className="flex items-center justify-center relative my-3.5 sm:my-4">
@@ -171,18 +167,24 @@ const MiMiMoPostCard: React.FC<{
         {post.dateBadge}
       </h4>
 
-      {/* Arabic quoted caption underneath */}
-      <div
-        onClick={() => onOpenLightbox(post)}
-        className="cursor-pointer"
-        title="اضغط لعرض الكابشن كاملًا"
-      >
+      {/* Arabic quoted caption preview + explicit cue to read full caption & creative direction */}
+      <div className="flex flex-col flex-1 justify-between mt-2">
         <p
+          onClick={() => onOpenLightbox(post)}
           dir="rtl"
-          className="font-body-plex font-normal text-[14px] sm:text-[13.5px] text-[#E9DEDE]/90 group-hover/mm:text-white transition-colors duration-300 ease-out leading-[1.6] text-right mt-2 line-clamp-3"
+          className="cursor-pointer font-body-plex font-normal text-[16px] sm:text-[14.5px] text-[#E9DEDE] group-hover/mm:text-white transition-colors duration-300 ease-out leading-[1.65] text-right"
         >
           {post.hookAr}
         </p>
+
+        <button
+          type="button"
+          onClick={() => onOpenLightbox(post)}
+          dir="rtl"
+          className="mt-3 pt-2.5 min-h-[44px] w-full border-t border-white/15 hover:border-[#b81d33]/80 text-[#fca5a5] hover:text-white font-body-plex text-[14px] sm:text-[13.5px] font-medium leading-snug text-center transition-colors duration-200 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+        >
+          اضغط على التصميم لقراءة الكابشن والتوجيه الإبداعي
+        </button>
       </div>
     </div>
   );
@@ -276,37 +278,50 @@ const MedianestaDeckCard: React.FC<{
       </div>
 
       {/* Text below stacked deck */}
-      <div className="mt-4">
-        <div className="flex flex-wrap items-baseline justify-center gap-x-2 text-center">
-          <h4 className="font-displayEn font-normal text-[25px] sm:text-[27px] leading-none text-white tracking-wide uppercase">
-            {enPart}
-          </h4>
-          {arPart && (
-            <>
-              <span className="text-white/35 text-lg leading-none">|</span>
-              <span dir="rtl" className="font-body-plex font-bold text-[17px] sm:text-[18px] text-white leading-snug">
-                {arPart}
-              </span>
-            </>
-          )}
-        </div>
+      <div className="mt-4 flex flex-col flex-1 justify-between">
+        <div>
+          <div className="flex flex-wrap items-baseline justify-center gap-x-2 text-center">
+            <h4 className="font-displayEn font-normal text-[25px] sm:text-[27px] leading-none text-white tracking-wide uppercase">
+              {enPart}
+            </h4>
+            {arPart && (
+              <>
+                <span className="text-white/35 text-lg leading-none">|</span>
+                <span dir="rtl" className="font-body-plex font-bold text-[17px] sm:text-[18px] text-white leading-snug">
+                  {arPart}
+                </span>
+              </>
+            )}
+          </div>
 
-        <span className="block font-body-plex text-[13px] text-white/45 mt-1 text-center">
-          {totalSlides} {totalSlides === 1 ? 'slide' : 'slides'}
-        </span>
+          <span className="block font-body-plex text-[14px] text-[#BDB5B5] mt-1 text-center">
+            {totalSlides} {totalSlides === 1 ? 'slide' : 'slides'}
+          </span>
 
-        <div
-          onClick={() => onOpenLightbox(post)}
-          className="cursor-pointer"
-          title="اضغط لعرض الكابشن كاملًا"
-        >
-          <p
-            dir="rtl"
-            className="font-body-plex font-normal text-[13.5px] sm:text-[14px] text-[#E9DEDE]/85 group-hover/deck:text-white transition-colors duration-300 ease-out leading-[1.6] text-right mt-2.5 line-clamp-3"
+          <div
+            onClick={() => onOpenLightbox(post)}
+            className="cursor-pointer"
+            title="اضغط لعرض الكابشن كاملًا"
           >
-            {post.hookAr}
-          </p>
+            <p
+              dir="rtl"
+              className="font-body-plex font-normal text-[16px] sm:text-[15px] text-[#E9DEDE] group-hover/deck:text-white transition-colors duration-300 ease-out leading-[1.65] text-right mt-2.5 line-clamp-3"
+            >
+              {post.hookAr}
+            </p>
+          </div>
         </div>
+
+        <button
+          type="button"
+          onClick={() => onOpenLightbox(post)}
+          dir="rtl"
+          className="mt-3 pt-2.5 min-h-[44px] w-full border-t border-white/15 hover:border-[#b81d33]/80 text-[#fca5a5] hover:text-white font-body-plex text-[14px] sm:text-[13.5px] font-medium leading-snug text-center transition-colors duration-200 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+        >
+          {post.creativeDirectionAr
+            ? 'اضغط على التصميم لقراءة الكابشن والتوجيه الإبداعي'
+            : 'اضغط على التصميم لقراءة الكابشن كاملًا'}
+        </button>
       </div>
     </div>
   );
@@ -440,60 +455,73 @@ const BrandShowcaseCard: React.FC<{
       </div>
 
       {/* Text below artwork */}
-      <div className="mt-4">
-        {post.dateBadge.includes('|') ? (
-          (() => {
-            const parts = post.dateBadge.split('|').map((s) => s.trim());
-            const enPart = parts[0];
-            const arPart = parts[1];
-            return (
-              <div className="flex flex-wrap items-baseline justify-center gap-x-2 text-center">
-                <h4 className="font-displayEn font-normal text-[25px] sm:text-[27px] leading-none text-white tracking-wide uppercase">
-                  {enPart}
-                </h4>
-                {arPart && (
-                  <>
-                    <span className="text-white/35 text-lg leading-none">|</span>
-                    <span dir="rtl" className="font-body-plex font-bold text-[17px] sm:text-[18px] text-white leading-snug">
-                      {arPart}
-                    </span>
-                  </>
-                )}
-              </div>
-            );
-          })()
-        ) : (
-          <h4 className="font-displayEn font-normal text-[26px] sm:text-[28px] leading-none text-white tracking-wide uppercase text-center">
-            {post.dateBadge}
-          </h4>
-        )}
+      <div className="mt-4 flex flex-col flex-1 justify-between">
+        <div>
+          {post.dateBadge.includes('|') ? (
+            (() => {
+              const parts = post.dateBadge.split('|').map((s) => s.trim());
+              const enPart = parts[0];
+              const arPart = parts[1];
+              return (
+                <div className="flex flex-wrap items-baseline justify-center gap-x-2 text-center">
+                  <h4 className="font-displayEn font-normal text-[25px] sm:text-[27px] leading-none text-white tracking-wide uppercase">
+                    {enPart}
+                  </h4>
+                  {arPart && (
+                    <>
+                      <span className="text-white/35 text-lg leading-none">|</span>
+                      <span dir="rtl" className="font-body-plex font-bold text-[17px] sm:text-[18px] text-white leading-snug">
+                        {arPart}
+                      </span>
+                    </>
+                  )}
+                </div>
+              );
+            })()
+          ) : (
+            <h4 className="font-displayEn font-normal text-[26px] sm:text-[28px] leading-none text-white tracking-wide uppercase text-center">
+              {post.dateBadge}
+            </h4>
+          )}
 
-        {!isWorldHunter && post.metaInfoEn && (
-          <span className="block font-body-plex text-[13px] text-white/45 mt-1 text-center">
-            {post.metaInfoEn}
-          </span>
-        )}
+          {!isWorldHunter && post.metaInfoEn && (
+            <span className="block font-body-plex text-[14px] text-[#BDB5B5] mt-1 text-center">
+              {post.metaInfoEn}
+            </span>
+          )}
 
-        <div
-          onClick={() => onOpenLightbox(post)}
-          className="cursor-pointer"
-          title="اضغط لعرض الكابشن كاملًا"
-        >
-          <p
-            dir={isHindiScript ? 'ltr' : 'rtl'}
-            className={`font-body-plex font-normal text-[13.5px] sm:text-[14px] text-[#E9DEDE]/85 group-hover/showcase:text-white transition-colors duration-300 ease-out leading-[1.6] mt-2.5 ${
-              isHindiScript ? 'text-left' : 'text-right'
-            } line-clamp-3`}
+          <div
+            onClick={() => onOpenLightbox(post)}
+            className="cursor-pointer"
+            title="اضغط لعرض الكابشن كاملًا"
           >
-            {post.hookAr}
-          </p>
+            <p
+              dir={isHindiScript ? 'ltr' : 'rtl'}
+              className={`font-body-plex font-normal text-[16px] sm:text-[15px] text-[#E9DEDE] group-hover/showcase:text-white transition-colors duration-300 ease-out leading-[1.65] mt-2.5 ${
+                isHindiScript ? 'text-left' : 'text-right'
+              } line-clamp-3`}
+            >
+              {post.hookAr}
+            </p>
+          </div>
+
+          {isWorldHunter && post.engagement && (
+            <span className="block font-body-plex text-[14px] text-[#BDB5B5] mt-1.5 text-center">
+              {post.engagement}
+            </span>
+          )}
         </div>
 
-        {isWorldHunter && post.engagement && (
-          <span className="block font-body-plex text-[13px] text-white/45 mt-1.5">
-            {post.engagement}
-          </span>
-        )}
+        <button
+          type="button"
+          onClick={() => onOpenLightbox(post)}
+          dir="rtl"
+          className="mt-3 pt-2.5 min-h-[44px] w-full border-t border-white/15 hover:border-[#b81d33]/80 text-[#fca5a5] hover:text-white font-body-plex text-[14px] sm:text-[13.5px] font-medium leading-snug text-center transition-colors duration-200 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+        >
+          {post.creativeDirectionAr
+            ? 'اضغط على التصميم لقراءة الكابشن والتوجيه الإبداعي'
+            : 'اضغط على التصميم لقراءة الكابشن كاملًا'}
+        </button>
       </div>
     </div>
   );
@@ -558,7 +586,8 @@ export const SocialMediaSection: React.FC<SocialMediaSectionProps> = ({ onOpenLi
         return (
           <section
             key={camp.id}
-            className="py-10 sm:py-14 px-4 sm:px-8 lg:px-10 relative overflow-x-clip"
+            id={`project-social-${camp.id}`}
+            className="scroll-mt-24 py-10 sm:py-14 px-4 sm:px-8 lg:px-10 relative overflow-x-clip"
           >
             <div className="max-w-7xl mx-auto relative z-10">
               {/* Top Header Block: Centered brand title + 2 centered top-lined info columns */}
@@ -608,42 +637,42 @@ export const SocialMediaSection: React.FC<SocialMediaSectionProps> = ({ onOpenLi
                 {/* 2 Top-Lined Columns: The campaign/client/platform + My role */}
                 <div data-layout-grid className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10">
                   <div className="border-t border-white/20 pt-3.5 px-2 sm:px-2.5 sm:-mx-2.5 pb-2.5 rounded-b-lg space-y-2 interactive-panel">
-                    <div className="flex flex-wrap items-baseline gap-1.5 text-[15px]">
+                    <div className="flex flex-wrap items-baseline gap-1.5 text-[16px]">
                       <span className="font-body-plex font-bold text-white">
                         {camp.campaignLabelEn}
                       </span>
-                      <span className="text-white/35">|</span>
-                      <span dir="rtl" className="font-body-plex font-normal text-[#9C9393]">
+                      <span className="text-white/40">|</span>
+                      <span dir="rtl" className="font-body-plex font-normal text-[#BDB5B5]">
                         {camp.campaignLabelAr}
                       </span>
                     </div>
-                    <p className="font-body-plex text-[14.5px] sm:text-[15.5px] text-white/90 leading-[1.45] text-left">
+                    <p className="font-body-plex text-[16px] text-[#F5F2F1] leading-[1.6] text-left">
                       {camp.campaignEn}
                     </p>
                     <p
                       dir="rtl"
-                      className="font-body-plex text-[14.5px] sm:text-[15.5px] text-[#E9DEDE]/85 leading-[1.6] text-right"
+                      className="font-body-plex text-[16px] text-[#E9DEDE] leading-[1.7] text-right"
                     >
                       {camp.campaignAr}
                     </p>
                   </div>
 
                   <div className="border-t border-white/20 pt-3.5 px-2 sm:px-2.5 sm:-mx-2.5 pb-2.5 rounded-b-lg space-y-2 interactive-panel">
-                    <div className="flex flex-wrap items-baseline gap-1.5 text-[15px]">
+                    <div className="flex flex-wrap items-baseline gap-1.5 text-[16px]">
                       <span className="font-body-plex font-bold text-white">
                         {camp.roleLabelEn}
                       </span>
-                      <span className="text-white/35">|</span>
-                      <span dir="rtl" className="font-body-plex font-normal text-[#9C9393]">
+                      <span className="text-white/40">|</span>
+                      <span dir="rtl" className="font-body-plex font-normal text-[#BDB5B5]">
                         {camp.roleLabelAr}
                       </span>
                     </div>
-                    <p className="font-body-plex text-[14.5px] sm:text-[15.5px] text-white/90 leading-[1.45] text-left">
+                    <p className="font-body-plex text-[16px] text-[#F5F2F1] leading-[1.6] text-left">
                       {camp.roleEn}
                     </p>
                     <p
                       dir="rtl"
-                      className="font-body-plex text-[14.5px] sm:text-[15.5px] text-[#E9DEDE]/85 leading-[1.6] text-right"
+                      className="font-body-plex text-[16px] text-[#E9DEDE] leading-[1.7] text-right"
                     >
                       {camp.roleAr}
                     </p>
@@ -654,7 +683,7 @@ export const SocialMediaSection: React.FC<SocialMediaSectionProps> = ({ onOpenLi
               {/* Medianesta Carousel Explainer Subtitle Row above Decks */}
               {isMedianesta && camp.subInfoEn && (
                 <div className="mb-7">
-                  <p className="font-body-plex text-[14.5px] sm:text-[15.5px] text-[#BDB5B5] text-center leading-relaxed">
+                  <p className="font-body-plex text-[16px] text-[#E9DEDE] text-center leading-[1.65]">
                     {`${camp.subInfoEn} | ${camp.subInfoAr || ''}`}
                   </p>
                 </div>

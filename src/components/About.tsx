@@ -6,7 +6,7 @@ export const About: React.FC = () => {
   const { data } = usePortfolio();
 
   const aboutBodyClass =
-    'font-body-plex font-medium text-[15px] sm:text-[16px] lg:text-[17px] leading-[1.68] text-[#F5F2F1]';
+    'font-body-plex font-medium text-[16px] lg:text-[17px] leading-[1.7] text-[#F5F2F1]';
 
   return (
     <section id="about" className="scroll-mt-20 py-10 sm:py-14 px-4 sm:px-8 lg:px-10 relative overflow-x-clip">

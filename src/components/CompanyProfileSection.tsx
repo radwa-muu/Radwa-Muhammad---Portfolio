@@ -508,7 +508,7 @@ export const CompanyProfileSection: React.FC<CompanyProfileSectionProps> = ({ on
       {/* ======================================================== */}
       {/* Profile 01: CARAVAGGIO STUDIO (Bilingual AR + EN)        */}
       {/* ======================================================== */}
-      <section className="py-10 sm:py-14 px-4 sm:px-8 lg:px-10 relative overflow-x-clip">
+      <section id="project-profile-caravaggio" className="scroll-mt-24 py-10 sm:py-14 px-4 sm:px-8 lg:px-10 relative overflow-x-clip">
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="mb-8 lg:mb-9">
             <div className="text-center mb-6 lg:mb-8">
@@ -534,38 +534,38 @@ export const CompanyProfileSection: React.FC<CompanyProfileSectionProps> = ({ on
 
             <div data-layout-grid className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10">
               <div className="border-t border-white/20 pt-3.5 px-2 sm:px-2.5 sm:-mx-2.5 pb-2.5 rounded-b-lg space-y-2 interactive-panel">
-                <div className="flex flex-wrap items-baseline gap-1.5 text-[15px]">
+                <div className="flex flex-wrap items-baseline gap-1.5 text-[16px]">
                   <span className="font-body-plex font-bold text-white">The studio</span>
-                  <span className="text-white/35">|</span>
-                  <span dir="rtl" className="font-body-plex font-normal text-[#9C9393]">
+                  <span className="text-white/40">|</span>
+                  <span dir="rtl" className="font-body-plex font-normal text-[#BDB5B5]">
                     الاستوديو
                   </span>
                 </div>
-                <p className="font-body-plex text-[14.5px] sm:text-[15px] text-white/90 leading-[1.45] text-left">
+                <p className="font-body-plex text-[16px] text-[#F5F2F1] leading-[1.6] text-left">
                   A creative and technical behind-the-scenes studio empowering marketing agencies across design, UX, copy, and development.
                 </p>
                 <p
                   dir="rtl"
-                  className="font-body-plex text-[14.5px] sm:text-[15px] text-[#E9DEDE]/85 leading-[1.6] text-right"
+                  className="font-body-plex text-[16px] text-[#E9DEDE] leading-[1.7] text-right"
                 >
                   ستوديو إبداعي وبرمجي يعمل في الكواليس لدعم شركات التسويق في التصميم الجرافيكي وتجربة المستخدم والمحتوى والبرمجة.
                 </p>
               </div>
 
               <div className="border-t border-white/20 pt-3.5 px-2 sm:px-2.5 sm:-mx-2.5 pb-2.5 rounded-b-lg space-y-2 interactive-panel">
-                <div className="flex flex-wrap items-baseline gap-1.5 text-[15px]">
+                <div className="flex flex-wrap items-baseline gap-1.5 text-[16px]">
                   <span className="font-body-plex font-bold text-white">My role</span>
-                  <span className="text-white/35">|</span>
-                  <span dir="rtl" className="font-body-plex font-normal text-[#9C9393]">
+                  <span className="text-white/40">|</span>
+                  <span dir="rtl" className="font-body-plex font-normal text-[#BDB5B5]">
                     دوري
                   </span>
                 </div>
-                <p className="font-body-plex text-[14.5px] sm:text-[15px] text-white/90 leading-[1.45] text-left">
+                <p className="font-body-plex text-[16px] text-[#F5F2F1] leading-[1.6] text-left">
                   Wrote the complete company profile in both Arabic and English—shaping brand story, vision, mission, values, and services.
                 </p>
                 <p
                   dir="rtl"
-                  className="font-body-plex text-[14.5px] sm:text-[15px] text-[#E9DEDE]/85 leading-[1.6] text-right"
+                  className="font-body-plex text-[16px] text-[#E9DEDE] leading-[1.7] text-right"
                 >
                   كتابة محتوى الملف التعريفي للشركة بالكامل باللغتين العربية والإنجليزية، وصياغة القصة والرؤية والرسالة والقيم والخدمات.
                 </p>
@@ -574,9 +574,9 @@ export const CompanyProfileSection: React.FC<CompanyProfileSectionProps> = ({ on
           </div>
 
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 mb-6">
-            <p className="font-body-plex text-[14.5px] sm:text-[15px] text-white/85 text-center sm:text-left">
-              Click any page to zoom in or flip through both editions <span className="text-white/40">|</span>{' '}
-              <span className="text-[#E9DEDE]/85">اضغط للتكبير أو تصفح النسختين</span>
+            <p className="font-body-plex text-[16px] sm:text-[15px] text-[#F5F2F1] leading-[1.55] text-center sm:text-left">
+              Click any page to zoom in or flip through both editions <span className="text-white/45">|</span>{' '}
+              <span className="text-[#E9DEDE]">اضغط للتكبير أو تصفح النسختين</span>
             </p>
 
             <div className="flex items-center gap-2 shrink-0">
@@ -589,12 +589,12 @@ export const CompanyProfileSection: React.FC<CompanyProfileSectionProps> = ({ on
                 <ChevronLeft className="w-4 h-4" />
               </button>
 
-              <div className="px-4 py-1.5 rounded-lg border border-white/15 bg-black/50 text-xs font-body-plex tabular-nums text-white/90 flex items-center gap-2">
+              <div className="px-4 py-1.5 rounded-lg border border-white/15 bg-black/50 text-xs font-body-plex tabular-nums text-white/95 flex items-center gap-2">
                 <span className="text-[#ef4444] font-bold">{caravaggioCurrent.num}</span>
-                <span className="text-white/35">/</span>
-                <span className="text-white/60">07</span>
-                <span className="text-white/35">•</span>
-                <span className="text-white/85">{caravaggioCurrent.labelEn}</span>
+                <span className="text-white/40">/</span>
+                <span className="text-[#BDB5B5]">07</span>
+                <span className="text-white/40">•</span>
+                <span className="text-white/95">{caravaggioCurrent.labelEn}</span>
               </div>
 
               <button
@@ -636,7 +636,7 @@ export const CompanyProfileSection: React.FC<CompanyProfileSectionProps> = ({ on
                   loading="lazy"
                   decoding="async"
                   referrerPolicy="no-referrer"
-                  className="w-full h-full object-cover slide-fade-enter"
+                  className="w-full h-full object-contain bg-[#0c0908] slide-fade-enter"
                 />
                 <div className="absolute top-3 inset-x-3 flex items-center justify-between pointer-events-none">
                   <span className="px-3 py-1 rounded-md bg-black/85 border border-white/15 font-body-plex tabular-nums text-[11px] font-bold text-white tracking-wider">
@@ -652,8 +652,8 @@ export const CompanyProfileSection: React.FC<CompanyProfileSectionProps> = ({ on
                 <span className="font-displayEn text-[21px] sm:text-[22px] text-white tracking-wide leading-none">
                   ENGLISH VERSION
                 </span>
-                <span className="text-white/35">|</span>
-                <span className="font-body-plex text-[13.5px] text-white/65">
+                <span className="text-white/40">|</span>
+                <span className="font-body-plex text-[15px] text-[#E9DEDE]">
                   {caravaggioCurrent.titleEn}
                 </span>
               </div>
@@ -686,7 +686,7 @@ export const CompanyProfileSection: React.FC<CompanyProfileSectionProps> = ({ on
                   loading="lazy"
                   decoding="async"
                   referrerPolicy="no-referrer"
-                  className="w-full h-full object-cover slide-fade-enter"
+                  className="w-full h-full object-contain bg-[#0c0908] slide-fade-enter"
                 />
                 <div className="absolute top-3 inset-x-3 flex items-center justify-between pointer-events-none">
                   <span className="px-3 py-1 rounded-md bg-black/85 border border-white/15 font-body-plex tabular-nums text-[11px] font-bold text-white tracking-wider">
@@ -702,8 +702,8 @@ export const CompanyProfileSection: React.FC<CompanyProfileSectionProps> = ({ on
                 <span dir="rtl" className="font-body-plex font-bold text-[17px] text-white leading-none">
                   النسخة العربية
                 </span>
-                <span className="text-white/35">|</span>
-                <span dir="rtl" className="font-body-plex text-[13.5px] text-[#E9DEDE]/75">
+                <span className="text-white/40">|</span>
+                <span dir="rtl" className="font-body-plex text-[15px] text-[#E9DEDE]">
                   {caravaggioCurrent.titleAr}
                 </span>
               </div>
@@ -721,7 +721,7 @@ export const CompanyProfileSection: React.FC<CompanyProfileSectionProps> = ({ on
                   className={`px-3.5 py-2 min-h-[40px] rounded-lg border text-xs font-body-plex transition-[transform,background-color,border-color,color,box-shadow] duration-300 ease-out cursor-pointer inline-flex items-center gap-1.5 whitespace-nowrap shrink-0 ${
                     isActive
                       ? 'border-[#b81d33] bg-[#68101C]/55 text-white shadow-[0_0_16px_rgba(184,29,51,0.35)]'
-                      : 'border-white/15 bg-white/[0.03] text-white/65 hover:text-white hover:border-white/40'
+                      : 'border-white/15 bg-white/[0.03] text-[#BDB5B5] hover:text-white hover:border-white/40'
                   }`}
                 >
                   <span className="font-body-plex tabular-nums font-bold text-[11px]">{page.num}</span>
@@ -782,7 +782,7 @@ export const CompanyProfileSection: React.FC<CompanyProfileSectionProps> = ({ on
       {/* ======================================================== */}
       {/* Profile 02: DROOB GOLDEN TRADING (Bilingual EN + AR)     */}
       {/* ======================================================== */}
-      <section className="py-10 sm:py-14 px-4 sm:px-8 lg:px-10 relative overflow-x-clip">
+      <section id="project-profile-droob" className="scroll-mt-24 py-10 sm:py-14 px-4 sm:px-8 lg:px-10 relative overflow-x-clip">
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="mb-8 lg:mb-9">
             <div className="text-center mb-6 lg:mb-8">
@@ -808,38 +808,38 @@ export const CompanyProfileSection: React.FC<CompanyProfileSectionProps> = ({ on
 
             <div data-layout-grid className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10">
               <div className="border-t border-white/20 pt-3.5 px-2 sm:px-2.5 sm:-mx-2.5 pb-2.5 rounded-b-lg space-y-2 interactive-panel">
-                <div className="flex flex-wrap items-baseline gap-1.5 text-[15px]">
+                <div className="flex flex-wrap items-baseline gap-1.5 text-[16px]">
                   <span className="font-body-plex font-bold text-white">The company</span>
-                  <span className="text-white/35">|</span>
-                  <span dir="rtl" className="font-body-plex font-normal text-[#9C9393]">
+                  <span className="text-white/40">|</span>
+                  <span dir="rtl" className="font-body-plex font-normal text-[#BDB5B5]">
                     الشركة
                   </span>
                 </div>
-                <p className="font-body-plex text-[14.5px] sm:text-[15px] text-white/90 leading-[1.45] text-left">
+                <p className="font-body-plex text-[16px] text-[#F5F2F1] leading-[1.6] text-left">
                   A foreign-investment trading firm founded in 2001 specializing in vehicles and heavy truck spare parts across KSA, Egypt, Yemen, and Oman.
                 </p>
                 <p
                   dir="rtl"
-                  className="font-body-plex text-[14.5px] sm:text-[15px] text-[#E9DEDE]/85 leading-[1.6] text-right"
+                  className="font-body-plex text-[16px] text-[#E9DEDE] leading-[1.7] text-right"
                 >
                   شركة تجارية منذ 2001 متخصصة في بيع وشراء المركبات وتوريد قطع غيار الشاحنات مع توسع إقليمي يشمل السعودية ومصر واليمن وعُمان.
                 </p>
               </div>
 
               <div className="border-t border-white/20 pt-3.5 px-2 sm:px-2.5 sm:-mx-2.5 pb-2.5 rounded-b-lg space-y-2 interactive-panel">
-                <div className="flex flex-wrap items-baseline gap-1.5 text-[15px]">
+                <div className="flex flex-wrap items-baseline gap-1.5 text-[16px]">
                   <span className="font-body-plex font-bold text-white">My role</span>
-                  <span className="text-white/35">|</span>
-                  <span dir="rtl" className="font-body-plex font-normal text-[#9C9393]">
+                  <span className="text-white/40">|</span>
+                  <span dir="rtl" className="font-body-plex font-normal text-[#BDB5B5]">
                     دوري
                   </span>
                 </div>
-                <p className="font-body-plex text-[14.5px] sm:text-[15px] text-white/90 leading-[1.45] text-left">
+                <p className="font-body-plex text-[16px] text-[#F5F2F1] leading-[1.6] text-left">
                   Authored the complete corporate profile in Arabic and English, structuring company history, vision, mission, core values, and B2B trust messaging.
                 </p>
                 <p
                   dir="rtl"
-                  className="font-body-plex text-[14.5px] sm:text-[15px] text-[#E9DEDE]/85 leading-[1.6] text-right"
+                  className="font-body-plex text-[16px] text-[#E9DEDE] leading-[1.7] text-right"
                 >
                   كتابة المحتوى التعريفي الكامل باللغتين العربية والإنجليزية، وصياغة القصة التأسيسية والرؤية والرسالة والقيم الجوهرية للثقة المؤسسية.
                 </p>
@@ -848,9 +848,9 @@ export const CompanyProfileSection: React.FC<CompanyProfileSectionProps> = ({ on
           </div>
 
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 mb-6">
-            <p className="font-body-plex text-[14.5px] sm:text-[15px] text-white/85 text-center sm:text-left">
-              Flip through both Arabic & English profile decks <span className="text-white/40">|</span>{' '}
-              <span className="text-[#E9DEDE]/85">تصفح النسختين العربية والإنجليزية بالتزامن</span>
+            <p className="font-body-plex text-[16px] sm:text-[15px] text-[#F5F2F1] leading-[1.55] text-center sm:text-left">
+              Flip through both Arabic & English profile decks <span className="text-white/45">|</span>{' '}
+              <span className="text-[#E9DEDE]">تصفح النسختين العربية والإنجليزية بالتزامن</span>
             </p>
 
             <div className="flex items-center gap-2 shrink-0">
@@ -863,12 +863,12 @@ export const CompanyProfileSection: React.FC<CompanyProfileSectionProps> = ({ on
                 <ChevronLeft className="w-4 h-4" />
               </button>
 
-              <div className="px-4 py-1.5 rounded-lg border border-white/15 bg-black/50 text-xs font-body-plex tabular-nums text-white/90 flex items-center gap-2">
+              <div className="px-4 py-1.5 rounded-lg border border-white/15 bg-black/50 text-xs font-body-plex tabular-nums text-white/95 flex items-center gap-2">
                 <span className="text-[#ef4444] font-bold">{droobCurrent.num}</span>
-                <span className="text-white/35">/</span>
-                <span className="text-white/60">08</span>
-                <span className="text-white/35">•</span>
-                <span className="text-white/85">{droobCurrent.labelEn}</span>
+                <span className="text-white/40">/</span>
+                <span className="text-[#BDB5B5]">08</span>
+                <span className="text-white/40">•</span>
+                <span className="text-white/95">{droobCurrent.labelEn}</span>
               </div>
 
               <button
@@ -926,8 +926,8 @@ export const CompanyProfileSection: React.FC<CompanyProfileSectionProps> = ({ on
                 <span className="font-displayEn text-[21px] text-white tracking-wide leading-none">
                   ENGLISH VERSION
                 </span>
-                <span className="text-white/35">|</span>
-                <span className="font-body-plex text-[13.5px] text-white/65">
+                <span className="text-white/40">|</span>
+                <span className="font-body-plex text-[15px] text-[#E9DEDE]">
                   {droobCurrent.titleEn}
                 </span>
               </div>
@@ -976,8 +976,8 @@ export const CompanyProfileSection: React.FC<CompanyProfileSectionProps> = ({ on
                 <span dir="rtl" className="font-body-plex font-bold text-[17px] text-white leading-none">
                   النسخة العربية
                 </span>
-                <span className="text-white/35">|</span>
-                <span dir="rtl" className="font-body-plex text-[13.5px] text-[#E9DEDE]/75">
+                <span className="text-white/40">|</span>
+                <span dir="rtl" className="font-body-plex text-[15px] text-[#E9DEDE]">
                   {droobCurrent.titleAr}
                 </span>
               </div>
@@ -995,7 +995,7 @@ export const CompanyProfileSection: React.FC<CompanyProfileSectionProps> = ({ on
                   className={`px-3.5 py-2 min-h-[40px] rounded-lg border text-xs font-body-plex transition-[transform,background-color,border-color,color,box-shadow] duration-300 ease-out cursor-pointer inline-flex items-center gap-1.5 whitespace-nowrap shrink-0 ${
                     isActive
                       ? 'border-[#b81d33] bg-[#68101C]/55 text-white shadow-[0_0_16px_rgba(184,29,51,0.35)]'
-                      : 'border-white/15 bg-white/[0.03] text-white/65 hover:text-white hover:border-white/40'
+                      : 'border-white/15 bg-white/[0.03] text-[#BDB5B5] hover:text-white hover:border-white/40'
                   }`}
                 >
                   <span className="font-body-plex tabular-nums font-bold text-[11px]">{page.num}</span>
@@ -1056,7 +1056,7 @@ export const CompanyProfileSection: React.FC<CompanyProfileSectionProps> = ({ on
       {/* ======================================================== */}
       {/* Profile 03: ROMARIN RESTAURANT (Bilingual EN + AR 4:3)   */}
       {/* ======================================================== */}
-      <section className="py-10 sm:py-14 px-4 sm:px-8 lg:px-10 relative overflow-x-clip">
+      <section id="project-profile-romarin" className="scroll-mt-24 py-10 sm:py-14 px-4 sm:px-8 lg:px-10 relative overflow-x-clip">
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="mb-8 lg:mb-9">
             <div className="text-center mb-6 lg:mb-8">
@@ -1082,38 +1082,38 @@ export const CompanyProfileSection: React.FC<CompanyProfileSectionProps> = ({ on
 
             <div data-layout-grid className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10">
               <div className="border-t border-white/20 pt-3.5 px-2 sm:px-2.5 sm:-mx-2.5 pb-2.5 rounded-b-lg space-y-2 interactive-panel">
-                <div className="flex flex-wrap items-baseline gap-1.5 text-[15px]">
+                <div className="flex flex-wrap items-baseline gap-1.5 text-[16px]">
                   <span className="font-body-plex font-bold text-white">The brand</span>
-                  <span className="text-white/35">|</span>
-                  <span dir="rtl" className="font-body-plex font-normal text-[#9C9393]">
+                  <span className="text-white/40">|</span>
+                  <span dir="rtl" className="font-body-plex font-normal text-[#BDB5B5]">
                     العلامة
                   </span>
                 </div>
-                <p className="font-body-plex text-[14.5px] sm:text-[15px] text-white/90 leading-[1.45] text-left">
+                <p className="font-body-plex text-[16px] text-[#F5F2F1] leading-[1.6] text-left">
                   A Riyadh-based mobile fine catering brand founded in 2021 by Chef Rabbeah Makwar, serving private events, corporates, and private aviation.
                 </p>
                 <p
                   dir="rtl"
-                  className="font-body-plex text-[14.5px] sm:text-[15px] text-[#E9DEDE]/85 leading-[1.6] text-right"
+                  className="font-body-plex text-[16px] text-[#E9DEDE] leading-[1.7] text-right"
                 >
                   مطعم وخدمة ضيافة متنقلة تأسس في الرياض عام 2021 بقيادة الشيف ربيعة مكوار لتجهيز الحفلات الخاصة والشركات والطيران الخاص.
                 </p>
               </div>
 
               <div className="border-t border-white/20 pt-3.5 px-2 sm:px-2.5 sm:-mx-2.5 pb-2.5 rounded-b-lg space-y-2 interactive-panel">
-                <div className="flex flex-wrap items-baseline gap-1.5 text-[15px]">
+                <div className="flex flex-wrap items-baseline gap-1.5 text-[16px]">
                   <span className="font-body-plex font-bold text-white">My role</span>
-                  <span className="text-white/35">|</span>
-                  <span dir="rtl" className="font-body-plex font-normal text-[#9C9393]">
+                  <span className="text-white/40">|</span>
+                  <span dir="rtl" className="font-body-plex font-normal text-[#BDB5B5]">
                     دوري
                   </span>
                 </div>
-                <p className="font-body-plex text-[14.5px] sm:text-[15px] text-white/90 leading-[1.45] text-left">
+                <p className="font-body-plex text-[16px] text-[#F5F2F1] leading-[1.6] text-left">
                   Authored the complete company profile in both Arabic and English—crafting Chef Rabbeah’s vision, 5 core values, and 6 specialized services.
                 </p>
                 <p
                   dir="rtl"
-                  className="font-body-plex text-[14.5px] sm:text-[15px] text-[#E9DEDE]/85 leading-[1.6] text-right"
+                  className="font-body-plex text-[16px] text-[#E9DEDE] leading-[1.7] text-right"
                 >
                   كتابة الملف التعريفي الكامل باللغتين العربية والإنجليزية، وإبراز فلسفة الشيف والقيم الخمس للضيافة والخدمات الست المتخصصة.
                 </p>
@@ -1122,9 +1122,9 @@ export const CompanyProfileSection: React.FC<CompanyProfileSectionProps> = ({ on
           </div>
 
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 mb-6">
-            <p className="font-body-plex text-[14.5px] sm:text-[15px] text-white/85 text-center sm:text-left">
-              Flip through both English & Arabic profile decks <span className="text-white/40">|</span>{' '}
-              <span className="text-[#E9DEDE]/85">تصفح النسختين الإنجليزية والعربية بالتزامن</span>
+            <p className="font-body-plex text-[16px] sm:text-[15px] text-[#F5F2F1] leading-[1.55] text-center sm:text-left">
+              Flip through both English & Arabic profile decks <span className="text-white/45">|</span>{' '}
+              <span className="text-[#E9DEDE]">تصفح النسختين الإنجليزية والعربية بالتزامن</span>
             </p>
 
             <div className="flex items-center gap-2 shrink-0">
@@ -1137,12 +1137,12 @@ export const CompanyProfileSection: React.FC<CompanyProfileSectionProps> = ({ on
                 <ChevronLeft className="w-4 h-4" />
               </button>
 
-              <div className="px-4 py-1.5 rounded-lg border border-white/15 bg-black/50 text-xs font-body-plex tabular-nums text-white/90 flex items-center gap-2">
+              <div className="px-4 py-1.5 rounded-lg border border-white/15 bg-black/50 text-xs font-body-plex tabular-nums text-white/95 flex items-center gap-2">
                 <span className="text-[#ef4444] font-bold">{romarinCurrent.num}</span>
-                <span className="text-white/35">/</span>
-                <span className="text-white/60">06</span>
-                <span className="text-white/35">•</span>
-                <span className="text-white/85">{romarinCurrent.labelEn}</span>
+                <span className="text-white/40">/</span>
+                <span className="text-[#BDB5B5]">06</span>
+                <span className="text-white/40">•</span>
+                <span className="text-white/95">{romarinCurrent.labelEn}</span>
               </div>
 
               <button
@@ -1200,8 +1200,8 @@ export const CompanyProfileSection: React.FC<CompanyProfileSectionProps> = ({ on
                 <span className="font-displayEn text-[21px] text-white tracking-wide leading-none">
                   ENGLISH VERSION
                 </span>
-                <span className="text-white/35">|</span>
-                <span className="font-body-plex text-[13.5px] text-white/65">
+                <span className="text-white/40">|</span>
+                <span className="font-body-plex text-[15px] text-[#E9DEDE]">
                   {romarinCurrent.titleEn}
                 </span>
               </div>
@@ -1250,8 +1250,8 @@ export const CompanyProfileSection: React.FC<CompanyProfileSectionProps> = ({ on
                 <span dir="rtl" className="font-body-plex font-bold text-[17px] text-white leading-none">
                   النسخة العربية
                 </span>
-                <span className="text-white/35">|</span>
-                <span dir="rtl" className="font-body-plex text-[13.5px] text-[#E9DEDE]/75">
+                <span className="text-white/40">|</span>
+                <span dir="rtl" className="font-body-plex text-[15px] text-[#E9DEDE]">
                   {romarinCurrent.titleAr}
                 </span>
               </div>
@@ -1269,7 +1269,7 @@ export const CompanyProfileSection: React.FC<CompanyProfileSectionProps> = ({ on
                   className={`px-3.5 py-2 min-h-[40px] rounded-lg border text-xs font-body-plex transition-[transform,background-color,border-color,color,box-shadow] duration-300 ease-out cursor-pointer inline-flex items-center gap-1.5 whitespace-nowrap shrink-0 ${
                     isActive
                       ? 'border-[#b81d33] bg-[#68101C]/55 text-white shadow-[0_0_16px_rgba(184,29,51,0.35)]'
-                      : 'border-white/15 bg-white/[0.03] text-white/65 hover:text-white hover:border-white/40'
+                      : 'border-white/15 bg-white/[0.03] text-[#BDB5B5] hover:text-white hover:border-white/40'
                   }`}
                 >
                   <span className="font-body-plex tabular-nums font-bold text-[11px]">{page.num}</span>
@@ -1330,7 +1330,7 @@ export const CompanyProfileSection: React.FC<CompanyProfileSectionProps> = ({ on
       {/* ======================================================== */}
       {/* Profile 04: PODCAST WITH HAYAM AL-BARIR (Arabic 16:9)    */}
       {/* ======================================================== */}
-      <section className="py-10 sm:py-14 px-4 sm:px-8 lg:px-10 relative overflow-x-clip">
+      <section id="project-profile-hayam" className="scroll-mt-24 py-10 sm:py-14 px-4 sm:px-8 lg:px-10 relative overflow-x-clip">
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="mb-8 lg:mb-9">
             <div className="text-center mb-6 lg:mb-8">
@@ -1356,38 +1356,38 @@ export const CompanyProfileSection: React.FC<CompanyProfileSectionProps> = ({ on
 
             <div data-layout-grid className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10">
               <div className="border-t border-white/20 pt-3.5 px-2 sm:px-2.5 sm:-mx-2.5 pb-2.5 rounded-b-lg space-y-2 interactive-panel">
-                <div className="flex flex-wrap items-baseline gap-1.5 text-[15px]">
+                <div className="flex flex-wrap items-baseline gap-1.5 text-[16px]">
                   <span className="font-body-plex font-bold text-white">The project</span>
-                  <span className="text-white/35">|</span>
-                  <span dir="rtl" className="font-body-plex font-normal text-[#9C9393]">
+                  <span className="text-white/40">|</span>
+                  <span dir="rtl" className="font-body-plex font-normal text-[#BDB5B5]">
                     المشروع
                   </span>
                 </div>
-                <p className="font-body-plex text-[14.5px] sm:text-[15px] text-white/90 leading-[1.45] text-left">
+                <p className="font-body-plex text-[16px] text-[#F5F2F1] leading-[1.6] text-left">
                   A Sudanese humanitarian and entrepreneurship podcast spotlighting resilient business builders and supporting emerging small projects.
                 </p>
                 <p
                   dir="rtl"
-                  className="font-body-plex text-[14.5px] sm:text-[15px] text-[#E9DEDE]/85 leading-[1.6] text-right"
+                  className="font-body-plex text-[16px] text-[#E9DEDE] leading-[1.7] text-right"
                 >
                   مبادرة إعلامية وإنسانية سودانية تنقل قصص الصمود والنجاح في ريادة الأعمال وتدعم المشاريع الصغيرة والناشئة.
                 </p>
               </div>
 
               <div className="border-t border-white/20 pt-3.5 px-2 sm:px-2.5 sm:-mx-2.5 pb-2.5 rounded-b-lg space-y-2 interactive-panel">
-                <div className="flex flex-wrap items-baseline gap-1.5 text-[15px]">
+                <div className="flex flex-wrap items-baseline gap-1.5 text-[16px]">
                   <span className="font-body-plex font-bold text-white">My role</span>
-                  <span className="text-white/35">|</span>
-                  <span dir="rtl" className="font-body-plex font-normal text-[#9C9393]">
+                  <span className="text-white/40">|</span>
+                  <span dir="rtl" className="font-body-plex font-normal text-[#BDB5B5]">
                     دوري
                   </span>
                 </div>
-                <p className="font-body-plex text-[14.5px] sm:text-[15px] text-white/90 leading-[1.45] text-left">
+                <p className="font-body-plex text-[16px] text-[#F5F2F1] leading-[1.6] text-left">
                   Crafted the 9-slide Arabic pitch deck—defining brand voice, two-phase roadmap, and financial/in-kind/media sponsorship packages.
                 </p>
                 <p
                   dir="rtl"
-                  className="font-body-plex text-[14.5px] sm:text-[15px] text-[#E9DEDE]/85 leading-[1.6] text-right"
+                  className="font-body-plex text-[16px] text-[#E9DEDE] leading-[1.7] text-right"
                 >
                   كتابة الملف التعريفي والرعائي الكامل في 9 شرائح، وصياغة الرؤية والقيم ومرحلتي الدعم وباقات الرعاية المالية والعينية والإعلامية.
                 </p>
@@ -1396,9 +1396,9 @@ export const CompanyProfileSection: React.FC<CompanyProfileSectionProps> = ({ on
           </div>
 
           <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 mb-5">
-            <p className="font-body-plex text-[14.5px] sm:text-[15px] text-white/85 text-center sm:text-left">
-              Browse all 9 sponsorship deck slides or click to zoom <span className="text-white/40">|</span>{' '}
-              <span className="text-[#E9DEDE]/85">تصفح شرائح البودكاست التسع أو اضغط للتكبير</span>
+            <p className="font-body-plex text-[16px] sm:text-[15px] text-[#F5F2F1] leading-[1.55] text-center sm:text-left">
+              Browse all 9 sponsorship deck slides or click to zoom <span className="text-white/45">|</span>{' '}
+              <span className="text-[#E9DEDE]">تصفح شرائح البودكاست التسع أو اضغط للتكبير</span>
             </p>
 
             <div className="flex items-center gap-2 shrink-0">
@@ -1411,12 +1411,12 @@ export const CompanyProfileSection: React.FC<CompanyProfileSectionProps> = ({ on
                 <ChevronLeft className="w-4 h-4" />
               </button>
 
-              <div className="px-4 py-1.5 rounded-lg border border-white/15 bg-black/50 text-xs font-body-plex tabular-nums text-white/90 flex items-center gap-2">
+              <div className="px-4 py-1.5 rounded-lg border border-white/15 bg-black/50 text-xs font-body-plex tabular-nums text-white/95 flex items-center gap-2">
                 <span className="text-[#ef4444] font-bold">{hayamCurrent.num}</span>
-                <span className="text-white/35">/</span>
-                <span className="text-white/60">09</span>
-                <span className="text-white/35">•</span>
-                <span className="text-white/85">{hayamCurrent.labelEn}</span>
+                <span className="text-white/40">/</span>
+                <span className="text-[#BDB5B5]">09</span>
+                <span className="text-white/40">•</span>
+                <span className="text-white/95">{hayamCurrent.labelEn}</span>
               </div>
 
               <button
@@ -1470,17 +1470,17 @@ export const CompanyProfileSection: React.FC<CompanyProfileSectionProps> = ({ on
             </div>
 
             <div key={`hayam-cap-${hayamCurrent.num}`} className="mt-4 flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-3 px-1 slide-fade-enter">
-              <div className="space-y-0.5 text-left">
+              <div className="space-y-1 text-left">
                 <p className="font-displayEn text-[20px] sm:text-[22px] text-white tracking-wide leading-none">
                   {hayamCurrent.num}. {hayamCurrent.titleEn}
                 </p>
-                <p className="font-body-plex text-[13.5px] text-white/65">{hayamCurrent.copyEn}</p>
+                <p className="font-body-plex text-[16px] sm:text-[15px] text-[#E9DEDE] leading-[1.6]">{hayamCurrent.copyEn}</p>
               </div>
-              <div dir="rtl" className="space-y-0.5 text-right">
-                <p className="font-body-plex font-bold text-[16px] sm:text-[17px] text-white leading-snug">
+              <div dir="rtl" className="space-y-1 text-right">
+                <p className="font-body-plex font-bold text-[17px] text-white leading-snug">
                   {hayamCurrent.titleAr}
                 </p>
-                <p className="font-body-plex text-[13.5px] text-[#E9DEDE]/75">{hayamCurrent.copyAr}</p>
+                <p className="font-body-plex text-[16px] sm:text-[15px] text-[#E9DEDE] leading-[1.7]">{hayamCurrent.copyAr}</p>
               </div>
             </div>
 
@@ -1495,7 +1495,7 @@ export const CompanyProfileSection: React.FC<CompanyProfileSectionProps> = ({ on
                     className={`px-3.5 py-2 min-h-[40px] rounded-lg border text-xs font-body-plex transition-[transform,background-color,border-color,color,box-shadow] duration-300 ease-out cursor-pointer inline-flex items-center gap-1.5 whitespace-nowrap shrink-0 ${
                       isActive
                         ? 'border-[#b81d33] bg-[#68101C]/55 text-white shadow-[0_0_16px_rgba(184,29,51,0.35)]'
-                        : 'border-white/15 bg-white/[0.03] text-white/65 hover:text-white hover:border-white/40'
+                        : 'border-white/15 bg-white/[0.03] text-[#BDB5B5] hover:text-white hover:border-white/40'
                     }`}
                   >
                     <span className="font-body-plex tabular-nums font-bold text-[11px]">{page.num}</span>
