@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { validateInquiry, InquiryFormState } from '../utils/portfolioLogic';
 import { SERVICES_DATA, ServiceItem } from '../utils/portfolioData';
-import { X, Send, Mail, ChevronDown, CheckCircle2 } from 'lucide-react';
+import { X, Send, Mail, ChevronDown, CheckCircle2, MessageCircle } from 'lucide-react';
 
 interface ContactModalProps {
   isOpen: boolean;
@@ -61,6 +61,25 @@ export const ContactModal: React.FC<ContactModalProps> = ({
     !normalizedServices.some((s) => s.label === formState.service);
 
   const radwaEmail = 'radwa.work30@gmail.com';
+  const radwaWhatsAppNumber = '201207845340';
+
+  const whatsappDraftText = isAr
+    ? [
+        'مرحبًا رضوى،',
+        `الاسم أو الشركة: ${formState.name.trim()}`,
+        `البريد الإلكتروني: ${formState.email.trim()}`,
+        `الخدمة المطلوبة: ${formState.service.trim()}`,
+        `تفاصيل الفكرة:\n${formState.message.trim()}`,
+      ].join('\n')
+    : [
+        'Hello Radwa,',
+        `Name / Brand: ${formState.name.trim()}`,
+        `Email: ${formState.email.trim()}`,
+        `Requested Service: ${formState.service.trim()}`,
+        `Project Details:\n${formState.message.trim()}`,
+      ].join('\n');
+
+  const whatsappUrl = `https://wa.me/${radwaWhatsAppNumber}?text=${encodeURIComponent(whatsappDraftText)}`;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -72,6 +91,17 @@ export const ContactModal: React.FC<ContactModalProps> = ({
 
     setErrors({});
     setSubmitted(true);
+  };
+
+  const handleWhatsAppClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const result = validateInquiry(formState, lang);
+    if (!result.isValid) {
+      e.preventDefault();
+      setErrors(result.errors);
+      return;
+    }
+
+    setErrors({});
   };
 
   const inputBaseClass =
@@ -270,13 +300,33 @@ export const ContactModal: React.FC<ContactModalProps> = ({
               )}
             </div>
 
-            <button
-              type="submit"
-              className="w-full py-3.5 rounded-full bg-[#b81d33] hover:bg-[#dc2626] text-white text-[13.5px] font-body-plex font-semibold transition-[background-color,box-shadow,transform] duration-300 ease-out active:scale-[0.99] shadow-[0_8px_24px_-4px_rgba(184,29,51,0.55)] hover:shadow-[0_10px_28px_-2px_rgba(220,38,38,0.65)] flex items-center justify-center gap-2 cursor-pointer mt-1"
-            >
-              <Send className="w-4 h-4" />
-              <span>{isAr ? 'إرسال الطلب الآن' : 'Send Inquiry Now'}</span>
-            </button>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1 items-start">
+              <div>
+                <button
+                  type="submit"
+                  className="w-full min-h-[46px] py-3 px-4 rounded-full bg-[#b81d33] hover:bg-[#dc2626] text-white text-[13.5px] font-body-plex font-semibold transition-[background-color,box-shadow,transform] duration-300 ease-out active:scale-[0.99] shadow-[0_8px_24px_-4px_rgba(184,29,51,0.55)] hover:shadow-[0_10px_28px_-2px_rgba(220,38,38,0.65)] flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                >
+                  <Send className="w-4 h-4 shrink-0" />
+                  <span>{isAr ? 'إرسال الطلب الآن' : 'Send Inquiry Now'}</span>
+                </button>
+                <p className="font-body-plex text-[11.5px] text-[#BDB5B5] leading-relaxed text-center mt-1.5 px-1">
+                  {isAr
+                    ? 'سيفتح تطبيق البريد لديك برسالة جاهزة تتضمن تفاصيلك.'
+                    : 'Your email app will open with a ready message containing your details.'}
+                </p>
+              </div>
+
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={handleWhatsAppClick}
+                className="w-full min-h-[46px] py-3 px-4 rounded-full bg-[#161012] hover:bg-[#68101C]/45 border border-white/25 hover:border-[#b81d33] text-white text-[13.5px] font-body-plex font-semibold transition-[background-color,border-color,transform] duration-300 ease-out active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                <MessageCircle className="w-4 h-4 shrink-0 text-[#fca5a5]" />
+                <span>{isAr ? 'إرسال عبر واتساب' : 'Send via WhatsApp'}</span>
+              </a>
+            </div>
           </form>
         )}
       </div>
