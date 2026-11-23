@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
 import { SocialPost } from '../utils/portfolioData';
 import { useHorizontalSwipe } from '../hooks/useSwipeGesture';
+import { PdfDocumentRequest } from './FullPdfViewerModal';
 
 interface ContentStrategySectionProps {
   onOpenLightbox?: (post: SocialPost) => void;
+  onOpenFullPdf?: (doc: PdfDocumentRequest) => void;
 }
 
 interface StrategySlideMeta {
@@ -22,6 +24,7 @@ interface StrategyCaseStudy {
   id: string;
   badgeEn: string;
   totalSlidesCount: number;
+  pdfUrl: string;
   clientEn: string;
   clientAr: string;
   aboutEn: string;
@@ -42,6 +45,7 @@ const STRATEGY_STUDIES: StrategyCaseStudy[] = [
     id: 'dar-al-ashab',
     badgeEn: '60 SLIDES DECK',
     totalSlidesCount: 60,
+    pdfUrl: '/assets/aistudio/____________________________________8d787e2d.pdf',
     clientEn: 'DAR AL-ASHAB',
     clientAr: 'براند دار العشب',
     aboutEn:
@@ -159,6 +163,7 @@ const STRATEGY_STUDIES: StrategyCaseStudy[] = [
     id: 'dr-loay-clinics',
     badgeEn: '39 SLIDES DECK',
     totalSlidesCount: 39,
+    pdfUrl: '/assets/aistudio/Content_Strategy_For_Dr._Loay.pdf_f5a38c7e.pdf',
     clientEn: 'DR. LOAY CLINICS',
     clientAr: 'عيادات د. لؤي للأسنان',
     aboutEn:
@@ -256,6 +261,7 @@ const STRATEGY_STUDIES: StrategyCaseStudy[] = [
     id: 'dr-shimaa-clinic',
     badgeEn: '41 SLIDES DECK',
     totalSlidesCount: 41,
+    pdfUrl: '/assets/aistudio/Content_Strategy_For_Dr._Shimaa_7ca46191.pdf',
     clientEn: 'DR. SHIMAA CLINIC',
     clientAr: 'عيادة د. شيماء الشافعي',
     aboutEn:
@@ -365,7 +371,8 @@ const StrategyCaseStudyBlock: React.FC<{
   study: StrategyCaseStudy;
   index: number;
   onOpenLightbox?: (post: SocialPost) => void;
-}> = ({ study, onOpenLightbox }) => {
+  onOpenFullPdf?: (doc: PdfDocumentRequest) => void;
+}> = ({ study, onOpenLightbox, onOpenFullPdf }) => {
   const [slideIdx, setSlideIdx] = useState(0);
   const current = study.slides[slideIdx];
   const totalShown = study.slides.length;
@@ -409,6 +416,20 @@ const StrategyCaseStudyBlock: React.FC<{
       metaInfoAr: `عرض تقديمي ${study.totalSlidesCount} شريحة`,
     };
     onOpenLightbox(post);
+  };
+
+  const handleOpenFullStrategyPdf = () => {
+    if (onOpenFullPdf && study.pdfUrl) {
+      onOpenFullPdf({
+        id: `strategy-pdf-${study.id}`,
+        pdfUrl: study.pdfUrl,
+        titleEn: `${study.clientEn} — CONTENT STRATEGY`,
+        titleAr: `استراتيجية المحتوى — ${study.clientAr}`,
+        badgeEn: study.badgeEn,
+      });
+      return;
+    }
+    handleOpenDeckLightbox();
   };
 
   return (
@@ -618,7 +639,7 @@ const StrategyCaseStudyBlock: React.FC<{
         <div className="flex justify-center sm:justify-end pt-8 sm:pt-9">
           <button
             type="button"
-            onClick={handleOpenDeckLightbox}
+            onClick={handleOpenFullStrategyPdf}
             className="interactive-btn px-5 sm:px-6 py-2.5 min-h-[44px] rounded-full border border-white/55 hover:border-[#b81d33] hover:bg-[#68101C]/45 text-white/95 cursor-pointer inline-flex flex-wrap items-center justify-center gap-x-2 gap-y-1 font-body-plex text-[14px] sm:text-[14.5px] sm:whitespace-nowrap text-center"
           >
             <span>Browse Full Strategy ({study.totalSlidesCount} Slides)</span>
@@ -636,6 +657,7 @@ const StrategyCaseStudyBlock: React.FC<{
 
 export const ContentStrategySection: React.FC<ContentStrategySectionProps> = ({
   onOpenLightbox,
+  onOpenFullPdf,
 }) => {
   return (
     <>
@@ -683,6 +705,7 @@ export const ContentStrategySection: React.FC<ContentStrategySectionProps> = ({
           study={study}
           index={idx}
           onOpenLightbox={onOpenLightbox}
+          onOpenFullPdf={onOpenFullPdf}
         />
       ))}
     </>

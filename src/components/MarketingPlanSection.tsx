@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
 import { SocialPost } from '../utils/portfolioData';
 import { useHorizontalSwipe } from '../hooks/useSwipeGesture';
+import { PdfDocumentRequest } from './FullPdfViewerModal';
 
 interface MarketingPlanSectionProps {
   onOpenLightbox?: (post: SocialPost) => void;
+  onOpenFullPdf?: (doc: PdfDocumentRequest) => void;
 }
 
 interface PlanSlideMeta {
@@ -22,6 +24,7 @@ interface MarketingPlanCaseStudy {
   id: string;
   deckType: 'Marketing Strategy' | 'Marketing Plan';
   totalSlidesCount: number;
+  pdfUrl: string;
   clientEn: string;
   clientAr: string;
   aboutEn: string;
@@ -42,6 +45,7 @@ const MARKETING_PLANS: MarketingPlanCaseStudy[] = [
     id: 'niesta-strategy',
     deckType: 'Marketing Strategy',
     totalSlidesCount: 83,
+    pdfUrl: '/assets/aistudio/Marketing_Strategy_-_Niesta_5eab753c.pdf',
     clientEn: 'NIESTA DESIGN',
     clientAr: 'شركة نييستا للتشطيبات والديكور',
     aboutEn:
@@ -162,6 +166,7 @@ const MARKETING_PLANS: MarketingPlanCaseStudy[] = [
     id: 'april-arabia-plan',
     deckType: 'Marketing Plan',
     totalSlidesCount: 45,
+    pdfUrl: '/assets/aistudio/MARKETING_PLAN_For_April_Arabia__c307716b.pdf',
     clientEn: 'APRIL ARABIA',
     clientAr: 'أبريل أرابيا للأزياء المحتشمة',
     aboutEn:
@@ -282,6 +287,7 @@ const MARKETING_PLANS: MarketingPlanCaseStudy[] = [
     id: 'ghazali-real-estate',
     deckType: 'Marketing Plan',
     totalSlidesCount: 62,
+    pdfUrl: '/assets/aistudio/__________________________________________8a9a3f81.pdf',
     clientEn: 'AL-GHAZALI',
     clientAr: 'شركة الغزالي العقارية',
     aboutEn:
@@ -402,6 +408,7 @@ const MARKETING_PLANS: MarketingPlanCaseStudy[] = [
     id: 'muallimi-restaurants',
     deckType: 'Marketing Plan',
     totalSlidesCount: 52,
+    pdfUrl: '/assets/aistudio/_______________________________.pdf__5f2fd300.pdf',
     clientEn: 'AL-MUALLIMI',
     clientAr: 'مطاعم كبدة المعلمي',
     aboutEn:
@@ -522,6 +529,7 @@ const MARKETING_PLANS: MarketingPlanCaseStudy[] = [
     id: 'unitax-elevators',
     deckType: 'Marketing Plan',
     totalSlidesCount: 54,
+    pdfUrl: '/assets/aistudio/___________________________________.pdf__2a47e8c5.pdf',
     clientEn: 'UNITAX ELEVATORS',
     clientAr: 'شركة مصاعد يوني تاكس',
     aboutEn:
@@ -644,7 +652,8 @@ const MarketingPlanCaseStudyBlock: React.FC<{
   plan: MarketingPlanCaseStudy;
   index: number;
   onOpenLightbox?: (post: SocialPost) => void;
-}> = ({ plan, index, onOpenLightbox }) => {
+  onOpenFullPdf?: (doc: PdfDocumentRequest) => void;
+}> = ({ plan, index, onOpenLightbox, onOpenFullPdf }) => {
   const [slideIdx, setSlideIdx] = useState(0);
   const current = plan.slides[slideIdx];
   const totalShown = plan.slides.length;
@@ -688,6 +697,20 @@ const MarketingPlanCaseStudyBlock: React.FC<{
       metaInfoAr: `عرض تقديمي ${plan.totalSlidesCount} شريحة`,
     };
     onOpenLightbox(post);
+  };
+
+  const handleOpenFullPlanPdf = () => {
+    if (onOpenFullPdf && plan.pdfUrl) {
+      onOpenFullPdf({
+        id: `mplan-pdf-${plan.id}`,
+        pdfUrl: plan.pdfUrl,
+        titleEn: `${plan.clientEn} — ${plan.deckType.toUpperCase()}`,
+        titleAr: `${plan.deckType === 'Marketing Strategy' ? 'الاستراتيجية التسويقية' : 'الخطة التسويقية'} — ${plan.clientAr}`,
+        badgeEn: `${plan.deckType.toUpperCase()} • ${plan.totalSlidesCount} SLIDES`,
+      });
+      return;
+    }
+    handleOpenDeckLightbox();
   };
 
   return (
@@ -894,7 +917,7 @@ const MarketingPlanCaseStudyBlock: React.FC<{
         <div className="flex justify-center sm:justify-end pt-8 sm:pt-9">
           <button
             type="button"
-            onClick={handleOpenDeckLightbox}
+            onClick={handleOpenFullPlanPdf}
             className="interactive-btn px-5 sm:px-6 py-2.5 min-h-[44px] rounded-full border border-white/55 hover:border-[#b81d33] hover:bg-[#68101C]/45 text-white/95 cursor-pointer inline-flex flex-wrap items-center justify-center gap-x-2 gap-y-1 font-body-plex text-[14px] sm:text-[14.5px] sm:whitespace-nowrap text-center"
           >
             <span>
@@ -916,6 +939,7 @@ const MarketingPlanCaseStudyBlock: React.FC<{
 
 export const MarketingPlanSection: React.FC<MarketingPlanSectionProps> = ({
   onOpenLightbox,
+  onOpenFullPdf,
 }) => {
   return (
     <>
@@ -963,6 +987,7 @@ export const MarketingPlanSection: React.FC<MarketingPlanSectionProps> = ({
           plan={plan}
           index={idx}
           onOpenLightbox={onOpenLightbox}
+          onOpenFullPdf={onOpenFullPdf}
         />
       ))}
     </>

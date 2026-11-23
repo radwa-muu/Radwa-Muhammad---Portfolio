@@ -15,6 +15,7 @@ import { ContentStrategySection } from './components/ContentStrategySection';
 import { MarketingPlanSection } from './components/MarketingPlanSection';
 import { ContactSection } from './components/ContactSection';
 import { VisualLightboxModal } from './components/VisualLightboxModal';
+import { FullPdfViewerModal, PdfDocumentRequest } from './components/FullPdfViewerModal';
 import { VideoPlayerModal } from './components/VideoPlayerModal';
 import { ContactModal } from './components/ContactModal';
 import { InteractiveBackground } from './components/InteractiveBackground';
@@ -24,6 +25,7 @@ import { useScrollReveal } from './hooks/useScrollAnimations';
 
 const PortfolioContent: React.FC = () => {
   const [activePost, setActivePost] = useState<SocialPost | null>(null);
+  const [activePdfDoc, setActivePdfDoc] = useState<PdfDocumentRequest | null>(null);
   const [activeVideoScript, setActiveVideoScript] = useState<VideoScript | null>(null);
   const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
   const [selectedServiceForInquiry, setSelectedServiceForInquiry] = useState<string>('');
@@ -34,7 +36,9 @@ const PortfolioContent: React.FC = () => {
 
   useScrollReveal(stageRef);
 
-  const isAnyModalOpen = Boolean(activePost || activeVideoScript || inquiryModalOpen);
+  const isAnyModalOpen = Boolean(
+    activePost || activePdfDoc || activeVideoScript || inquiryModalOpen
+  );
 
   const captureFocusTrigger = () => {
     if (document.activeElement instanceof HTMLElement) {
@@ -59,6 +63,16 @@ const PortfolioContent: React.FC = () => {
 
   const handleClosePost = useCallback(() => {
     setActivePost(null);
+    restoreFocusTrigger();
+  }, [restoreFocusTrigger]);
+
+  const handleOpenFullPdf = (doc: PdfDocumentRequest) => {
+    captureFocusTrigger();
+    setActivePdfDoc(doc);
+  };
+
+  const handleCloseFullPdf = useCallback(() => {
+    setActivePdfDoc(null);
     restoreFocusTrigger();
   }, [restoreFocusTrigger]);
 
@@ -224,10 +238,16 @@ const PortfolioContent: React.FC = () => {
               <CompanyProfileSection onOpenLightbox={handleOpenPost} />
 
               {/* Section 05: Content Strategy */}
-              <ContentStrategySection onOpenLightbox={handleOpenPost} />
+              <ContentStrategySection
+                onOpenLightbox={handleOpenPost}
+                onOpenFullPdf={handleOpenFullPdf}
+              />
 
               {/* Section 06: Marketing Plan & Strategy */}
-              <MarketingPlanSection onOpenLightbox={handleOpenPost} />
+              <MarketingPlanSection
+                onOpenLightbox={handleOpenPost}
+                onOpenFullPdf={handleOpenFullPdf}
+              />
 
               {/* Contact & Footer Section */}
               <ContactSection onOpenInquiry={(srv) => handleOpenInquiry(srv)} />
@@ -251,6 +271,9 @@ const PortfolioContent: React.FC = () => {
 
       {/* Lightbox Modal for Visual Social Posts & Decks (Native viewport scale) */}
       <VisualLightboxModal post={activePost} onClose={handleClosePost} />
+
+      {/* Full Original PDF Document Viewer Modal */}
+      <FullPdfViewerModal documentRequest={activePdfDoc} onClose={handleCloseFullPdf} />
 
       {/* Interactive Video Player & Script Modal (Native viewport scale) */}
       <VideoPlayerModal script={activeVideoScript} onClose={handleCloseVideo} />
