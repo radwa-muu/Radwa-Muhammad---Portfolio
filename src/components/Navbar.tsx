@@ -66,12 +66,6 @@ export const Navbar: React.FC<NavbarProps> = ({ showBackToTop = false }) => {
     { href: '#contact', id: 'contact', en: 'CONTACT', ar: 'تواصل' },
   ];
 
-  // Compact uncrowded quick-jump links on mobile (safe at 320px)
-  const mobileQuickLinks = [
-    { href: '#services', id: 'services', en: 'SERVICES', ar: 'الخدمات' },
-    { href: '#selected-work', id: 'selected-work', en: 'WORK', ar: 'أعمالي' },
-  ];
-
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     setMobileMenuOpen(false);
@@ -79,10 +73,11 @@ export const Navbar: React.FC<NavbarProps> = ({ showBackToTop = false }) => {
   };
 
   return (
-    <header
-      className="fixed top-0 left-0 right-0 w-full z-50 pointer-events-none"
-      id="navbar"
-    >
+    <>
+      <header
+        className="fixed top-0 left-0 right-0 w-full z-50 pointer-events-none"
+        id="navbar"
+      >
       <div ref={navScopeRef} className="pointer-events-auto w-full px-1.5 sm:px-6 py-1.5 sm:py-3">
         {/* Main Floating Glass Pill */}
         <div className="relative overflow-hidden max-w-7xl mx-auto flex xl:grid xl:grid-cols-[auto_1fr_auto] items-center justify-between gap-1 sm:gap-3 glass-nav px-1.5 sm:px-5 py-1.5 lg:py-2 rounded-full shadow-lg">
@@ -103,25 +98,6 @@ export const Navbar: React.FC<NavbarProps> = ({ showBackToTop = false }) => {
               </span>
             </button>
           </div>
-
-          {/* Mobile/Tablet Center Quick-Jump Links: Services + Work (clean & uncrowded at 320px) */}
-          <nav
-            aria-label="Quick section links"
-            className="flex xl:hidden items-center justify-center gap-0.5 sm:gap-3 min-w-0"
-          >
-            {mobileQuickLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                data-nav-id={link.id}
-                data-active="false"
-                onClick={(e) => handleNavClick(e, link.href)}
-                className="min-h-[38px] px-1.5 sm:px-3 rounded-full inline-flex items-center justify-center text-[10.5px] sm:text-xs font-body-plex font-semibold tracking-[0.04em] text-[#E9DEDE] hover:text-white hover:bg-white/[0.06] data-[active=true]:text-white data-[active=true]:bg-[#68101C]/55 transition-colors whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-white"
-              >
-                {link.en}
-              </a>
-            ))}
-          </nav>
 
           {/* Desktop Left Spacer */}
           <div className="hidden xl:block w-8" aria-hidden="true" />
@@ -151,20 +127,8 @@ export const Navbar: React.FC<NavbarProps> = ({ showBackToTop = false }) => {
             ))}
           </nav>
 
-          {/* Right Action: Mobile Docked Back-to-Top (non-overlapping) + Direct Contact CTA */}
+          {/* Right Action: Direct Contact CTA */}
           <div className="flex items-center gap-1 sm:gap-2 justify-self-end shrink-0">
-            {showBackToTop && (
-              <button
-                id="mobile-back-to-top"
-                type="button"
-                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                aria-label="Back to top | العودة للأعلى"
-                title="Back to top | العودة للأعلى"
-                className="xl:hidden w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#160409]/95 hover:bg-[#68101C] text-[#F5F2F1] hover:text-white border border-[#8A1526]/70 inline-flex items-center justify-center transition-colors duration-200 active:scale-95 cursor-pointer shrink-0 focus-visible:outline-2 focus-visible:outline-white"
-              >
-                <ArrowUp className="w-4 h-4" />
-              </button>
-            )}
             <a
               href="#contact"
               data-nav-id="contact"
@@ -219,6 +183,21 @@ export const Navbar: React.FC<NavbarProps> = ({ showBackToTop = false }) => {
           </div>
         )}
       </div>
-    </header>
+      </header>
+
+      {/* Mobile/Tablet Floating Back-to-Top Control (bottom-right, hides when drawer or any modal/viewer is open) */}
+      {showBackToTop && !mobileMenuOpen && (
+        <button
+          id="mobile-back-to-top"
+          type="button"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          aria-label="Back to top | العودة للأعلى"
+          title="Back to top | العودة للأعلى"
+          className="inline-flex xl:hidden fixed bottom-[max(1.25rem,env(safe-area-inset-bottom))] right-4 z-40 w-11 h-11 rounded-full bg-[#160409]/95 hover:bg-[#68101C] text-[#F5F2F1] hover:text-white border border-[#8A1526]/65 shadow-xl items-center justify-center transition-[background-color,border-color,transform] duration-200 active:scale-95 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+        >
+          <ArrowUp className="w-5 h-5" />
+        </button>
+      )}
+    </>
   );
 };

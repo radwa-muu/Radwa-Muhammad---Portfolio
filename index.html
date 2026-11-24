@@ -21,6 +21,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Bebas+Neue&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="1ac5fdd8-a821-417a-b910-0311d66bef41"></script>
+    <script>
+      /* Umami events: names only. No URLs, phone numbers, emails or form contents are sent. */
+      document.addEventListener('click', function (e) {
+        if (!window.umami || !e.target || !e.target.closest) return;
+        var t = e.target.closest('a[href],button[aria-label]');
+        if (!t) return;
+        var href = t.tagName === 'A' ? (t.getAttribute('href') || '') : '';
+        var label = (t.getAttribute('aria-label') || '').slice(0, 80);
+        if (href.indexOf('https://wa.me') === 0) { window.umami.track('whatsapp-click'); return; }
+        if (href.indexOf('mailto:') === 0) { window.umami.track('email-click'); return; }
+        if (href.charAt(0) === '#' && /view section/i.test(t.textContent || '') && href.length > 1) { window.umami.track('category-open', { category: href.slice(1) }); return; }
+        if (/^(Open .*Profile|Zoom )/i.test(label)) { window.umami.track('file-open', { file: label }); return; }
+        if (/^(Play |View post |View carousel )/i.test(label)) { window.umami.track('project-open', { project: label }); }
+      }, true);
+    </script>
   </head>
   <body class="bg-[#090708] text-[#F5F2F1] antialiased selection:bg-[#68101C] selection:text-white">
     <div id="root"></div>
