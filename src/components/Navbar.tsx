@@ -33,6 +33,7 @@ export const Navbar: React.FC<NavbarProps> = ({ showBackToTop = false }) => {
   const workLinkRef = useRef<HTMLAnchorElement>(null);
   const workItemRefs = useRef<Array<HTMLAnchorElement | null>>([]);
   const suppressNextFocusOpenRef = useRef(false);
+  const workChevronPointerRef = useRef<{ type: string; wasOpenOnDown: boolean } | null>(null);
 
   useScrollProgressAndActiveSection(NAV_SECTION_IDS, 1, progressBarRef, navScopeRef);
 
@@ -252,7 +253,39 @@ export const Navbar: React.FC<NavbarProps> = ({ showBackToTop = false }) => {
                   aria-haspopup="true"
                   aria-expanded={workMenuOpen}
                   aria-controls="desktop-work-dropdown"
-                  onClick={() => setWorkMenuOpen((prev) => !prev)}
+                  onPointerDown={(e) => {
+                    workChevronPointerRef.current = {
+                      type: e.pointerType,
+                      wasOpenOnDown: workMenuOpen,
+                    };
+                  }}
+                  onClick={(e) => {
+                    const pointerInfo = workChevronPointerRef.current;
+                    workChevronPointerRef.current = null;
+
+                    if (e.detail === 0) {
+                      setWorkMenuOpen((prev) => !prev);
+                      return;
+                    }
+
+                    const nativePointerType =
+                      'pointerType' in e.nativeEvent
+                        ? (e.nativeEvent as PointerEvent).pointerType
+                        : '';
+                    const pointerType = pointerInfo?.type || nativePointerType;
+
+                    if (pointerType === 'mouse') {
+                      setWorkMenuOpen(true);
+                      return;
+                    }
+
+                    if (pointerType === 'touch' && pointerInfo) {
+                      setWorkMenuOpen(!pointerInfo.wasOpenOnDown);
+                      return;
+                    }
+
+                    setWorkMenuOpen((prev) => !prev);
+                  }}
                   onKeyDown={handleWorkTriggerKeyDown}
                   className="p-1 rounded text-[#E9DEDE]/80 hover:text-[#fca5a5] transition-colors duration-200 cursor-pointer focus-visible:outline-2 focus-visible:outline-white"
                 >
