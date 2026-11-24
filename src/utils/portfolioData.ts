@@ -100,8 +100,8 @@ export const SERVICES_TIMELINE: ServiceItem[] = [
     titleEn: 'Content Strategy\n& Planning',
     titleAr: 'استراتيجية وتخطيط المحتوى',
     position: 'top',
-    descEn: 'Building robust strategic plans aligned with business targets and target audience personas.',
-    descAr: 'بناء خطط استراتيجية مدروسة تتماشى مع أهداف البزنس واحتياجات الجمهور المستهدف بدقة.'
+    descEn: 'A clear content direction defining goals, audience, and what to publish and why.',
+    descAr: 'اتجاه واضح للمحتوى يحدد الأهداف والجمهور وما يُنشر ولماذا.'
   },
   {
     id: 's2',
@@ -109,8 +109,8 @@ export const SERVICES_TIMELINE: ServiceItem[] = [
     titleEn: 'Creative Ideation\n& Concepts',
     titleAr: 'ابتكار أفكار وتطوير\nالمفاهيم الإبداعية',
     position: 'top',
-    descEn: 'Creating unconventional angles and catchy marketing concepts that stick in the audience mind.',
-    descAr: 'ابتكار زوايا غير تقليدية ومفاهيم تسويقية تعلق بالأذهان وتلفت الانتباه من الثانية الأولى.'
+    descEn: 'Campaign ideas developed into clear, actionable concepts.',
+    descAr: 'أفكار حملات مطوّرة إلى مفاهيم واضحة قابلة للتنفيذ.'
   },
   {
     id: 's3',
@@ -118,8 +118,8 @@ export const SERVICES_TIMELINE: ServiceItem[] = [
     titleEn: 'Video Scripts &\nShooting Plans',
     titleAr: 'كتابة سيناريوهات\nوخطط التصوير',
     position: 'top',
-    descEn: 'Writing TikTok & Reel scripts with visual camera direction, pacing, and talent instructions.',
-    descAr: 'كتابة سكربتات تيك توك وريلز مع التوجيه البصري وحركات الكاميرا وتوجيه الممثلين.'
+    descEn: 'Scripts and shooting plans outlining each scene.',
+    descAr: 'سيناريوهات وخطط تصوير توضح تسلسل المشاهد.'
   },
   {
     id: 's4',
@@ -127,8 +127,8 @@ export const SERVICES_TIMELINE: ServiceItem[] = [
     titleEn: 'Company\nProfile Writing',
     titleAr: 'كتابة الملف التعريفي للشركات',
     position: 'top',
-    descEn: 'Crafting corporate profiles that articulate mission, company story, and unique value proposition.',
-    descAr: 'صياغة بروفايل احترافي يبرز قصة الشركة ورسالتها وقيمتها المضافة للعملاء والمستثمرين.'
+    descEn: 'Company profile copy that clearly presents your business and services.',
+    descAr: 'محتوى ملف تعريفي يعرض شركتك وخدماتها بوضوح.'
   },
   {
     id: 's5',
@@ -136,8 +136,8 @@ export const SERVICES_TIMELINE: ServiceItem[] = [
     titleEn: 'Marketing Plans',
     titleAr: 'الخطط التسويقية',
     position: 'bottom',
-    descEn: 'Developing comprehensive marketing campaigns and seasonal roadmaps with KPI monitoring.',
-    descAr: 'تطوير خطط تسويقية شاملة للحملات والمواسم مع توزيع القنوات وقياس النتائج.'
+    descEn: 'A structured plan defining marketing messages, channels, and timing.',
+    descAr: 'خطة منظمة تحدد الرسائل التسويقية والقنوات والتوقيت.'
   },
   {
     id: 's6',
@@ -145,8 +145,8 @@ export const SERVICES_TIMELINE: ServiceItem[] = [
     titleEn: 'Social Media\nContent Writing',
     titleAr: 'كتابة محتوى السوشيال ميديا',
     position: 'bottom',
-    descEn: 'Writing interactive posts and carousels with compelling hooks tailored to each platform culture.',
-    descAr: 'كتابة منشورات وكاروسيلات تفاعلية ذات هوك قوي وصياغة تلائم لغة كل منصة.'
+    descEn: "Ready-to-publish posts and captions in your brand's voice.",
+    descAr: 'منشورات ونصوص مرافقة جاهزة للنشر بصوت علامتك التجارية.'
   },
   {
     id: 's7',
@@ -154,8 +154,8 @@ export const SERVICES_TIMELINE: ServiceItem[] = [
     titleEn: 'Brand Voice\nDevelopment',
     titleAr: 'تطوير الهوية الصوتية\nللعلامة التجارية',
     position: 'bottom',
-    descEn: 'Defining tone of voice and persona across all client touchpoints for consistent identity.',
-    descAr: 'تحديد النبرة والشخصية الكلامية للعلامة التجارية لتكون متسقة ومميزة في جميع نقاط الاتصال.'
+    descEn: 'A defined tone and writing style for a consistent brand voice.',
+    descAr: 'نبرة وأسلوب كتابة يمنحان رسائل علامتك صوتًا متسقًا.'
   },
   {
     id: 's8',
@@ -163,8 +163,8 @@ export const SERVICES_TIMELINE: ServiceItem[] = [
     titleEn: 'Website &\nProduct Copywriting',
     titleAr: 'كتابة محتوى المواقع\nوأوصاف المنتجات',
     position: 'bottom',
-    descEn: 'High-converting landing page copy and persuasive product descriptions optimized for action.',
-    descAr: 'كتابة نصوص صفحات الهبوط وأوصاف المنتجات بأسلوب مقنع ومحفز للتحويل والشراء.'
+    descEn: 'Website copy and product descriptions that explain features and value.',
+    descAr: 'نصوص للمواقع وأوصاف للمنتجات توضّح المزايا والقيمة.'
   }
 ];
 
@@ -2017,7 +2017,7 @@ export const DEFAULT_SOCIAL_LINKS: SocialLinkItem[] = [
     platform: 'whatsapp',
     labelEn: 'WhatsApp',
     labelAr: 'واتساب',
-    handle: '01207845340',
+    handle: '+20 120 784 5340',
     url: 'https://wa.me/201207845340',
   },
   {

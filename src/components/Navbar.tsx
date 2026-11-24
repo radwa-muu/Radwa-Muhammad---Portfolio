@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ArrowUp, Menu, MessageCircle, X } from 'lucide-react';
+import { ArrowUp, ChevronDown, Menu, MessageCircle, X } from 'lucide-react';
 import { scrollToSectionId } from '../hooks/useDesktopScale';
 import { useScrollProgressAndActiveSection } from '../hooks/useScrollAnimations';
 
@@ -25,9 +25,14 @@ const NAV_SECTION_IDS = [
 
 export const Navbar: React.FC<NavbarProps> = ({ showBackToTop = false }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [workMenuOpen, setWorkMenuOpen] = useState(false);
   const progressBarRef = useRef<HTMLDivElement>(null);
   const navScopeRef = useRef<HTMLDivElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const workMenuRef = useRef<HTMLDivElement>(null);
+  const workLinkRef = useRef<HTMLAnchorElement>(null);
+  const workItemRefs = useRef<Array<HTMLAnchorElement | null>>([]);
+  const suppressNextFocusOpenRef = useRef(false);
 
   useScrollProgressAndActiveSection(NAV_SECTION_IDS, 1, progressBarRef, navScopeRef);
 
@@ -52,6 +57,28 @@ export const Navbar: React.FC<NavbarProps> = ({ showBackToTop = false }) => {
     };
   }, [mobileMenuOpen]);
 
+  useEffect(() => {
+    if (!workMenuOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setWorkMenuOpen(false);
+        suppressNextFocusOpenRef.current = true;
+        workLinkRef.current?.focus();
+      }
+    };
+    const onPointerDown = (e: MouseEvent) => {
+      if (workMenuRef.current && !workMenuRef.current.contains(e.target as Node)) {
+        setWorkMenuOpen(false);
+      }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    document.addEventListener('mousedown', onPointerDown);
+    return () => {
+      window.removeEventListener('keydown', onKeyDown);
+      document.removeEventListener('mousedown', onPointerDown);
+    };
+  }, [workMenuOpen]);
+
   const navLinks = [
     { href: '#about', id: 'about', en: 'ABOUT', ar: 'عنّـي' },
     { href: '#services', id: 'services', en: 'SERVICES', ar: 'الخدمات' },
@@ -66,10 +93,62 @@ export const Navbar: React.FC<NavbarProps> = ({ showBackToTop = false }) => {
     { href: '#contact', id: 'contact', en: 'CONTACT', ar: 'تواصل' },
   ];
 
+  const workDropdownLinks = [
+    { href: '#social-media-content', id: 'social-media-content', en: 'SOCIAL', ar: 'سوشيال ميديا' },
+    { href: '#scripts', id: 'scripts', en: 'SCRIPTS', ar: 'السكربتات' },
+    { href: '#motion-scripts', id: 'motion-scripts', en: 'MOTION SCRIPTS', ar: 'سكربتات الموشن' },
+    { href: '#company-profile', id: 'company-profile', en: 'COMPANY PROFILE', ar: 'الملف التعريفي' },
+    { href: '#content-strategy', id: 'content-strategy', en: 'STRATEGY', ar: 'استراتيجية' },
+    { href: '#marketing-plan', id: 'marketing-plan', en: 'PLANS', ar: 'خطط تسويقية' },
+  ];
+
+  const desktopPrimaryBeforeWork = [
+    { href: '#about', id: 'about', en: 'ABOUT', ar: 'عنّـي' },
+    { href: '#services', id: 'services', en: 'SERVICES', ar: 'الخدمات' },
+    { href: '#clients', id: 'clients', en: 'CLIENTS', ar: 'عملائي' },
+  ];
+
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     setMobileMenuOpen(false);
+    setWorkMenuOpen(false);
     scrollToSectionId(href);
+  };
+
+  const handleWorkTriggerKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setWorkMenuOpen(true);
+      requestAnimationFrame(() => {
+        workItemRefs.current[0]?.focus();
+      });
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setWorkMenuOpen(true);
+      requestAnimationFrame(() => {
+        workItemRefs.current[workDropdownLinks.length - 1]?.focus();
+      });
+    } else if (e.key === 'Escape') {
+      setWorkMenuOpen(false);
+    }
+  };
+
+  const handleWorkItemKeyDown = (e: React.KeyboardEvent<HTMLAnchorElement>, index: number) => {
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      const nextIndex = (index + 1) % workDropdownLinks.length;
+      workItemRefs.current[nextIndex]?.focus();
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      const prevIndex = (index - 1 + workDropdownLinks.length) % workDropdownLinks.length;
+      workItemRefs.current[prevIndex]?.focus();
+    } else if (e.key === 'Home') {
+      e.preventDefault();
+      workItemRefs.current[0]?.focus();
+    } else if (e.key === 'End') {
+      e.preventDefault();
+      workItemRefs.current[workDropdownLinks.length - 1]?.focus();
+    }
   };
 
   return (
@@ -80,7 +159,7 @@ export const Navbar: React.FC<NavbarProps> = ({ showBackToTop = false }) => {
       >
       <div ref={navScopeRef} className="pointer-events-auto w-full px-1.5 sm:px-6 py-1.5 sm:py-3">
         {/* Main Floating Glass Pill */}
-        <div className="relative overflow-hidden max-w-7xl mx-auto flex xl:grid xl:grid-cols-[auto_1fr_auto] items-center justify-between gap-1 sm:gap-3 glass-nav px-1.5 sm:px-5 py-1.5 lg:py-2 rounded-full shadow-lg">
+        <div className="relative overflow-hidden xl:overflow-visible max-w-7xl mx-auto flex xl:grid xl:grid-cols-[auto_1fr_auto] items-center justify-between gap-1 sm:gap-3 glass-nav px-1.5 sm:px-5 py-1.5 lg:py-2 rounded-full shadow-lg">
           {/* Mobile/Tablet Left: Drawer Toggle */}
           <div className="flex xl:hidden items-center shrink-0">
             <button
@@ -105,9 +184,9 @@ export const Navbar: React.FC<NavbarProps> = ({ showBackToTop = false }) => {
           {/* Desktop Navigation Links - Centered Inline */}
           <nav
             aria-label="Main Navigation"
-            className="hidden xl:flex items-center justify-center gap-3.5 text-[#E9DEDE] justify-self-center"
+            className="hidden xl:flex items-center justify-center gap-7 text-[#E9DEDE] justify-self-center"
           >
-            {navLinks.map((link) => (
+            {desktopPrimaryBeforeWork.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
@@ -125,6 +204,119 @@ export const Navbar: React.FC<NavbarProps> = ({ showBackToTop = false }) => {
                 />
               </a>
             ))}
+
+            {/* Desktop WORK Item with Hover & Keyboard Dropdown */}
+            <div
+              ref={workMenuRef}
+              className="relative flex items-center"
+              onMouseEnter={() => setWorkMenuOpen(true)}
+              onMouseLeave={() => setWorkMenuOpen(false)}
+              onBlur={(e) => {
+                if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+                  setWorkMenuOpen(false);
+                }
+              }}
+            >
+              <div className="inline-flex items-center gap-0.5">
+                <a
+                  ref={workLinkRef}
+                  href="#selected-work"
+                  data-nav-id="selected-work"
+                  data-active="false"
+                  onClick={(e) => handleNavClick(e, '#selected-work')}
+                  onFocus={(e) => {
+                    if (suppressNextFocusOpenRef.current) {
+                      suppressNextFocusOpenRef.current = false;
+                      return;
+                    }
+                    if (e.currentTarget.matches(':focus-visible')) {
+                      setWorkMenuOpen(true);
+                    }
+                  }}
+                  onKeyDown={handleWorkTriggerKeyDown}
+                  className="relative flex items-center group py-1.5 text-center whitespace-nowrap shrink-0 active:scale-95 transition-transform duration-300 ease-out focus-visible:outline-2 focus-visible:outline-white rounded"
+                >
+                  <span className="text-[11px] font-body-plex font-semibold tracking-[0.05em] transition-colors duration-300 whitespace-nowrap text-[#E9DEDE]/90 group-hover:text-white group-active:text-white group-data-[active=true]:text-white">
+                    WORK
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    className={`absolute -bottom-0.5 inset-x-0.5 h-[1.5px] bg-[#dc2626] rounded-full transition-[transform,opacity] duration-300 ease-out origin-center group-hover:opacity-100 group-hover:scale-x-100 group-data-[active=true]:opacity-100 group-data-[active=true]:scale-x-100 ${
+                      workMenuOpen ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'
+                    }`}
+                  />
+                </a>
+                <button
+                  type="button"
+                  aria-label="Work sections menu"
+                  aria-haspopup="true"
+                  aria-expanded={workMenuOpen}
+                  aria-controls="desktop-work-dropdown"
+                  onClick={() => setWorkMenuOpen((prev) => !prev)}
+                  onKeyDown={handleWorkTriggerKeyDown}
+                  className="p-1 rounded text-[#E9DEDE]/80 hover:text-[#fca5a5] transition-colors duration-200 cursor-pointer focus-visible:outline-2 focus-visible:outline-white"
+                >
+                  <ChevronDown
+                    className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                      workMenuOpen ? 'rotate-180 text-[#fca5a5]' : ''
+                    }`}
+                    aria-hidden="true"
+                  />
+                </button>
+              </div>
+
+              {/* Hover-Bridged Dropdown Panel */}
+              <div
+                id="desktop-work-dropdown"
+                aria-label="Work categories"
+                className={`absolute left-1/2 -translate-x-1/2 top-full pt-3 z-50 transition-[opacity,transform] duration-200 ease-out ${
+                  workMenuOpen
+                    ? 'opacity-100 translate-y-0 pointer-events-auto visible'
+                    : 'opacity-0 -translate-y-1 pointer-events-none invisible'
+                }`}
+              >
+                <div className="min-w-[216px] rounded-2xl bg-[#140509]/96 backdrop-blur-xl border border-[#8A1526]/55 shadow-[0_20px_50px_rgba(0,0,0,0.82),0_0_24px_rgba(138,21,38,0.24)] p-2 flex flex-col gap-0.5">
+                  {workDropdownLinks.map((subLink, idx) => (
+                    <a
+                      key={subLink.href}
+                      ref={(el) => {
+                        workItemRefs.current[idx] = el;
+                      }}
+                      href={subLink.href}
+                      data-nav-id={subLink.id}
+                      data-active="false"
+                      tabIndex={workMenuOpen ? 0 : -1}
+                      onClick={(e) => handleNavClick(e, subLink.href)}
+                      onKeyDown={(e) => handleWorkItemKeyDown(e, idx)}
+                      className="group/item px-3.5 py-2.5 rounded-xl flex items-center justify-between gap-3 text-[11px] font-body-plex font-semibold tracking-[0.06em] uppercase text-[#E9DEDE] hover:text-white hover:bg-[#68101C]/50 border border-transparent hover:border-[#8A1526]/60 data-[active=true]:bg-[#68101C]/65 data-[active=true]:border-[#dc2626]/65 data-[active=true]:text-white transition-[background-color,border-color,color] duration-200 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-white"
+                    >
+                      <span>{subLink.en}</span>
+                      <span
+                        aria-hidden="true"
+                        className="w-1.5 h-1.5 rounded-full bg-[#E86677]/45 group-hover/item:bg-[#fca5a5] group-data-[active=true]/item:bg-[#ef4444] transition-colors duration-200 shrink-0"
+                      />
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Desktop CONTACT Link */}
+            <a
+              href="#contact"
+              data-nav-id="contact"
+              data-active="false"
+              onClick={(e) => handleNavClick(e, '#contact')}
+              className="relative flex items-center group py-1.5 text-center whitespace-nowrap shrink-0 active:scale-95 transition-transform duration-300 ease-out focus-visible:outline-2 focus-visible:outline-white rounded"
+            >
+              <span className="text-[11px] font-body-plex font-semibold tracking-[0.05em] transition-colors duration-300 whitespace-nowrap text-[#E9DEDE]/90 group-hover:text-white group-active:text-white group-data-[active=true]:text-white">
+                CONTACT
+              </span>
+              <span
+                aria-hidden="true"
+                className="absolute -bottom-0.5 inset-x-0.5 h-[1.5px] bg-[#dc2626] rounded-full transition-[transform,opacity] duration-300 ease-out origin-center opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100 group-data-[active=true]:opacity-100 group-data-[active=true]:scale-x-100"
+              />
+            </a>
           </nav>
 
           {/* Right Action: Direct Contact CTA */}

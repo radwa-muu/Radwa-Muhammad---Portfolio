@@ -3,8 +3,9 @@ import React, { useEffect, useRef } from 'react';
 /**
  * Interactive GPU spotlight layer:
  * - On desktop (mouse/pen): tracks cursor smoothly with 0% idle CPU.
- * - On mobile/touch: stays opacity-0 during scrolling (zero scroll GPU cost!),
- *   and smoothly blooms a warm crimson glow right under the user's touch/tap.
+ * - On mobile/touch: becomes visible and smoothly follows the finger across
+ *   touchstart/touchmove and touch pointer events without blocking scroll,
+ *   then fades out gently when lifted.
  */
 export const InteractiveBackground: React.FC = () => {
   const spotlightRef = useRef<HTMLDivElement>(null);
@@ -28,6 +29,15 @@ export const InteractiveBackground: React.FC = () => {
     let rafId = 0;
     let isRunning = false;
     let touchHideTimer = 0;
+    let isTouching = false;
+    let hasTouchEvents = false;
+
+    const clearTouchHideTimer = () => {
+      if (touchHideTimer) {
+        window.clearTimeout(touchHideTimer);
+        touchHideTimer = 0;
+      }
+    };
 
     const updateTransform = () => {
       const rx = Math.round((currentX - 280) * 10) / 10;
@@ -51,50 +61,96 @@ export const InteractiveBackground: React.FC = () => {
       rafId = window.requestAnimationFrame(tick);
     };
 
-    const showTouchGlowAt = (x: number, y: number, durationMs = 420) => {
+    const ensureTickRunning = () => {
+      if (!isRunning) {
+        isRunning = true;
+        rafId = window.requestAnimationFrame(tick);
+      }
+    };
+
+    const followTouchAt = (x: number, y: number, snapIfHidden: boolean) => {
+      clearTouchHideTimer();
       targetX = x;
       targetY = y;
-      currentX = x;
-      currentY = y;
-      updateTransform();
-      spotlight.style.opacity = '0.9';
-      if (touchHideTimer) window.clearTimeout(touchHideTimer);
+      if (snapIfHidden) {
+        currentX = x;
+        currentY = y;
+        updateTransform();
+      }
+      spotlight.style.opacity = '1';
+      ensureTickRunning();
+    };
+
+    const scheduleTouchFadeOut = () => {
+      isTouching = false;
+      clearTouchHideTimer();
       touchHideTimer = window.setTimeout(() => {
         spotlight.style.opacity = '0';
-      }, durationMs);
+        touchHideTimer = 0;
+      }, 160);
     };
 
     const handlePointerMove = (e: PointerEvent) => {
       if (e.pointerType === 'mouse' || e.pointerType === 'pen') {
+        clearTouchHideTimer();
         targetX = e.clientX;
         targetY = e.clientY;
         spotlight.style.opacity = '1';
-        if (!isRunning) {
-          isRunning = true;
-          rafId = window.requestAnimationFrame(tick);
-        }
+        ensureTickRunning();
+      } else if (e.pointerType === 'touch') {
+        const wasHidden = !isTouching && spotlight.style.opacity === '0';
+        isTouching = true;
+        followTouchAt(e.clientX, e.clientY, wasHidden);
       }
     };
 
     const handlePointerDown = (e: PointerEvent) => {
       if (e.pointerType === 'touch') {
-        showTouchGlowAt(e.clientX, e.clientY, 460);
+        const wasHidden = !isTouching && spotlight.style.opacity === '0';
+        isTouching = true;
+        followTouchAt(e.clientX, e.clientY, wasHidden);
       }
     };
 
-    const handlePointerUpOrCancel = (e: PointerEvent) => {
+    const handlePointerUp = (e: PointerEvent) => {
       if (e.pointerType === 'touch') {
-        if (touchHideTimer) window.clearTimeout(touchHideTimer);
-        touchHideTimer = window.setTimeout(() => {
-          spotlight.style.opacity = '0';
-        }, 260);
+        scheduleTouchFadeOut();
       }
     };
 
-    const handleScroll = () => {
-      // Immediately hide transient touch glow during scroll so zero GPU blending runs while scrolling
-      if (!hasFinePointer && spotlight.style.opacity !== '0') {
-        spotlight.style.opacity = '0';
+    const handlePointerCancel = (e: PointerEvent) => {
+      // During native touch scrolling, browsers fire pointercancel while touchmove keeps firing;
+      // only fade here if touch events are unavailable (otherwise touchend/touchcancel handles lift).
+      if (e.pointerType === 'touch' && !hasTouchEvents) {
+        scheduleTouchFadeOut();
+      }
+    };
+
+    const handleTouchStart = (e: TouchEvent) => {
+      hasTouchEvents = true;
+      const touch = e.touches[0];
+      if (!touch) return;
+      const wasHidden = !isTouching && spotlight.style.opacity === '0';
+      isTouching = true;
+      followTouchAt(touch.clientX, touch.clientY, wasHidden);
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      hasTouchEvents = true;
+      const touch = e.touches[0];
+      if (!touch) return;
+      const wasHidden = !isTouching && spotlight.style.opacity === '0';
+      isTouching = true;
+      followTouchAt(touch.clientX, touch.clientY, wasHidden);
+    };
+
+    const handleTouchEndOrCancel = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        const activeTouch = e.touches[0];
+        isTouching = true;
+        followTouchAt(activeTouch.clientX, activeTouch.clientY, false);
+      } else {
+        scheduleTouchFadeOut();
       }
     };
 
@@ -107,18 +163,24 @@ export const InteractiveBackground: React.FC = () => {
 
     window.addEventListener('pointermove', handlePointerMove, { passive: true });
     window.addEventListener('pointerdown', handlePointerDown, { passive: true });
-    window.addEventListener('pointerup', handlePointerUpOrCancel, { passive: true });
-    window.addEventListener('pointercancel', handlePointerUpOrCancel, { passive: true });
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('pointerup', handlePointerUp, { passive: true });
+    window.addEventListener('pointercancel', handlePointerCancel, { passive: true });
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    window.addEventListener('touchend', handleTouchEndOrCancel, { passive: true });
+    window.addEventListener('touchcancel', handleTouchEndOrCancel, { passive: true });
 
     return () => {
       if (rafId) window.cancelAnimationFrame(rafId);
-      if (touchHideTimer) window.clearTimeout(touchHideTimer);
+      clearTouchHideTimer();
       window.removeEventListener('pointermove', handlePointerMove);
       window.removeEventListener('pointerdown', handlePointerDown);
-      window.removeEventListener('pointerup', handlePointerUpOrCancel);
-      window.removeEventListener('pointercancel', handlePointerUpOrCancel);
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('pointerup', handlePointerUp);
+      window.removeEventListener('pointercancel', handlePointerCancel);
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('touchend', handleTouchEndOrCancel);
+      window.removeEventListener('touchcancel', handleTouchEndOrCancel);
     };
   }, []);
 
@@ -127,7 +189,7 @@ export const InteractiveBackground: React.FC = () => {
       className="fixed inset-0 pointer-events-none z-0 overflow-hidden"
       aria-hidden="true"
     >
-      {/* Interactive crimson spotlight (tracks mouse on desktop; illuminates taps on mobile, 0% cost while scrolling) */}
+      {/* Interactive crimson spotlight (tracks cursor on desktop and follows touch/drag on mobile) */}
       <div
         ref={spotlightRef}
         className="spotlight-glow absolute top-0 left-0 w-[560px] h-[560px] transition-opacity duration-700 ease-out"

@@ -56,7 +56,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenInquiry })
 
   const whatsappItem = data.contact.socialLinks.find((s) => s.platform === 'whatsapp');
   const otherSocialLinks = data.contact.socialLinks.filter((s) => s.platform !== 'whatsapp');
-  const whatsappNumber = whatsappItem?.handle || '01207845340';
+  const whatsappNumber = whatsappItem?.handle || '+20 120 784 5340';
   const whatsappHref = whatsappItem?.url || 'https://wa.me/201207845340';
 
   const scrollToTop = () => {
@@ -129,7 +129,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenInquiry })
                   <div className="flex items-center justify-center gap-2">
                     <span className="inline-flex items-center gap-1.5 text-[11.5px] font-body-plex text-[#BDB5B5] tabular-nums">
                       <MessageCircle className="w-3.5 h-3.5 text-[#E86677] shrink-0" />
-                      <span>{whatsappNumber}</span>
+                      <span dir="ltr" className="whitespace-nowrap">{whatsappNumber}</span>
                     </span>
                   </div>
                 </div>
