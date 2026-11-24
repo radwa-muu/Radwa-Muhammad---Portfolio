@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Download } from 'lucide-react';
 import { usePortfolio } from '../context/PortfolioContext';
 import { scrollToSectionId } from '../hooks/useDesktopScale';
 
@@ -59,12 +59,39 @@ export const Hero: React.FC<HeroProps> = () => {
           )}
         </p>
 
+        {/* Compact CV Download Affordance (Arabic & English) */}
+        <div
+          className="hero-enter-3 mt-6 sm:mt-7 flex flex-wrap items-center justify-center gap-2 sm:gap-2.5"
+          role="group"
+          aria-label="Download CV | تحميل السيرة الذاتية"
+        >
+          <a
+            href="/assets/aistudio/Radwa-Muhammad-CV-Arabic.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="interactive-btn group inline-flex items-center justify-center gap-1.5 min-h-[38px] px-3.5 sm:px-4 py-1.5 rounded-full bg-[#140509]/95 hover:bg-[#68101C]/45 border border-[#8A1526]/65 hover:border-[#dc2626] text-[#F5F2F1] hover:text-white text-xs sm:text-[12.5px] font-body-plex font-semibold shadow-md whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+          >
+            <Download className="w-3.5 h-3.5 text-[#ef4444] group-hover:text-[#fca5a5] transition-colors shrink-0" aria-hidden="true" />
+            <span dir="rtl">الـCV بالعربية</span>
+          </a>
+
+          <a
+            href="/assets/aistudio/Radwa-Muhammad-CV-English.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="interactive-btn group inline-flex items-center justify-center gap-1.5 min-h-[38px] px-3.5 sm:px-4 py-1.5 rounded-full bg-[#140509]/95 hover:bg-[#68101C]/45 border border-[#8A1526]/65 hover:border-[#dc2626] text-[#F5F2F1] hover:text-white text-xs sm:text-[12.5px] font-body-plex font-semibold tracking-[0.02em] shadow-md whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+          >
+            <Download className="w-3.5 h-3.5 text-[#ef4444] group-hover:text-[#fca5a5] transition-colors shrink-0" aria-hidden="true" />
+            <span>CV in English</span>
+          </a>
+        </div>
+
         {/* Lightweight interactive scroll prompt */}
         <button
           type="button"
           onClick={() => scrollToSectionId('#about')}
           aria-label="Scroll to About Me"
-          className="hero-enter-3 interactive-btn mt-8 sm:mt-10 px-5 py-2.5 min-h-[44px] rounded-full inline-flex flex-col items-center justify-center gap-1 text-white/60 hover:text-white cursor-pointer group"
+          className="hero-enter-3 interactive-btn mt-5 sm:mt-7 px-5 py-2.5 min-h-[44px] rounded-full inline-flex flex-col items-center justify-center gap-1 text-white/60 hover:text-white cursor-pointer group"
         >
           <span className="text-[10px] font-body-plex tracking-[0.22em] uppercase">
             Explore Portfolio
